@@ -1,0 +1,12 @@
+Already spiked:
++ Tagging test's
++ sites and pages
++ generators for rakefile
++ running tests by tag
++ gem server (by taylor)
++ build artifact of a video of a test running (talk to tim)
+
+Not yet spiked:
+- test framework choices - what are we going to use and why we are using the one we are
+- accessing the actual browser object (who creates it, who tears it down, etc)
+ 
