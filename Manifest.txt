@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/ftw
+lib/ftw.rb
+test/test_ftw.rb
