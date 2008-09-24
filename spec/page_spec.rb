@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'need'
-need { '../lib/ftw/page' }
+need { '../lib/taza/page' }
 
 describe Page do
 

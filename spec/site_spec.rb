@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'need'
 need { 'spec_helper' }
-need { '../lib/ftw/site' }
+need { '../lib/taza/site' }
 
 describe Site do
   before :all do
