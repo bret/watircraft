@@ -5,9 +5,9 @@ require 'need'
 need { 'spec_helper' }
 need { '../lib/taza/site' }
 
-describe Site do
+describe Taza::Site do
   before :all do
-    Foo = Class.new(Site)
+    Foo = Class.new(Taza::Site)
     Foo.any_instance.stubs(:path).returns(File.join("spec","pages","foo","*.rb"))
   end
 

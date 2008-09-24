@@ -1,56 +1,57 @@
 require 'rubygems'
+require 'spec'
 require 'need'
 need { '../lib/taza/page' }
 
-describe Page do
+describe Taza::Page do
 
   it "should have an element class method" do
-    Page.should respond_to(:element)
+    Taza::Page.should respond_to(:element)
   end
 
   it "should have a filter class method" do
-    Page.should respond_to(:filter)
+    Taza::Page.should respond_to(:filter)
   end
 
   it "should store the block given to the element method in a method with the name of the parameter" do
-    Page.element(:foo) do
+    Taza::Page.element(:foo) do
       "bar"
     end
-    Page.new.foo.should == "bar"
+    Taza::Page.new.foo.should == "bar"
   end
 
   it "should change the size of filters hash when filter is called" do
-    Page.filter :name => :something, :elements => [:foo] do
+    Taza::Page.filter :name => :something, :elements => [:foo] do
       "bar"
     end 
-    Page.filters.size.should == 1 
+    Taza::Page.filters.size.should == 1 
   end
 
   it "should filter all elements if element argument is not provided" do
-    Page.filter :name => :filter_everything do
+    Taza::Page.filter :name => :filter_everything do
       false
     end
-    Page.element :foo do
+    Taza::Page.element :foo do
       "nothing"
     end
-    Page.element :apple do
+    Taza::Page.element :apple do
       "also nothing"
     end
-    lambda { Page.new.apple }.should raise_error(FilterError)
-    lambda { Page.new.foo }.should raise_error(FilterError)
+    lambda { Taza::Page.new.apple }.should raise_error(Taza::FilterError)
+    lambda { Taza::Page.new.foo }.should raise_error(Taza::FilterError)
   end
 
   it "should not respond to a method if a filter containing that element name returns false" do
-    Page.element :foo do
+    Taza::Page.element :foo do
       "bar"
     end
 
-    Page.filter :name => :whatever, :elements => [:foo] do
+    Taza::Page.filter :name => :whatever, :elements => [:foo] do
       false
     end
 
     lambda do
-      Page.new.foo
-    end.should raise_error(FilterError)
+      Taza::Page.new.foo
+    end.should raise_error(Taza::FilterError)
   end
 end

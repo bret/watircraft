@@ -22,6 +22,6 @@ class RakeGenerator
   end
 
   def read_template
-    File.read(File.join(File.dirname(__FILE__),"templates","rakefile.erb.rb"))
+    File.read(File.join(File.dirname(__FILE__),"templates","rakefile.rb.erb"))
   end
 end
