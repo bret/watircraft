@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'hoe'
-require './lib/ftw.rb'
+require './lib/taza.rb'
 require 'spec/rake/spectask'
 
 Hoe.new('ftw', Ftw::VERSION) do |p|
