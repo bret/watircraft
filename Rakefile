@@ -20,4 +20,12 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov = true
   t.rcov_opts = ['--exclude', 'spec']
 end
+
+desc "Run all examples with Flog"
+Spec::Rake::SpecTask.new('flog') do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.name = "flog"
+end
+
+#define a task which uses flog
 # vim: syntax=Ruby
