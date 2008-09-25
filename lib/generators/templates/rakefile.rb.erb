@@ -1,6 +1,8 @@
+<%= "#Generated at #{Time.now}" %>
 require 'rubygems'
-need { '../../tasks/tag_test_task' }
+require 'need'
+require 'lib/tasks/tag_test_task'
 
-FTW::Tasks::TagTestTask.create :test_tag do |t|
-  t.tags= ENV['tags']
+Taza::Tasks::TagTestTask.create :test_tag do |t|
+  t.tags = ENV['tags']
 end

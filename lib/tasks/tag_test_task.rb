@@ -3,7 +3,7 @@ require 'rake/testtask'
 require 'rubygems'
 require 'taglob'
 
-module FTW
+module Taza
   module Tasks
     class TagTestTask
       attr_accessor :tags
