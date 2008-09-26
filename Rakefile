@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'hoe'
 require './lib/taza'
+require 'rbconfig'
 require 'spec/rake/spectask'
 
 Hoe.new('taza', Taza::VERSION) do |p|
@@ -36,8 +37,8 @@ namespace :gem do
     if ENV["name"].nil?
       STDERR.puts "Usage: rake gem:install name=the_gem_name"; exit 1
     end
-   
-  system "gem.bat install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
+    gem = Config::CONFIG['host_os'].include?("mswin") ? "gem.bat" : "gem"
+    system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
 
