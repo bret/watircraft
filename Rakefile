@@ -5,6 +5,30 @@ require 'hoe'
 require './lib/taza'
 require 'spec/rake/spectask'
 
+Gem.clear_paths
+gem_paths = [
+  File.expand_path("#{File.dirname(__FILE__)}/vendor/gems/gems"),
+  Gem.default_dir,
+]
+
+gem_paths << APPLE_GEM_HOME if defined?(APPLE_GEM_HOME)
+Gem.send :set_paths, gem_paths.join(":")
+puts "gem path"
+puts  Gem.path
+
+#gems = Dir[File.join(RAILS_ROOT, "vendor/gems/gems/*")]
+gems = Dir[File.join("#{File.dirname(__FILE__)}", "/vendor/gems/gems/*")]
+if gems.any?
+gems.each do |dir|
+lib = File.join(dir, 'lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib)
+end
+end
+
+#gem "heckle", "1.4.1"
+require "heckle"
+
+
 Hoe.new('taza', Taza::VERSION) do |p|
   p.rubyforge_name = 'taza' # if different than lowercase project name
   p.developer('Charley Baker', 'charley.baker@gmail.com')
@@ -36,9 +60,20 @@ namespace :gem do
     if ENV["name"].nil?
       STDERR.puts "Usage: rake gem:install name=the_gem_name"; exit 1
     end
+   
   system "gem.bat install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
+
+desc "Heckle each module and class in turn"
+Spec::Rake::SpecTask.new('heckle') do |t|
+  t.spec_files = FileList['lib/taza/*.rb']
+  t.spec_opts = ["--heckle",t.spec_files]
+  #puts t.methods
+end
+ 
+
+
 
 
 #define a task which uses flog
