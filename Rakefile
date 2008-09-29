@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'hoe'
-require './lib/taza'
+require 'lib/taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
 
@@ -25,11 +25,6 @@ Spec::Rake::SpecTask.new('rcov') do |t|
  
 end
 
-desc "Run all examples with Flog"
-Spec::Rake::SpecTask.new('flog') do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
-  t.name = "flog"
-end
 
 namespace :gem do
   desc "install a gem into vendor/gems"

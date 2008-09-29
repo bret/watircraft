@@ -25,18 +25,19 @@ describe RakeGenerator do
 end
 
 describe "Generated Rake Tasks" do
+  
   before :all do
     @path = "spec"
     @file_name = "./spec/rakefile"
-  end
-
-  before :each do
     @rake = Rake::Application.new
     Rake.application = @rake
   end
   
-  after :each do 
-    Rake.application = nil
+  after :all do
+   Rake.application = nil 
+  end
+  
+  after :each do   
     FileUtils.rm_f(@file_name)
   end
   
@@ -46,6 +47,14 @@ describe "Generated Rake Tasks" do
     lambda do
       @rake["test_tag"]
     end.should_not raise_error(RuntimeError)
- end
+  end
+ 
+  it "should create a rake task" do
+    RakeGenerator.new(@path).generate
+    load @file_name 
+    lambda do
+      @rake["spec_tag"]
+    end.should_not raise_error(RuntimeError)
+  end
 
 end
