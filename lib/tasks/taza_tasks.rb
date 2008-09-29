@@ -17,3 +17,8 @@ end
 Spec::Rake::SpecTask.new :spec_tag do |t|
   t.spec_files = get_tagged_files('spec/**/*_spec.rb')
 end
+
+namespace :generate do
+  task :site do
+  end
+end

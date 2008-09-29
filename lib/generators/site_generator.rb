@@ -10,6 +10,7 @@ class SiteGenerator < BaseGenerator
   def folder_path
     File.join('lib','sites')
   end
+  
   def generate
     file "site.rb.erb", File.join(folder_path,"#{file_name}.rb")
     folder File.join(folder_path,"#{file_name}")

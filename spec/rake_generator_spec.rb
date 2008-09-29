@@ -34,14 +34,14 @@ describe "Generated Rake Tasks" do
   end
   
   after :all do
-   Rake.application = nil 
+    Rake.application = nil 
   end
   
   after :each do   
     FileUtils.rm_f(@file_name)
   end
   
-  it "should create a rake task" do
+  it "should create a rake task to run test unit tests marked with tags" do
     RakeGenerator.new(@path).generate
     load @file_name 
     lambda do
@@ -49,7 +49,7 @@ describe "Generated Rake Tasks" do
     end.should_not raise_error(RuntimeError)
   end
  
-  it "should create a rake task" do
+  it "should create a rake task to run specs marked with tags" do
     RakeGenerator.new(@path).generate
     load @file_name 
     lambda do
