@@ -4,7 +4,6 @@ require 'need'
 require 'fileutils'
 need { 'spec_helper' }
 need { '../lib/generators/rake_generator' }
-need { '../lib/tasks/tag_test_task' }
 
 describe RakeGenerator do
   
