@@ -20,5 +20,6 @@ end
 
 namespace :generate do
   task :site do
+    SiteGenerator.new(ENV['name']).generate
   end
 end

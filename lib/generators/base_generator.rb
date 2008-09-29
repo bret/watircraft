@@ -1,3 +1,4 @@
+require 'activesupport'
 class BaseGenerator  
   def file(template_file_name,output_file)
     write_file(output_file,render_template(template_file_name))

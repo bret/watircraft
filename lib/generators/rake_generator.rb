@@ -1,4 +1,5 @@
 require 'erb'
+require 'need'
 need { 'base_generator' }
 class RakeGenerator < BaseGenerator
   def initialize(path)

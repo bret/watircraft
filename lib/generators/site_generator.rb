@@ -1,3 +1,4 @@
+require 'need'
 need { 'base_generator' }
 
 class SiteGenerator < BaseGenerator
