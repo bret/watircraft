@@ -1,27 +1,10 @@
 require 'erb'
-
-class RakeGenerator
+need { 'base_generator' }
+class RakeGenerator < BaseGenerator
   def initialize(path)
     @path = path
   end
-
   def generate
-    contents = render_template
-    write_file(contents)
-  end
-
-  def render_template
-    template = ERB.new(read_template)
-    template.result(binding)
-  end
-
-  def write_file(contents)
-    File.open(@path,"w") do |out|
-      out << contents
-    end
-  end
-
-  def read_template
-    File.read(File.join(File.dirname(__FILE__),"templates","rakefile.rb.erb"))
+    file "rakefile.rb.erb", File.join(@path,"rakefile")
   end
 end

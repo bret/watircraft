@@ -42,5 +42,9 @@ namespace :gem do
   end
 end
 
+task :generate do
+  
+end
+
 #define a task which uses flog
 # vim: syntax=Ruby

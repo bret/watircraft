@@ -9,6 +9,7 @@ need { '../lib/tasks/tag_test_task' }
 describe RakeGenerator do
   
   before :all do
+    @path = "spec"
     @file_name = "./spec/rakefile"
   end
 
@@ -17,20 +18,16 @@ describe RakeGenerator do
   end
 
   it "should generate a rake file at a given path" do
-    generator = RakeGenerator.new(@file_name)
+    generator = RakeGenerator.new(@path)
     generator.generate
     File.exists?(@file_name).should be_true
   end
 
-  it "should generate a rakefile without any erb tags" do
-    generator = RakeGenerator.new(@file_name)
-    generator.render_template.should_not match(/<%/)
-    generator.render_template.should_not match(/%>/)
-  end
 end
 
 describe "Generated Rake Tasks" do
   before :all do
+    @path = "spec"
     @file_name = "./spec/rakefile"
   end
 
@@ -45,7 +42,7 @@ describe "Generated Rake Tasks" do
   end
   
   it "should create a rake task" do
-    RakeGenerator.new(@file_name).generate
+    RakeGenerator.new(@path).generate
     load @file_name 
     lambda do
       @rake["test_tag"]
