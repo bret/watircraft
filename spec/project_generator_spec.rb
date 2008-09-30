@@ -3,13 +3,14 @@ require 'rake'
 require 'need'
 require 'fileutils'
 need { 'spec_helper' }
-need { '../lib/generators/rake_generator' }
+need { '../lib/generators/project_generator' }
 
-describe RakeGenerator do
+describe ProjectGenerator do
   
   before :all do
     @path = "spec"
     @file_name = "./spec/rakefile"
+    ProjectGenerator.any_instance.stubs(:folder)
   end
 
   after :each do
@@ -17,7 +18,7 @@ describe RakeGenerator do
   end
 
   it "should generate a rake file at a given path" do
-    generator = RakeGenerator.new(@path)
+    generator = ProjectGenerator.new(@path)
     generator.generate
     File.exists?(@file_name).should be_true
   end
