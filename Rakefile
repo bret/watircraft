@@ -24,6 +24,15 @@ Spec::Rake::SpecTask.new('rcov') do |t|
  
 end
 
+desc "Run flog against all the files in the lib"
+  task :flog do  
+  require "flog"
+  flogger = Flog.new
+  flogger.flog_files Dir["lib/**/*.rb"]
+  output_file = File.new("artifacts/flogreport.txt","w")
+  flogger.report output_file
+end
+  
 
 namespace :gem do
   desc "install a gem into vendor/gems"
@@ -35,6 +44,7 @@ namespace :gem do
     system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
+
 
 task :generate do
   
