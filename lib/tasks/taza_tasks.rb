@@ -24,5 +24,6 @@ namespace :generate do
   end
 
   task :page do
+    PageGenerator.new(ENV['name'],ENV['site']).generate
   end
 end
