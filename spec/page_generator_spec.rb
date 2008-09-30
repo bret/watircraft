@@ -41,7 +41,6 @@ describe PageGenerator do
   
   
   it " should have the right folder path generated " do
-    
     generator = PageGenerator.new("","")
     generator.folder_path.should eql("lib/sites")
   end

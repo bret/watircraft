@@ -7,11 +7,15 @@ need { '../lib/generators/page_generator' }
 
 describe "generation tasks" do
   
-  before :all do
+  before :each do
     @file_name ="./lib/tasks/taza_tasks.rb"
     @rake = Rake::Application.new
     Rake.application = @rake
     load @file_name     
+  end
+  
+  after :each do
+    @rake = nil
   end
   
   it "should create a site file in lib/sites" do
@@ -30,5 +34,24 @@ describe "generation tasks" do
     @rake.invoke_task("generate:page")
   end
   
+  it "page generation should throw error if no site provided" do
+    STDERR.stubs(:puts)
+    ENV['name'] = 'home'
+    ENV['site'] = nil
+    lambda {@rake.invoke_task("generate:page")}.should raise_error(SystemExit)
+  end
+  
+  it "page generation should throw error if no name provided" do
+    STDERR.stubs(:puts)
+    ENV['name'] = nil
+    ENV['site'] = 'something'
+    lambda {@rake.invoke_task("generate:page")}.should raise_error(SystemExit)
+  end
+  
+  it "site generation should throw error if no name provided" do
+    STDERR.stubs(:puts)
+    ENV['name'] = nil
+    lambda {@rake.invoke_task("generate:site")}.should raise_error(SystemExit)
+  end
 end
 
