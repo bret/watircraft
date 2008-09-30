@@ -24,6 +24,16 @@ describe "Taza Tasks" do
     tasks.include?("spec_tag").should be_true
   end
 
+  it "should create a rake task to generate a site" do
+    load @file_name
+    tasks.include?("generate:site").should be_true
+  end
+
+  it "should create a rake task to generate a page" do
+    load @file_name
+    tasks.include?("generate:page").should be_true
+  end
+
   def tasks
     @rake.tasks.collect{|task| task.name }
   end
