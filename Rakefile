@@ -18,7 +18,6 @@ end
 desc "Run all examples with RCov"
 Spec::Rake::SpecTask.new('rcov') do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
-  #puts t.methods
   t.rcov = true
   t.rcov_dir = 'artifacts'
   t.rcov_opts = ['--exclude', 'spec']
