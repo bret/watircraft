@@ -29,8 +29,9 @@ desc "Run flog against all the files in the lib"
   require "flog"
   flogger = Flog.new
   flogger.flog_files Dir["lib/**/*.rb"]
-  output_file = File.new("artifacts/flogreport.txt","w")
-  flogger.report output_file
+  File.open("artifacts/flogreport.txt","w") do |file|
+    flogger.report file
+  end
 end
   
 
