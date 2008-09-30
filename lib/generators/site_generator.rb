@@ -15,5 +15,7 @@ class SiteGenerator < BaseGenerator
   def generate
     file "site.rb.erb", File.join(folder_path,"#{file_name}.rb")
     folder File.join(folder_path,"#{file_name}")
+    folder File.join(folder_path,"#{file_name}","flows")
+    folder File.join(folder_path,"#{file_name}","pages")
   end
 end

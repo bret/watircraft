@@ -38,9 +38,11 @@ describe "Site generation task" do
     Rake.application = @rake
   end
   
-  it "should create a rake task to generate " do
+  it "should create a site file in lib/sites" do
     SiteGenerator.any_instance.expects(:file).with('site.rb.erb','lib/sites/foo.rb')
     SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo')
+    SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo/flows')
+    SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo/pages')
     load @file_name 
     ENV['name'] = 'foo'
     @rake.invoke_task("generate:site")
