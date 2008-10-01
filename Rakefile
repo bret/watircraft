@@ -26,7 +26,7 @@ Spec::Rake::SpecTask.new('rcov') do |t|
 end
 
 desc "Run flog against all the files in the lib"
-  task :flog do  
+task :flog do  
   require "flog"
   flogger = Flog.new
   flogger.flog_files Dir["lib/**/*.rb"]
@@ -35,7 +35,15 @@ desc "Run flog against all the files in the lib"
   end
 end
   
-
+desc "Run saikuro cyclo complexity against the lib"
+task :saikuro do
+  saikuro = Config::CONFIG['host_os'].include?("mswin") ? "saikuro.bat" : "saikuro"
+  #we can specify options like ignore filters and set warning or error thresholds
+  system "#{saikuro} -c -i lib -o artifacts"
+   # for tokens-+
+  system "#{saikuro} -t -i lib -o artifacts"
+end
+ 
 namespace :gem do
   desc "install a gem into vendor/gems"
   task :install do
