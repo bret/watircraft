@@ -1,7 +1,5 @@
-require 'rubygems'
-require 'spec'
-require 'need'
-need { '../lib/taza/page' }
+require 'spec/spec_helper'
+require 'taza/page'
 
 describe Taza::Page do
 

@@ -1,8 +1,7 @@
 require 'rubygems'
-require 'need'
 require 'fileutils'
-need { 'spec_helper' }
 require 'taza/generators'
+require 'spec/spec_helper'
 
 describe "Taza project generator script" do
 

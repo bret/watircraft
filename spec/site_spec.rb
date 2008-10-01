@@ -1,9 +1,6 @@
-#tags: foo
-
 require 'rubygems'
-require 'need'
-need { 'spec_helper' }
-need { '../lib/taza/site' }
+require 'spec/spec_helper'
+require 'taza/site'
 
 describe Taza::Site do
   before :all do
