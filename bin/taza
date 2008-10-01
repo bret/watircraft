@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../lib/generators/project_generator'
+ProjectGenerator.new(ARGV[0]).generate

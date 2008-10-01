@@ -8,7 +8,7 @@ need { '../lib/generators/page_generator' }
 describe "generation tasks" do
   
   before :each do
-    @file_name ="./lib/tasks/taza_tasks.rb"
+    @file_name ="./lib/taza/tasks.rb"
     @rake = Rake::Application.new
     Rake.application = @rake
     load @file_name     

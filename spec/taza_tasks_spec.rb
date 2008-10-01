@@ -5,7 +5,7 @@ need { 'spec_helper' }
 describe "Taza Tasks" do
   
   before :all do
-    @file_name ="./lib/tasks/taza_tasks.rb"
+    @file_name ="./lib/taza/tasks.rb"
     @rake = Rake::Application.new
     Rake.application = @rake
   end
