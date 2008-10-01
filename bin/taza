@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'taza/generators'
-ProjectGenerator.new(ARGV[0]).generate
+Taza::Generators::Project.new(ARGV[0]).generate

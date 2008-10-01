@@ -5,12 +5,12 @@ require 'fileutils'
 need { 'spec_helper' }
 require 'taza/generators'
 
-describe ProjectGenerator do
-  
+describe Taza::Generators::Project do
+
   before :all do
     @path = "spec"
     @file_name = "./spec/rakefile"
-    ProjectGenerator.any_instance.stubs(:folder)
+    Taza::Generators::Project.any_instance.stubs(:folder)
   end
 
   after :each do
@@ -18,7 +18,7 @@ describe ProjectGenerator do
   end
 
   it "should generate a rake file at a given path" do
-    generator = ProjectGenerator.new(@path)
+    generator = Taza::Generators::Project.new(@path)
     generator.generate
     File.exists?(@file_name).should be_true
   end

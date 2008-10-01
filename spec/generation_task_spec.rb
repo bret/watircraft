@@ -17,16 +17,16 @@ describe "generation tasks" do
   end
   
   it "should create a site file in lib/sites" do
-    SiteGenerator.any_instance.expects(:file).with('site.rb.erb','lib/sites/foo.rb')
-    SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo')
-    SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo/flows')
-    SiteGenerator.any_instance.expects(:folder).with('lib/sites/foo/pages')
+    Taza::Generators::Site.any_instance.expects(:file).with('site.rb.erb','lib/sites/foo.rb')
+    Taza::Generators::Site.any_instance.expects(:folder).with('lib/sites/foo')
+    Taza::Generators::Site.any_instance.expects(:folder).with('lib/sites/foo/flows')
+    Taza::Generators::Site.any_instance.expects(:folder).with('lib/sites/foo/pages')
     ENV['name'] = 'foo'
     @rake.invoke_task("generate:site")
   end
 
   it "should create a page file in lib/sites" do
-    PageGenerator.any_instance.expects(:file).with('page.rb.erb','lib/sites/ecom/pages/home.rb')
+    Taza::Generators::Page.any_instance.expects(:file).with('page.rb.erb','lib/sites/ecom/pages/home.rb')
     ENV['site'] = 'ecom'
     ENV['name'] = 'home'
     @rake.invoke_task("generate:page")

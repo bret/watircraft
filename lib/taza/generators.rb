@@ -1,4 +1,4 @@
-require 'taza/generators/base_generator'
-require 'taza/generators/site_generator'
-require 'taza/generators/project_generator'
-require 'taza/generators/page_generator'
+require 'taza/generators/base'
+require 'taza/generators/site'
+require 'taza/generators/project'
+require 'taza/generators/page'

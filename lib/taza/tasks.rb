@@ -32,11 +32,11 @@ end
 namespace :generate do
   task :site do
     validate_required_environment_input_present("Usage: rake generate:site name=the_site_name",'name')
-    SiteGenerator.new(ENV['name']).generate
+    Taza::Generators::Site.new(ENV['name']).generate
   end
 
   task :page do
     validate_required_environment_input_present("Usage: rake generate:page name=the_page_name site=the_site_name",'name','site')
-    PageGenerator.new(ENV['name'],ENV['site']).generate
+    Taza::Generators::Page.new(ENV['name'],ENV['site']).generate
   end
 end
