@@ -1,5 +1,4 @@
-require 'need'
-need { 'base_generator' }
+require 'generators/base_generator'
 
 class SiteGenerator < BaseGenerator
   attr_accessor :file_name

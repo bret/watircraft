@@ -1,7 +1,5 @@
-require 'rubygems'
-require 'erb'
-require 'need'
-need { 'base_generator' }
+require 'generators/base_generator'
+
 class ProjectGenerator < BaseGenerator
   def initialize(path)
     @path = path

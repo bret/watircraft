@@ -3,6 +3,7 @@ require 'rake/testtask'
 require 'rubygems'
 require 'taglob'
 require 'spec/rake/spectask'
+require 'generators'
 
 private
 def get_tagged_files(test_file_pattern)

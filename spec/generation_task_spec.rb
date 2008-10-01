@@ -2,8 +2,6 @@ require 'rake'
 require 'rubygems'
 require 'need'
 need { 'spec_helper' }
-need { '../lib/generators/site_generator' }
-need { '../lib/generators/page_generator' }
 
 describe "generation tasks" do
   

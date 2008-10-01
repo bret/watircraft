@@ -3,6 +3,7 @@ Manifest.txt
 README.txt
 Rakefile
 bin/taza
+lib/generators.rb
 lib/generators/page_generator.rb
 lib/generators/site_generator.rb
 lib/generators/base_generator.rb
