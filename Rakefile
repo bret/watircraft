@@ -7,6 +7,13 @@ require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
 
+private
+def windows?
+  Config::CONFIG['host_os'].include?("mswin")  
+end
+
+public
+
 Hoe.new('taza', Taza::VERSION) do |p|
   p.rubyforge_name = 'taza' # if different than lowercase project name
   p.developer('Charley Baker', 'charley.baker@gmail.com')
@@ -37,11 +44,10 @@ end
   
 desc "Run saikuro cyclo complexity against the lib"
 task :saikuro do
-  saikuro = Config::CONFIG['host_os'].include?("mswin") ? "saikuro.bat" : "saikuro"
   #we can specify options like ignore filters and set warning or error thresholds
-  system "#{saikuro} -c -i lib -o artifacts"
+  system "vendor/gems/gems/Saikuro-1.1.0/bin/saikuro -c -i lib -o artifacts"
    # for tokens-+
-  system "#{saikuro} -t -i lib -o artifacts"
+  system "vendor/gems/gems/Saikuro-1.1.0/bin/saikuro -t -i lib -o artifacts"
 end
  
 namespace :gem do
@@ -50,7 +56,7 @@ namespace :gem do
     if ENV["name"].nil?
       STDERR.puts "Usage: rake gem:install name=the_gem_name"; exit 1
     end
-    gem = Config::CONFIG['host_os'].include?("mswin") ? "gem.bat" : "gem"
+    gem = windows? ? "gem.bat" : "gem"
     system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
