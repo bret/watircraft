@@ -1,4 +1,4 @@
-require 'generators/base_generator'
+require 'taza/generators/base_generator'
 
 class PageGenerator < BaseGenerator
   attr_accessor :file_name

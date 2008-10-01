@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'need'
 need { 'spec_helper' }
-need { '../lib/generators/base_generator' }
+require 'taza/generators'
 
 describe BaseGenerator do
   before :all do

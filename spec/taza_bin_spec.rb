@@ -2,18 +2,13 @@ require 'rubygems'
 require 'need'
 require 'fileutils'
 need { 'spec_helper' }
-need { '../lib/generators/project_generator' }
+require 'taza/generators'
 
 describe "Taza project generator script" do
-
-  before :each do
-    
-  end
 
   after :each do
     FileUtils.rm_rf('spec/sandbox')
   end
-
 
   it "should have an executable script" do
     path = 'spec/sandbox'

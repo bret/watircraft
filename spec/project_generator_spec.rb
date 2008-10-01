@@ -3,7 +3,7 @@ require 'rake'
 require 'need'
 require 'fileutils'
 need { 'spec_helper' }
-need { '../lib/generators/project_generator' }
+require 'taza/generators'
 
 describe ProjectGenerator do
   

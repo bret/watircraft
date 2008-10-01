@@ -2,8 +2,7 @@ require 'rubygems'
 require 'need'
 require 'fileutils'
 need { 'spec_helper' }
-need { '../lib/generators/page_generator' }
-need { '../lib/generators/site_generator' }
+require 'taza/generators'
 
 describe PageGenerator do
   
