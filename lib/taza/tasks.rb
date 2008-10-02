@@ -22,7 +22,7 @@ end
 public
 
 Rake::TestTask.new :test_tag do |t|
-  t.test_files = get_tagged_files('/test/**/test_*.rb')
+  t.test_files = get_tagged_files('test/**/test_*.rb')
 end
 
 Spec::Rake::SpecTask.new :spec_tag do |t|
