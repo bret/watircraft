@@ -8,3 +8,7 @@ $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 Spec::Runner.configure do |config|
   config.mock_with :mocha
 end
+
+def null_device  
+  Taza.windows? ? 'NUL': '/dev/null'
+end
