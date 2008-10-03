@@ -1,3 +1,4 @@
+require 'taza'
 require 'rubygems'
 require 'fileutils'
 require 'spec/spec_helper'
@@ -34,7 +35,7 @@ describe Taza::Generators::Page do
     Taza::Generators::Page.any_instance.stubs(:folder_path).returns(File.join("spec"))
     generator = Taza::Generators::Page.new(@page_name,@site_name)
     generator.generate
-    system("ruby -c #{@page_file} > /dev/null").should be_true
+    system("ruby -c #{@page_file} > #{null_device}").should be_true
   end
   
   
