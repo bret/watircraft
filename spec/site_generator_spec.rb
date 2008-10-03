@@ -1,3 +1,4 @@
+require 'taza'
 require 'rubygems'
 require 'fileutils'
 require 'spec/spec_helper'
@@ -34,7 +35,7 @@ describe Taza::Generators::Site do
     Taza::Generators::Site.any_instance.stubs(:folder_path).returns(File.join("spec"))
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
-    system("ruby -c #{@site_file} > /dev/null").should be_true
+    system("ruby -c #{@site_file} > #{null_device}").should be_true
   end
 
   it "should generate a file in lib sites" do
