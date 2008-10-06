@@ -20,6 +20,7 @@ Hoe.new('taza', Taza::VERSION) do |p|
 end
 
 Spec::Rake::SpecTask.new do |t|
+  t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.spec_files = FileList['spec/**/*_spec.rb']
 end 
 
@@ -60,4 +61,5 @@ namespace :gem do
 end
 
 #define a task which uses flog
-# vim: syntax=Ruby
+# vim: syntax=ruby
+
