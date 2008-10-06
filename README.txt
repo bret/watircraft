@@ -1,32 +1,41 @@
-= ftw
+= taza
 
-* FIX (url)
+* http://github.com/scudco/taza/tree/master 
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Taza is meant to make acceptance testing more sane for developers(or QA where applicable) and customers.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Generate a project for application testing
+* Generate pages and sites for different applications
+* Manage tests by tags
+* Cross-site testing
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+To generate a new skeleton for acceptance testing
+ $ taza foo
+
+Inside your new skeleton you'll have a few rake tasks available to help you get started
+ $ rake generate:site name=google
+ $ rake generate:page site=google name=home_page
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* taglob 
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install taza 
+* gem install taza
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2008 FIX
+Copyright (c) 2008 Charley Baker
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
