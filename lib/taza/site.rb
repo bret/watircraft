@@ -3,8 +3,11 @@ require 'activesupport'
 
 module Taza
   class Site
-    def initialize
+    attr_accessor :browser
+  
+    def initialize(params={})
       define_site_pages
+      @browser = params[:browser] || Browser.create
     end
 
     def define_site_pages
