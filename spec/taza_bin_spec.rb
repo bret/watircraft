@@ -12,13 +12,13 @@ describe "Taza project generator script" do
   it "should have an executable script" do
     path = 'spec/sandbox'
     taza_bin = "#{File.expand_path(File.dirname(__FILE__)+'/../bin/taza')} #{path}"
-    system("#{taza_bin}").should be_true
+    system("ruby #{taza_bin}").should be_true
   end
 
   it "should create a folder for the project skeleton" do 
     path = 'spec/sandbox'
     taza_bin = "#{File.expand_path(File.dirname(__FILE__)+'/../bin/taza')} #{path}"
-    system("#{taza_bin}")
+    system("ruby #{taza_bin}")
     File.directory?(path).should be_true
   end
 
