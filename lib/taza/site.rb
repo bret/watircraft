@@ -18,7 +18,10 @@ module Taza
         page_name = File.basename(file,'.rb')
         self.class.class_eval <<-EOS
         def #{page_name}
-          yield '#{page_name}'.camelcase.constantize.new
+          page = '#{page_name}'.camelcase.constantize.new
+          page.browser = @browser
+          yield page if block_given? 
+          page
         end
         EOS
       end

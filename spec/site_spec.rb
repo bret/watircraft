@@ -59,5 +59,11 @@ describe Taza::Site do
       site.browser.should_not be_nil
     end
   end
+  
+  it "should pass its browser instance to its pages " do
+    foo = Foo.new
+    foo.bar.browser.should eql(:apple_pie)
+  end
+  
    
 end

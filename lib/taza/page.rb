@@ -1,5 +1,6 @@
 module Taza
   class Page
+    attr_accessor :browser
     class << self
       def elements
         @elements ||= {}
