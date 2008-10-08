@@ -1,11 +1,13 @@
 module Taza
   class Page
     class << self
-      attr_accessor :filters, :elements
+      def elements
+        @elements ||= {}
+      end
+      def filters
+        @filters ||= Hash.new { [] }
+      end
     end
-
-    self.filters = Hash.new { [] }
-    self.elements = {}
 
     def self.element(name,&block)
       self.elements[name] = block
