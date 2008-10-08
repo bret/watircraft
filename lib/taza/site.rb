@@ -4,10 +4,11 @@ require 'activesupport'
 module Taza
   class Site
     attr_accessor :browser
-  
+
     def initialize(params={})
       define_site_pages
       @browser = params[:browser] || Browser.create
+      yield self if block_given?
     end
 
     def define_site_pages
@@ -16,9 +17,9 @@ module Taza
 
         page_name = File.basename(file,'.rb')
         self.class.class_eval <<-EOS
-          def #{page_name}
-            yield '#{page_name}'.camelcase.constantize.new
-          end
+        def #{page_name}
+          yield '#{page_name}'.camelcase.constantize.new
+        end
         EOS
       end
     end
@@ -26,6 +27,5 @@ module Taza
     def path
       File.join('pages',self.class.to_s.underscore,'*.rb')
     end
-  end 
+  end
 end
-

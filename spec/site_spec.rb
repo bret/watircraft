@@ -36,5 +36,28 @@ describe Taza::Site do
     foo = Foo.new
     foo.browser.should eql(:apple_pie)
   end
-
+  
+  it "should yield itself upon initialization" do
+    foo = nil
+    f = Foo.new do |site|
+      foo = site
+    end
+    foo.should eql(f)
+  end
+  
+  it "should yield after page methods have been setup" do
+    klass = Class::new(Taza::Site)
+    klass.any_instance.stubs(:path).returns(File.join("spec","pages","foo","*.rb"))
+    klass.new do |site|
+      site.should respond_to(:bar)
+    end
+  end
+  it "should yield after browser has been setup" do
+    klass = Class::new(Taza::Site)
+    klass.any_instance.stubs(:path).returns(File.join("spec","pages","foo","*.rb"))
+    klass.new do |site|
+      site.browser.should_not be_nil
+    end
+  end
+   
 end
