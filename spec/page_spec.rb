@@ -38,6 +38,18 @@ describe Taza::Page do
     lambda { Taza::Page.new.apple }.should raise_error(Taza::FilterError)
     lambda { Taza::Page.new.foo }.should raise_error(Taza::FilterError)
   end
+  
+  it "should have empty elements on a new class" do
+    foo = Class::new(superclass=Taza::Page)
+    foo.elements.should_not be_nil
+    foo.elements.should be_empty
+  end
+
+  it "should have empty filters on a new class" do
+    foo = Class::new(superclass=Taza::Page)
+    foo.filters.should_not be_nil
+    foo.filters.should be_empty
+  end
 
   it "should not respond to a method if a filter containing that element name returns false" do
     Taza::Page.element :foo do
