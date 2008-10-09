@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'spec/spec_helper'
-require 'taza/generators'
+require 'taza'
 
 describe Taza::Generators::Base do
   before :all do
