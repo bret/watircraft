@@ -10,6 +10,7 @@ module Taza
         folder @path
         file "rakefile.rb.erb", File.join(@path,"rakefile")
         folder File.join(@path,"lib")
+        folder File.join(@path,"config")
         folder File.join(@path,"lib","sites")
         folder File.join(@path,"lib","flows")
       end
