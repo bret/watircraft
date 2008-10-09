@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'spec/spec_helper'
-require 'taza/site'
+require 'taza'
 
 describe Taza::Site do
 
@@ -65,5 +65,4 @@ describe Taza::Site do
     foo.bar.browser.should eql(:apple_pie)
   end
   
-   
 end
