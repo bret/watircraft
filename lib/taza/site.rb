@@ -7,7 +7,7 @@ module Taza
 
     def initialize(params={})
       define_site_pages
-      @browser = params[:browser] || Browser.create
+      @browser = params[:browser] || Browser.create(Settings.browser)
       yield self if block_given?
     end
 
