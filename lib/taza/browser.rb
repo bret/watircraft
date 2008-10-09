@@ -8,7 +8,9 @@ module Taza
       
       self.send("create_#{params[:driver]}".to_sym,params[:browser])
     end
-    
+
+    private    
+
     def self.create_watir(browser)
       method = "create_watir_#{browser}"
       raise BrowserUnsupportedError unless self.respond_to?(method)
@@ -17,8 +19,7 @@ module Taza
 
     def self.create_selenium(browser)
     end
-
-    private    
+    
     def self.create_watir_ie
     end
     
@@ -27,8 +28,7 @@ module Taza
     
     def self.create_watir_safari
     end
-    
-    
+        
   end
 end
 
