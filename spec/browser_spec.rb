@@ -10,29 +10,17 @@ describe Taza::Browser do
   
   it "should be able to create a watir driver" do
     Taza::Browser.expects(:create_watir)
-    ENV['driver'] = 'watir'
-    Taza::Browser.create
+    Taza::Browser.create(:driver => :watir)
   end
   
-  it "should be able to create a firewatir driver" do
-    Taza::Browser.expects(:create_firewatir)
-    ENV['driver'] = 'firewatir'
-    Taza::Browser.create
+  it "should be able to create a firewatir driver"
+  
+  it "should use params browser type when creating selenium" do
+    browser_type = :opera
+    Taza::Browser.expects(:create_selenium).with(browser_type)
+    Taza::Browser.create(:browser => browser_type)
   end
   
-  it "should be able to create a selenium driver" do
-    Taza::Browser.expects(:create_selenium)
-    ENV['driver'] = 'selenium'
-    Taza::Browser.create
-  end
-  
-  it "should use environment browser type when creating selenium" do
-    browser_type = '*firefox'
-    Taza::Browser.expects(:create_selenium_instance).with(browser_type)
-    ENV['browser'] = browser_type
-    Taza::Browser.create
-  end
-
   it "should default to selenium as the default driver" do
     Taza::Browser.expects(:create_selenium)
     Taza::Browser.create
@@ -40,6 +28,10 @@ describe Taza::Browser do
   
   it "should get browser type from the config"
   it "should override config with environment setting"
-  it "should default to a kind of browser"
+  
+  it "should default to firefox on selenium" do
+    Taza::Browser.expects(:create_selenium).with(:firefox)
+    Taza::Browser.create
+  end
   it "should validate allowed browsers"
 end

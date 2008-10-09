@@ -1,22 +1,21 @@
 module Taza
   class Browser
-    class << self
-      attr_accessor :drivers
+    
+    def self.create(params={})
+      defaults = {:browser => :firefox,
+                  :driver  => :selenium}
+      params = defaults.merge(params)
+      
+      self.send("create_#{params[:driver]}".to_sym,params[:browser])
     end
-    self.drivers = {:watir => :create_watir, :firewatir => :create_firewatir, :selenium => :create_selenium}
-
-    def self.create
-      if(ENV['driver'].nil?)
-        self.create_selenium
-      else
-        self.send(self.drivers[ENV['driver'].to_sym])
-      end
+    
+    def self.create_watir(browser)
+    
     end
-
-    def self.create_watir
+    
+    def self.create_selenium(browser)
+      
     end
-    def self.create_selenium
-      self.create_selenium_instance(ENV['browser'])
-    end
+    
   end
 end
