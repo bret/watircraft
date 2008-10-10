@@ -1,5 +1,0 @@
-require File.join(File.dirname(__FILE__), 'flog_reporter', 'base')
-require File.join(File.dirname(__FILE__), 'flog_reporter', 'page')
-require File.join(File.dirname(__FILE__), 'flog_reporter', 'scanned_method')
-require File.join(File.dirname(__FILE__), 'flog_reporter', 'operator')
-require File.join(File.dirname(__FILE__), 'flog_reporter', 'generator')
