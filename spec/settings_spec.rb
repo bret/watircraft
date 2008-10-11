@@ -36,7 +36,15 @@ describe Taza::Settings do
     Taza::Settings.browser[:browser].should eql(:default_browser)
     Taza::Settings.browser[:driver].should eql(:default_driver)
   end
-
+  
+  it "should raise error for a config file that doesnot exist" do
+    Taza::Settings.stubs(:path).returns('spec/sandbox/file_not_exists.yml')
+    lambda {Taza::Settings.browser}.should raise_error
+  end
+  
+  it "should path point at config file" do
+    Taza::Settings.path.should eql('config/config.yml')
+  end
   it "should use the config file's variable for driver settings if no environment variable is set"
 
 end

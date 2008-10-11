@@ -9,6 +9,9 @@ describe Taza::Site do
     Foo.any_instance.stubs(:path).returns(File.join("spec","pages","foo","*.rb"))
   end
   
+  before :each do
+    Taza::Settings.stubs(:defaults).returns({})  
+  end
   
   it "should create a browser using environment variables" do
     Taza::Browser.expects(:create_watir_ie)
