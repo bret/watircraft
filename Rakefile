@@ -7,6 +7,13 @@ require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
 
+Dir.glob(File.join"vendor/gems/gems/*").each do |path|
+  lib_path = path + "/lib/"
+  $LOAD_PATH << lib_path
+  gem_name = File.basename(Dir.glob(lib_path + "*.rb").first,".rb")
+  require gem_name
+end
+
 private
 def windows?
   Config::CONFIG['host_os'].include?("mswin")  
@@ -39,6 +46,7 @@ task :flog do
   require "flog"
   flogger = Flog.new
   flogger.flog_files Dir["lib/**/*.rb"]
+  FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
   File.open("artifacts/flogreport.txt","w") do |file|
     flogger.report file
   end
