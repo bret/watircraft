@@ -27,6 +27,8 @@ module Taza
     end
     
     def self.create_watir_safari
+      require 'safariwatir'
+      Watir::Safari.new
     end
         
   end
