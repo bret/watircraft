@@ -11,5 +11,7 @@ module Taza
   def self.windows?
     PLATFORM.include?("mswin")  
   end 
-  
+  def self.osx?
+    PLATFORM.include?("darwin")
+  end
 end
