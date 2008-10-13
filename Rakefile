@@ -7,7 +7,7 @@ require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
 
-Dir.glob(File.join"vendor/gems/gems/*").each do |path|
+Dir.glob(File.join("vendor","gems","gems","*")).each do |path|
   lib_path = path + "/lib/"
   $LOAD_PATH << lib_path
   gem_name = File.basename(Dir.glob(lib_path + "*.rb").first,".rb")
