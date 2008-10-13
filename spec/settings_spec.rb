@@ -45,6 +45,10 @@ describe Taza::Settings do
   it "should path point at config file" do
     Taza::Settings.path.should eql('config/config.yml')
   end
-  it "should use the config file's variable for driver settings if no environment variable is set"
+  
+  it "should use the config file's variable for driver settings if no environment variable is set" do
+    Taza::Settings.stubs(:defaults).returns({:driver => :fun})
+    Taza::Settings.browser[:driver].should eql(:fun)    
+  end
 
 end
