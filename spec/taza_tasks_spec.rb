@@ -12,16 +12,6 @@ describe "Taza Tasks" do
   after :all do
     Rake.application = nil 
   end
-  
-  it "should create a rake task to run test unit tests marked with tags" do
-    load @file_name 
-    tasks.include?("test_tag").should be_true
-  end
-  
-  it "should create a rake task to run specs marked with tags" do
-    load @file_name 
-    tasks.include?("spec_tag").should be_true
-  end
 
   it "should create a rake task to generate a site" do
     load @file_name
