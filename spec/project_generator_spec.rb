@@ -7,21 +7,18 @@ require 'taza/generators'
 describe Taza::Generators::Project do
 
   before :all do
-    @path = "spec"
-    @file_name = "./spec/rakefile"
-    Taza::Generators::Project.any_instance.stubs(:folder)
+    @path = "./spec/sandbox/generated"
+    @file_name = "./spec/sandbox/generated/rakefile"
   end
 
   after :each do
-    FileUtils.rm_f(@file_name)
+    FileUtils.rm_rf(@path)
   end
 
   it "should generate a rake file at a given path" do
-    pending do 
     generator = Taza::Generators::Project.new(@path)
     generator.generate
     File.exists?(@file_name).should be_true
-    end
   end
 
 end
