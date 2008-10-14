@@ -11,8 +11,8 @@ require 'spec/rake/verify_rcov'
 
 private
 def spec_files
-  return FileList['spec/**/*_spec.rb'].exclude('spec/platform/windows/*') if Taza.osx?
-  return FileList['spec/**/*_spec.rb'].exclude('spec/platform/osx/*') if Taza.windows?
+  return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!osx)/) if Taza.osx?
+  return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!windows)/) if Taza.windows?
   return FileList['spec/**/*_spec.rb'].exclude('spec/platform/*')
 end
 public
