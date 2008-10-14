@@ -3,6 +3,13 @@ require 'taza/browser'
 
 describe Taza::Browser do
 
+  after :each do
+    ENV['server_port'] = nil
+    ENV['server_ip'] = nil
+    ENV['browser'] = nil
+    ENV['timeout'] = nil    
+  end
+
   it "should be able to create a watir driver" do
     Taza::Browser.expects(:create_watir_ie)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
@@ -43,4 +50,15 @@ describe Taza::Browser do
     browser = Taza::Browser.create(:browser => :firefox, :driver => :selenium)
     browser.should be_a_kind_of(Selenium::SeleniumDriver)
   end
+  
+  it "should use environment settings for server port and ip" do
+    ENV['server_port'] = :server_port
+    ENV['server_ip'] = :server_ip
+    ENV['browser'] = :firefox
+    ENV['timeout'] = :timeout
+    Selenium::SeleniumDriver.expects(:new).with(:server_ip,:server_port,'*firefox',:timeout)
+    Taza::Browser.create(Taza::Settings.browser)
+  end
+  
+  
 end
