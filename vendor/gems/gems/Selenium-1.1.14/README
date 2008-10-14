@@ -1,0 +1,17 @@
+= Selenium Ruby[http://selenium.rubyforge.org] - Object-oriented testing with selenium
+
+Homepage::  http://selenium.rubyforge.org
+Author::    Shane
+Copyright:: (c) 2006 Selenium-Ruby on rubyforge
+License::   Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+Selenium Ruby[http://selenium.rubyforge.org] is a project that wraps selenium-rc[http://www.openqa.org/selenium-rc/]
+into an object-oriented way, and wraps it into a RubyGem.
+
+This rDoc is intended for you the check out the available methods on the objects.  For a full 
+document of what Selenium can do for you, please check out the home page: 
+http://selenium.rubyforge.org
+
+For document on the Selenium project and its RC, see Selenium homepage: http://www.openqa.org/selenium
+
+Please post your question at mailing-list.

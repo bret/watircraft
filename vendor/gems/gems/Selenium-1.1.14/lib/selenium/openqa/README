@@ -1,0 +1,5 @@
+All the files in this foler are from the "Selenium" project on OpenQA (http://www.openqa.org/selenium-rc/), under the
+Apache License (http://www.openqa.org/selenium-rc/license.action)
+
+The selenium-server.jar was renamed to have a txt extension because somehow ruby gem does not like jar extension (Installation 
+will fail on buffer error.

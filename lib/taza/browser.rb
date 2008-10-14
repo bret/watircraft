@@ -18,6 +18,8 @@ module Taza
     end
 
     def self.create_selenium(browser)
+      require 'selenium'
+      Selenium::SeleniumDriver.new('localhost',4444,'*' + browser.to_s,30)
     end
     
     def self.create_watir_ie
