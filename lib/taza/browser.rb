@@ -10,9 +10,7 @@ module Taza
     def self.create_watir(params)
       method = "create_watir_#{params[:browser]}"
       raise BrowserUnsupportedError unless self.respond_to?(method)
-      watir = self.send(method)
-      puts watir.respond_to?(:timeout=)
-      watir
+      self.send(method)
     end
 
     def self.create_selenium(params)
