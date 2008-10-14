@@ -7,6 +7,7 @@ require 'config/vendorized_gems'
 require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
+require 'spec/rake/verify_rcov'
 
 private
 def spec_files
@@ -36,6 +37,12 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov_opts = ['--exclude', 'spec']
 end
 
+desc "Verify Code Coverage is at 100%"
+RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
+  t.threshold = 100.0
+  t.index_html = 'artifacts/index.html'
+end
+
 desc "Run flog against all the files in the lib"
 task :flog do
   require "flog"
@@ -44,6 +51,21 @@ task :flog do
   FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
   File.open("artifacts/flogreport.txt","w") do |file|
     flogger.report file
+  end
+end
+ 
+desc "Verify Flog Score is under threshold"
+task :verify_flog => :flog do |t|
+  messages = []
+  File.readlines("artifacts/flogreport.txt").each do |line|
+    line =~ /^(.*): \((\d+\.\d+)\)/
+    if $2.to_f > 20.0
+      messages << "Flog score is too high for #{$1}"
+    end
+  end
+  unless messages.empty?
+    puts messages
+    raise "Your Flog score is too high and you ought to think about the children who will have to maintain your code."
   end
 end
 
@@ -63,6 +85,9 @@ namespace :gem do
     system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
+
+desc "Should you check-in?"
+task :quick_build => [:verify_rcov, :verify_flog]
 
 #define a task which uses flog
 # vim: syntax=ruby
