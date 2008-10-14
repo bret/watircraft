@@ -1,6 +1,11 @@
 require 'spec/spec_helper'
 require 'taza/page'
 
+class SamplePage < Taza::Page
+  element(:sample_element) {browser}
+  filter(:name => :sample_filter, :elements => [:sample_element]) {browser}
+end
+
 describe Taza::Page do
 
   it "should have an element class method" do
@@ -10,7 +15,13 @@ describe Taza::Page do
   it "should have a filter class method" do
     Taza::Page.should respond_to(:filter)
   end
-
+  
+  it "should execute elements and filters in the context of the page instance" do
+    page = SamplePage.new
+    page.browser = :something
+    page.sample_element.should eql(:something)
+  end
+  
   it "should store the block given to the element method in a method with the name of the parameter" do
     Taza::Page.element(:foo) do
       "bar"

@@ -37,11 +37,11 @@ module Taza
       self.class.class_eval do
         define_method(params[:method_name]) do
           params[:filters].each do |(filter_name,filter_block)|
-            unless filter_block.call
+            unless self.instance_eval(&filter_block)
               raise FilterError, "#{filter_name} returned false for #{params[:method_name]}"
             end
           end
-          params[:method_block].call
+          self.instance_eval(&params[:method_block])
         end
       end
     end
