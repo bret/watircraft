@@ -65,7 +65,7 @@ namespace :gem do
     if ENV["name"].nil?
       STDERR.puts "Usage: rake gem:install name=the_gem_name"; exit 1
     end
-    gem = windows? ? "gem.bat" : "gem"
+    gem = Taza.windows? ? "gem.bat" : "gem"
     system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
   end
 end
