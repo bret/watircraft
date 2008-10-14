@@ -3,16 +3,10 @@ $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
 require 'rubygems'
 require 'hoe'
+require 'config/vendorized_gems'
 require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
-
-Dir.glob(File.join("vendor","gems","gems","*")).each do |path|
-  lib_path = path + "/lib/"
-  $LOAD_PATH << lib_path
-  gem_name = File.basename(Dir.glob(lib_path + "*.rb").first,".rb")
-  require gem_name
-end
 
 private
 def spec_files
