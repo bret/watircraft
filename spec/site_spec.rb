@@ -10,6 +10,8 @@ describe Taza::Site do
   end
   
   before :each do
+    ENV['browser'] = nil
+    ENV['driver'] = nil
     Taza::Settings.stubs(:defaults).returns({})  
   end
   
