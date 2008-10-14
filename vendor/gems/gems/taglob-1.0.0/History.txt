@@ -1,0 +1,50 @@
+=== 1.0.0 / 2008-10-08
+
+* Important changes
+  * Dir.taglob('**/*.rb','tags,for,the,win') <- Will produce an array of files that contain all these tags(AND)
+  * Dir.taglob('**/*.rb','tags|or|the|win') <- Will produce an array of files that contain any of these tags(OR)
+  * rake spec SPEC_OPTS='-f specdoc' <- More infroz(this obviously needs to be run from the gem directory :P)
+  * taglob binary!
+    * $ taglob <dirname> <- produces a list of files in <dirname> with their respective tags
+    * $ taglob <file> <- produces a list of tags for that file
+  * Rake tasks!
+    * You can now require 'taglob/rake/tasks' in your Rakefile to get test_tag and spec_tag tasks that would be used like this:
+      * $ rake spec_tag tags="for,the,win"
+      * $ rake test_tag tags="foo|bar"
+    * You can also specify your own TestTagTasks in your Rakefile:
+      require 'taglob/rake'
+
+      Taglob::Rake::SpecTagsTask.new :spec_regression do |t|
+        t.pattern = 'spec/**/*.rb'
+        t.tags = "regression|smoke"
+      end
+      Taglob::Rake::TestTagsTask.new :test_regression do |t|
+        t.pattern = 'test/**/*.rb'
+        t.tags = "regression|smoke"
+      end
+    * CheckTagsTask will check all tags in a glob pattern against a valid list of tags
+      require 'taglob/rake'
+      task = Taglob::Rake::CheckTagsTask.new do |t|
+        t.pattern = 'spec/**/*.rb'
+        t.valid_tag_source = 'config/valid_tags.txt'
+      end
+
+ * Thanks:
+    - NolanEvans[http://github.com/nolman] did the majority of this rewrite.
+    - DrewOlson[http://github.com/dfg59] still doesn't have commit rights.
+    - CharleyBaker[http://github.com/charley], RadhikaPothukuchi, and RamaKarri were all very helpful in pairing with NolanEvans and AdamAnderson[http://github.com/scudco] in getting this gem out.
+
+=== 0.1.0 / 2008-05-19
+
+* Important changes
+  * Taglob now does ANDing logic rather than ORing
+This is really how it should have been to begin with. I just noobed it up is all.
+
+In version 0.0.1 if you did Dir.taglob('**/*.rb','foo','bar') it would select files as long they contained one of the tags(foo OR bar). In version 0.1.0 it will only select files which contain both tags(foo AND bar).
+
+=== 0.0.1 / 2008-05-14
+
+* Taglob "released"
+
+  * Drew bugged me enough to finish the specs
+

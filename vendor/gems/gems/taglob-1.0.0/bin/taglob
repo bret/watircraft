@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+require 'taglob'
+
+if File.directory?(ARGV[0])
+  Dir.tags("#{ARGV[0]}/**/*.rb").each do |file,tags|
+    puts "#{file}:"
+    puts "\t#{tags.join(',')}"
+  end
+else
+  puts "\t#{ARGV[0]}: #{File.tags(ARGV[0]).join(',')}" 
+end
