@@ -17,3 +17,4 @@ lib/taza/page.rb
 lib/taza/site.rb
 lib/taza/tasks.rb
 lib/taza.rb
+config/vendorized_gems.rb
