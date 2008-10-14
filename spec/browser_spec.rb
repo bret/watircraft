@@ -5,7 +5,7 @@ require 'selenium'
 describe Taza::Browser do
 
   before :each do
-     Taza::Settings.stubs(:defaults).returns({})    
+     Taza::Settings.stubs(:config).returns({})    
   end
   
   after :each do
