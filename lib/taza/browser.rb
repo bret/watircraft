@@ -21,6 +21,8 @@ module Taza
     end
     
     def self.create_watir_ie
+      require 'watir'
+      Watir::IE.new
     end
     
     def self.create_watir_firefox
