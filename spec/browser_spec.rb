@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'taza/browser'
 require 'selenium'
+require 'firewatir'
 
 describe Taza::Browser do
 
@@ -12,7 +13,8 @@ describe Taza::Browser do
     ENV['server_port'] = nil
     ENV['server_ip'] = nil
     ENV['browser'] = nil
-    ENV['timeout'] = nil    
+    ENV['driver'] = nil
+    ENV['timeout'] = nil
   end
 
   it "should be able to create a watir driver" do
@@ -64,5 +66,10 @@ describe Taza::Browser do
     Taza::Browser.create(Taza::Settings.browser)
   end
   
-  
+  it "should foo" do
+    ENV['browser'] = 'firefox'
+    ENV['driver'] = 'watir'
+    FireWatir::Firefox.expects(:new)
+    Taza::Browser.create(Taza::Settings.browser)
+  end
 end

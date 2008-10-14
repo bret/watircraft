@@ -24,6 +24,8 @@ module Taza
     end
     
     def self.create_watir_firefox
+      require 'firewatir'
+      FireWatir::Firefox.new()
     end
     
     def self.create_watir_safari
