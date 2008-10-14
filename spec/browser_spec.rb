@@ -4,6 +4,10 @@ require 'selenium'
 
 describe Taza::Browser do
 
+  before :each do
+     Taza::Settings.stubs(:defaults).returns({})    
+  end
+  
   after :each do
     ENV['server_port'] = nil
     ENV['server_ip'] = nil
@@ -33,17 +37,12 @@ describe Taza::Browser do
   it "should use params browser type when creating selenium" do
     browser_type = :opera
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,'*opera',anything)
-    Taza::Browser.create(:browser => browser_type)
-  end
-
-  it "should default to selenium as the default driver" do
-    Taza::Browser.expects(:create_selenium)
-    Taza::Browser.create
+    Taza::Browser.create(Taza::Settings.browser.merge(:browser => browser_type))
   end
 
   it "should default to firefox on selenium" do
     Taza::Browser.expects(:create_selenium).with({:browser => :firefox,:driver  => :selenium})
-    Taza::Browser.create
+    Taza::Browser.create(Taza::Settings.browser)
   end
   it "should raise selenium unsupported browser error"
 
@@ -53,7 +52,6 @@ describe Taza::Browser do
   end
   
   it "should use environment settings for server port and ip" do
-    Taza::Settings.stubs(:defaults).returns({})
     ENV['server_port'] = 'server_port'
     ENV['server_ip'] = 'server_ip'
     Selenium::SeleniumDriver.expects(:new).with('server_ip','server_port',anything,anything)
@@ -61,7 +59,6 @@ describe Taza::Browser do
   end
   
   it "should use environment settings for timeout" do
-    Taza::Settings.stubs(:defaults).returns({})
     ENV['timeout'] = 'timeout'
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
     Taza::Browser.create(Taza::Settings.browser)

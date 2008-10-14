@@ -14,6 +14,12 @@ describe Taza::Settings do
     Taza::Settings.browser[:browser].should eql(:foo)
   end
   
+  it "should provide default values if no config file or environment settings provided" do
+    Taza::Settings.stubs(:defaults).returns({})
+    Taza::Settings.browser[:driver].should eql(:selenium)
+    Taza::Settings.browser[:browser].should eql(:firefox)
+  end
+  
   it "should use environment variable for driver settings" do
     Taza::Settings.stubs(:defaults).returns({})
     ENV['driver'] = 'bar'
