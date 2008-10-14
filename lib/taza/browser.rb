@@ -6,20 +6,20 @@ module Taza
                   :driver  => :selenium}
       params = defaults.merge(params)
       
-      self.send("create_#{params[:driver]}".to_sym,params[:browser])
+      self.send("create_#{params[:driver]}".to_sym,params)
     end
 
     private    
 
-    def self.create_watir(browser)
-      method = "create_watir_#{browser}"
+    def self.create_watir(params)
+      method = "create_watir_#{params[:browser]}"
       raise BrowserUnsupportedError unless self.respond_to?(method)
       self.send(method)
     end
 
-    def self.create_selenium(browser)
+    def self.create_selenium(params)
       require 'selenium'
-      Selenium::SeleniumDriver.new('localhost',4444,'*' + browser.to_s,30)
+      Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
     end
     
     def self.create_watir_ie
