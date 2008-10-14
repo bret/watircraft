@@ -28,7 +28,7 @@ module Taza
     end
 
     def path
-       File.join('./lib/sites',self.class.to_s.underscore,'pages','*.rb')
+       File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
     end
   end
 end
