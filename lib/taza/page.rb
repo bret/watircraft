@@ -35,6 +35,30 @@ module Taza
       self.elements[name] = block
     end
 
+    # A filter for elemenet(s) on a page
+    # Example:
+    #   class HomePage < Taza::Page
+    #     element(:foo) {browser.element_by_xpath('some xpath')}
+    #     filter :title_given, :foo 
+    #     #a filter will apply to all elements if none are specified
+    #     filter :some_filter
+    #     #a filter will also apply to all elements if the symbol :all is given
+    #     filter :another_filter, :all
+    #     
+    #     def some_filter
+    #       true
+    #     end
+    #
+    #     def some_filter
+    #       true
+    #     end
+    #
+    #     def title_given
+    #       browser.title.nil?
+    #     end
+    #   end
+    # 
+    # homepage.foo will return the element specified in the block if the filter returned true
     def self.filter(method_name, *elements)
       elements = [:all] if elements.empty?
       elements.each do |element|
