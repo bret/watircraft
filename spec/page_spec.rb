@@ -56,7 +56,8 @@ describe Taza::Page do
   end
 
   class FilterAnElement < Taza::Page
-    element(:false_item) {}
+    attr_accessor :called_element_method
+    element(:false_item) { @called_element_method = true}
     filter :false_filter, :false_item
 
     def false_filter
@@ -66,5 +67,11 @@ describe Taza::Page do
 
   it "should raise a error if an elements is called and its filter returns false" do
     lambda { FilterAnElement.new.false_item }.should raise_error(Taza::FilterError)
+  end
+  
+  it "should not call element method if filters fail" do
+    page = FilterAnElement.new
+    lambda { page.false_item }.should raise_error
+    page.called_element_method.should_not be_true
   end
 end
