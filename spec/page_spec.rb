@@ -69,7 +69,7 @@ describe Taza::Page do
     lambda { FilterAnElement.new.false_item }.should raise_error(Taza::FilterError)
   end
   
-  it "should not call element method if filters fail" do
+  it "should not call element block if filters fail" do
     page = FilterAnElement.new
     lambda { page.false_item }.should raise_error
     page.called_element_method.should_not be_true
