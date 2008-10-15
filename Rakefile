@@ -59,8 +59,8 @@ task :verify_flog => :flog do |t|
   messages = []
   File.readlines("artifacts/flogreport.txt").each do |line|
     line =~ /^(.*): \((\d+\.\d+)\)/
-    if $2.to_f > 20.0
-      messages << "Flog score is too high for #{$1}"
+    if $2.to_f > 30.0
+      messages << "Flog score is too high for #{$1}(#{$2})"
     end
   end
   unless messages.empty?
