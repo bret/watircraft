@@ -57,8 +57,6 @@ module Taza
     #       browser.title.nil?
     #     end
     #   end
-    # 
-    # homepage.foo will return the element specified in the block if the filter returned true
     def self.filter(method_name, *elements)
       elements = [:all] if elements.empty?
       elements.each do |element|
