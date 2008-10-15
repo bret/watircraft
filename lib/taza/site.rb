@@ -11,7 +11,7 @@ module Taza
       yield self if block_given?
     end
 
-    def define_site_pages
+    def define_site_pages # :nodoc:
       Dir.glob(path) do |file|
         require file
 
@@ -27,7 +27,7 @@ module Taza
       end
     end
 
-    def path
+    def path # :nodoc:
        File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
     end
   end
