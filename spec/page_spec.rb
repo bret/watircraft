@@ -28,10 +28,6 @@ describe Taza::Page do
     Taza::Page.new.foo.should == "bar"
   end
 
-
-  def false_filter
-  end
-
   class FilterAllElements < Taza::Page
     element(:foo) {}
     element(:apple) {}
