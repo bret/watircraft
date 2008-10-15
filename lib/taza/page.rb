@@ -14,11 +14,10 @@ module Taza
       self.elements[name] = block
     end
 
-    def self.filter(params,&block)
-      params[:elements] = [:all] unless params.has_key? :elements
-
-      params[:elements].each do |element|
-        self.filters[element] = self.filters[element] << [params[:name],block]
+    def self.filter(method_name, *elements)
+      elements = [:all] if elements.empty?
+      elements.each do |element|
+        self.filters[element] = self.filters[element] << method_name
       end
     end
 
@@ -29,19 +28,17 @@ module Taza
     def add_element_methods
       self.class.elements.each do |element_name,element_block|
         filters = self.class.filters[element_name] + self.class.filters[:all]
-        add_element_method(:filters => filters, :method_name => element_name, :method_block => element_block)
+        add_element_method(:filters => filters, :element_name => element_name, :element_block => element_block)
       end
     end
 
     def add_element_method(params)
       self.class.class_eval do
-        define_method(params[:method_name]) do
-          params[:filters].each do |(filter_name,filter_block)|
-            unless self.instance_eval(&filter_block)
-              raise FilterError, "#{filter_name} returned false for #{params[:method_name]}"
-            end
+        define_method(params[:element_name]) do
+          params[:filters].each do |filter_method|
+            raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
           end
-          self.instance_eval(&params[:method_block])
+          self.instance_eval(&params[:element_block])
         end
       end
     end
