@@ -35,11 +35,15 @@ module Taza
     def add_element_method(params)
       self.class.class_eval do
         define_method(params[:element_name]) do
-          params[:filters].each do |filter_method|
-            raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
-          end
+          check_filters(params)
           self.instance_eval(&params[:element_block])
         end
+      end
+    end
+    
+    def check_filters(params)
+      params[:filters].each do |filter_method|
+        raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
       end
     end
   end
