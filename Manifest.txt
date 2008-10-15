@@ -27,6 +27,7 @@ spec/pages/foo/bar.rb
 spec/platform/osx/browser_spec.rb
 spec/platform/windows/browser_spec.rb
 spec/project_generator_spec.rb
+spec/sandbox/config.yml
 spec/settings_spec.rb
 spec/site_generator_spec.rb
 spec/site_spec.rb
