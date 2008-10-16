@@ -18,6 +18,17 @@ end
 
 public
 
+namespace :spec do
+  desc "run all functional specs"
+  Spec::Rake::SpecTask.new :functional do |t|
+    t.spec_files = 'spec/functional/**/*_spec.rb'
+  end
+  desc "run all integration specs"
+  Spec::Rake::SpecTask.new :integration do |t|
+    t.spec_files = 'spec/integration/**/*_spec.rb'
+  end
+end
+
 namespace :generate do
   desc "generate a site(rake generate:site name=foo)"
   task :site do
