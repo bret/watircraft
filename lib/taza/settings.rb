@@ -1,6 +1,6 @@
 module Taza
   class Settings
-    def self.browser
+    def self.config
       env_settings = {}
       env_settings[:browser] = ENV['browser'].to_sym if ENV['browser']
       env_settings[:driver]  = ENV['driver'].to_sym if ENV['driver']
