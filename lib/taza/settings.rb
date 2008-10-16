@@ -10,11 +10,11 @@ module Taza
       {:browser=>:firefox,:driver=>:selenium}.merge(config.merge(env_settings))
     end
 
-    def self.config
+    def self.config # :nodoc:
       YAML.load_file(path)
     end
 
-    def self.path
+    def self.path # :nodoc:
       'config/config.yml'
     end
   end
