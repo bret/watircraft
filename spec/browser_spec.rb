@@ -46,7 +46,10 @@ describe Taza::Browser do
     Taza::Browser.expects(:create_selenium).with({:browser => :firefox,:driver  => :selenium})
     Taza::Browser.create(Taza::Settings.config)
   end
-  it "should raise selenium unsupported browser error"
+  
+  it "should raise selenium unsupported browser error" do 
+    Taza::Browser.create(:browser => :foo, :driver => :selenium)
+  end
 
   it "should be able to create a selenium instance" do
     browser = Taza::Browser.create(:browser => :firefox, :driver => :selenium)
@@ -66,7 +69,7 @@ describe Taza::Browser do
     Taza::Browser.create(Taza::Settings.config)
   end
   
-  it "should foo" do
+  it "should create firewatir instance" do
     ENV['browser'] = 'firefox'
     ENV['driver'] = 'watir'
     FireWatir::Firefox.expects(:new)
