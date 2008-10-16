@@ -27,6 +27,7 @@ describe "generation tasks" do
 
   it "should create a page file in lib/sites" do
     Taza::Generators::Page.any_instance.expects(:file).with('page.rb.erb','./lib/sites/ecom/pages/home.rb')
+    Taza::Generators::Page.any_instance.expects(:file).with('functional_page_spec.rb.erb','./spec/functional/ecom/home_spec.rb')
     ENV['site'] = 'ecom'
     ENV['name'] = 'home'
     @rake.invoke_task("generate:page")

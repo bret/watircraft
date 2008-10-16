@@ -21,8 +21,7 @@ describe Taza::Generators::Page do
   end
     
   after :each do
-    FileUtils.rm_rf(@site_folder)
-    FileUtils.rm_rf(@site_file)
+    FileUtils.rm_rf(@project_folder)
   end
 
   it "should generate a page file in lib/\#{site_name}/pages/" do
@@ -30,6 +29,13 @@ describe Taza::Generators::Page do
     generator = Taza::Generators::Page.new(@page_name,@site_name)
     generator.generate
     File.exists?(@page_file).should be_true
+  end
+  
+  it "should generate a functional spec for the generated page" do
+    Taza::Generators::Page.any_instance.stubs(:folder_path).returns(@project_folder)
+    generator = Taza::Generators::Page.new(@page_name,@site_name)
+    generator.generate
+    File.exists?(File.join(@project_folder,'spec','functional','gap','check_out_spec.rb')).should be_true
   end
   
   it "should generate a file that can be required" do

@@ -15,6 +15,7 @@ module Taza
 
       def generate
         file "page.rb.erb", File.join(folder_path,'lib','sites', @site_name, "pages",  "#{@file_name}.rb")
+        file "functional_page_spec.rb.erb", File.join(folder_path,'spec','functional',@site_name,"#{@file_name}_spec.rb")
       end
 
     end
