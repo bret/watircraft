@@ -10,14 +10,15 @@ module Taza
       end
 
       def folder_path
-        File.join('lib','sites')
+        '.'
       end
 
       def generate
-        file "site.rb.erb", File.join(folder_path,"#{file_name}.rb")
-        folder File.join(folder_path,"#{file_name}")
-        folder File.join(folder_path,"#{file_name}","flows")
-        folder File.join(folder_path,"#{file_name}","pages")
+        site_path = File.join(folder_path,'lib','sites')
+        file "site.rb.erb", File.join(site_path,"#{file_name}.rb")
+        folder File.join(site_path,"#{file_name}")
+        folder File.join(site_path,"#{file_name}","flows")
+        folder File.join(site_path,"#{file_name}","pages")
       end
     end
   end
