@@ -15,6 +15,7 @@ module Taza
         folder File.join(@path,"lib","sites")
         folder File.join(@path,"lib","flows")
         folder File.join(@path,"spec")
+        file "spec_helper.rb.erb", File.join(@path,"spec","spec_helper.rb")
         folder File.join(@path,"spec","functional")
         folder File.join(@path,"spec","integration")
       end
