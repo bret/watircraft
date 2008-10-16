@@ -1,10 +1,10 @@
 module Taza
   class Browser
     
-    # Create a browser instance depending on configuration.  Configuration should be read in via Taza::Settings.browser.
+    # Create a browser instance depending on configuration.  Configuration should be read in via Taza::Settings.config.
     # 
     # Example:
-    #     browser = Taza::Browser.create(Taza::Settings.browser)
+    #     browser = Taza::Browser.create(Taza::Settings.config)
     #
     def self.create(params={})
       self.send("create_#{params[:driver]}".to_sym,params)

@@ -9,43 +9,43 @@ describe Taza::Settings do
   end
 
   it "should use environment variable for browser settings" do
-    Taza::Settings.stubs(:config).returns({})
+    Taza::Settings.stubs(:config_file).returns({})
     ENV['browser'] = 'foo'
-    Taza::Settings.browser[:browser].should eql(:foo)
+    Taza::Settings.config[:browser].should eql(:foo)
   end
   
   it "should provide default values if no config file or environment settings provided" do
-    Taza::Settings.stubs(:config).returns({})
-    Taza::Settings.browser[:driver].should eql(:selenium)
-    Taza::Settings.browser[:browser].should eql(:firefox)
+    Taza::Settings.stubs(:config_file).returns({})
+    Taza::Settings.config[:driver].should eql(:selenium)
+    Taza::Settings.config[:browser].should eql(:firefox)
   end
   
   it "should use environment variable for driver settings" do
-    Taza::Settings.stubs(:config).returns({})
+    Taza::Settings.stubs(:config_file).returns({})
     ENV['driver'] = 'bar'
-    Taza::Settings.browser[:driver].should eql(:bar)
+    Taza::Settings.config[:driver].should eql(:bar)
   end
 
   it "should use the config file's variable for browser settings if no environment variable is set" do
-    Taza::Settings.expects(:config).returns({:browser => :fu})
-    Taza::Settings.browser[:browser].should eql(:fu)
+    Taza::Settings.expects(:config_file).returns({:browser => :fu})
+    Taza::Settings.config[:browser].should eql(:fu)
   end
 
   it "should use the ENV variables if specfied instead of config files" do
     ENV['browser'] = 'opera'
-    Taza::Settings.expects(:config).returns({:browser => :fu})
-    Taza::Settings.browser[:browser].should eql(:opera)
+    Taza::Settings.expects(:config_file).returns({:browser => :fu})
+    Taza::Settings.config[:browser].should eql(:opera)
   end
 
   it "should use the correct config file to set defaults" do
     Taza::Settings.stubs(:path).returns('spec/sandbox/config.yml')
-    Taza::Settings.browser[:browser].should eql(:default_browser)
-    Taza::Settings.browser[:driver].should eql(:default_driver)
+    Taza::Settings.config[:browser].should eql(:default_browser)
+    Taza::Settings.config[:driver].should eql(:default_driver)
   end
   
   it "should raise error for a config file that doesnot exist" do
     Taza::Settings.stubs(:path).returns('spec/sandbox/file_not_exists.yml')
-    lambda {Taza::Settings.browser}.should raise_error
+    lambda {Taza::Settings.config}.should raise_error
   end
   
   it "should path point at config file" do
@@ -53,8 +53,8 @@ describe Taza::Settings do
   end
   
   it "should use the config file's variable for driver settings if no environment variable is set" do
-    Taza::Settings.stubs(:config).returns({:driver => :fun})
-    Taza::Settings.browser[:driver].should eql(:fun)    
+    Taza::Settings.stubs(:config_file).returns({:driver => :fun})
+    Taza::Settings.config[:driver].should eql(:fun)    
   end
 
 end

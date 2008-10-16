@@ -12,7 +12,7 @@ describe Taza::Site do
   before :each do
     ENV['browser'] = nil
     ENV['driver'] = nil
-    Taza::Settings.stubs(:config).returns({})  
+    Taza::Settings.stubs(:config_file).returns({})  
   end
   
   it "should create a browser using environment variables" do
