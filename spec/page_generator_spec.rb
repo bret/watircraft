@@ -12,6 +12,7 @@ describe Taza::Generators::Page do
     @site_file = File.join(@project_folder,'lib','sites',"gap.rb")
     @page_name = "CheckOut"
     @page_file = File.join(@project_folder,'lib','sites', "gap", "pages" , "check_out.rb")
+    @page_functional_spec = File.join(@project_folder,'spec','functional','gap','check_out_spec.rb')
   end
   
   before :each do
@@ -35,16 +36,23 @@ describe Taza::Generators::Page do
     Taza::Generators::Page.any_instance.stubs(:folder_path).returns(@project_folder)
     generator = Taza::Generators::Page.new(@page_name,@site_name)
     generator.generate
-    File.exists?(File.join(@project_folder,'spec','functional','gap','check_out_spec.rb')).should be_true
+    File.exists?(@page_functional_spec).should be_true
   end
   
-  it "should generate a file that can be required" do
+  it "should generate a page that can be required" do
     Taza::Generators::Page.any_instance.stubs(:folder_path).returns(@project_folder)
     generator = Taza::Generators::Page.new(@page_name,@site_name)
     generator.generate
     system("ruby -c #{@page_file} > #{null_device}").should be_true
   end
   
+  
+  it "should generate a page spec that can be required" do
+    Taza::Generators::Page.any_instance.stubs(:folder_path).returns(@project_folder)
+    generator = Taza::Generators::Page.new(@page_name,@site_name)
+    generator.generate
+    system("ruby -c #{@page_functional_spec} > #{null_device}").should be_true
+  end
   
   it " should have the right folder path generated " do
     generator = Taza::Generators::Page.new("","")

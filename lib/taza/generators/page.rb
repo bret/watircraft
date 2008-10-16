@@ -3,7 +3,7 @@ require 'taza/generators/base'
 module Taza
   module Generators
     class Page < Base
-      attr_accessor :file_name
+      attr_accessor :file_name, :site_name
       def initialize(file_name,site_name)
         @file_name = file_name
         @site_name = site_name
