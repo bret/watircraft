@@ -9,6 +9,7 @@ lib/taza/generators/project.rb
 lib/taza/generators/base.rb
 lib/taza/generators/page.rb
 lib/taza/generators.rb
+lib/taza/generators/templates/config.yml.erb
 lib/taza/generators/templates/rakefile.rb.erb
 lib/taza/generators/templates/page.rb.erb
 lib/taza/generators/templates/site.rb.erb
