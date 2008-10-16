@@ -33,6 +33,14 @@ describe Taza::Generators::Site do
     File.directory?(@site_folder).should be_true
   end
 
+  it "should generate a folder for a sites functional tests" do
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    generator = Taza::Generators::Site.new(@site_name)
+    generator.generate
+    File.directory?(File.join(@project_folder,'spec','functional','wikipedia_foo')).should be_true
+  end
+
+
   it "should generate a file that can be required" do
     Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
     generator = Taza::Generators::Site.new(@site_name)
