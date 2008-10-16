@@ -20,6 +20,7 @@ describe "generation tasks" do
     Taza::Generators::Site.any_instance.expects(:folder).with('./lib/sites/foo')
     Taza::Generators::Site.any_instance.expects(:folder).with('./lib/sites/foo/flows')
     Taza::Generators::Site.any_instance.expects(:folder).with('./lib/sites/foo/pages')
+    Taza::Generators::Site.any_instance.expects(:folder).with('./spec/functional/foo')
     ENV['name'] = 'foo'
     @rake.invoke_task("generate:site")
   end

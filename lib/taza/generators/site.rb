@@ -19,6 +19,7 @@ module Taza
         folder File.join(site_path,"#{file_name}")
         folder File.join(site_path,"#{file_name}","flows")
         folder File.join(site_path,"#{file_name}","pages")
+        folder File.join(folder_path,'spec','functional',@file_name)
       end
     end
   end
