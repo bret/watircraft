@@ -8,7 +8,18 @@ module Taza
     def initialize(params={})
       define_site_pages
       @browser = params[:browser] || Browser.create(Settings.config)
-      yield self if block_given?
+      if block_given?
+        begin
+          yield self
+        rescue => ex
+        ensure
+          begin
+            @browser.close
+          ensure
+            raise ex if ex
+          end
+        end
+      end
     end
 
     def define_site_pages # :nodoc:
@@ -20,7 +31,7 @@ module Taza
         def #{page_name}
           page = '#{page_name}'.camelcase.constantize.new
           page.browser = @browser
-          yield page if block_given? 
+          yield page if block_given?
           page
         end
         EOS
@@ -28,7 +39,7 @@ module Taza
     end
 
     def path # :nodoc:
-       File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
+      File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
     end
   end
 end

@@ -10,6 +10,7 @@ module Taza
       self.send("create_#{params[:driver]}".to_sym,params)
     end
 
+
     private    
 
     def self.create_watir(params)
