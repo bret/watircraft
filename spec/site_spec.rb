@@ -1,5 +1,5 @@
-require 'rubygems'
 require 'spec/spec_helper'
+require 'rubygems'
 require 'taza'
 
 describe Taza::Site do

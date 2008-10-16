@@ -1,8 +1,7 @@
-require 'taza'
+require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
-require 'spec/spec_helper'
-require 'taza/generators'
+require 'taza'
 
 describe Taza::Generators::Site do
   

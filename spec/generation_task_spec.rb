@@ -1,6 +1,6 @@
-require 'rake'
-require 'rubygems'
 require 'spec/spec_helper'
+require 'rubygems'
+require 'rake'
 
 describe "generation tasks" do
   

@@ -1,5 +1,5 @@
-require 'rubygems'
 require 'spec/spec_helper'
+require 'rubygems'
 
 describe "Taza Tasks" do
   
