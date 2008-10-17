@@ -15,6 +15,7 @@ lib/taza/generators/templates/spec_helper.rb.erb
 lib/taza/generators/templates/rakefile.rb.erb
 lib/taza/generators/templates/page.rb.erb
 lib/taza/generators/templates/site.rb.erb
+lib/taza/generators/templates/site.yml.erb
 lib/taza/settings.rb
 lib/taza/browser.rb
 lib/taza/page.rb

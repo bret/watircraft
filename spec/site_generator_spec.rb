@@ -25,6 +25,14 @@ describe Taza::Generators::Site do
     generator.generate
     File.exists?(@site_file).should be_true
   end
+  
+  it "should generate configuration file for a site" do
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    generator = Taza::Generators::Site.new(@site_name)
+    generator.generate
+    File.exists?(File.join(@project_folder,'config','wikipedia_foo.yml')).should be_true
+  end
+
 
   it "should generate a site path for pages" do
     Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)

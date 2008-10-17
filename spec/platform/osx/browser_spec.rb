@@ -5,7 +5,7 @@ describe "Taza::Browser with Safari Watir" do
   it "should be able to make a safari watir instance" do
     browser = nil
     begin
-      browser = Taza::Browser.create({:browser => :safari, :driver => :watir})
+      browser = Taza::Browser.create({:browser => :safari, :driver => :watir,:url =>'http://www.google.com'})
       browser.should be_a_kind_of(Watir::Safari)
     ensure
       browser.close if browser.is_a?(Watir::Safari)

@@ -20,6 +20,7 @@ module Taza
         folder File.join(site_path,"#{file_name}","flows")
         folder File.join(site_path,"#{file_name}","pages")
         folder File.join(folder_path,'spec','functional',@file_name)
+        file "site.yml.erb", File.join(folder_path,'config',"#{file_name}.yml")
       end
     end
   end

@@ -7,18 +7,26 @@ module Taza
 
     def initialize(params={})
       define_site_pages
-      @browser = params[:browser] || Browser.create(Settings.config)
-      if block_given?
-        begin
+      config = Settings.config(self.class.to_s)
+      @browser = params[:browser] || Browser.create(config)
+
+      begin
+        @browser.goto(config[:url])
+        if block_given?
           yield self
-        rescue => ex
-        ensure
-          begin
-            @browser.close
-          ensure
-            raise ex if ex
-          end
+          @browser.close
         end
+      rescue => ex
+        attempt_to_close_browser(ex)
+      end
+      
+    end
+
+    def attempt_to_close_browser(previous_error)
+      begin
+        @browser.close
+      ensure
+        raise previous_error
       end
     end
 

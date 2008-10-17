@@ -1,23 +1,26 @@
 require 'spec/spec_helper'
 require 'taza/browser'
+require 'taza/settings'
 require 'selenium'
 require 'firewatir'
 
 describe Taza::Browser do
 
   before :each do
-     Taza::Settings.stubs(:config_file).returns({})    
+    Taza::Settings.stubs(:config_file).returns({})
   end
-  
+
   after :each do
     ENV['server_port'] = nil
     ENV['server_ip'] = nil
     ENV['browser'] = nil
     ENV['driver'] = nil
     ENV['timeout'] = nil
+    
   end
 
   it "should be able to create a watir driver" do
+  
     Taza::Browser.expects(:create_watir_ie)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
   end
@@ -39,15 +42,10 @@ describe Taza::Browser do
   it "should use params browser type when creating selenium" do
     browser_type = :opera
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,'*opera',anything)
-    Taza::Browser.create(Taza::Settings.config.merge(:browser => browser_type))
+    Taza::Browser.create(:browser => browser_type, :driver => :selenium)
   end
 
-  it "should default to firefox on selenium" do
-    Taza::Browser.expects(:create_selenium).with({:browser => :firefox,:driver  => :selenium})
-    Taza::Browser.create(Taza::Settings.config)
-  end
-  
-  it "should raise selenium unsupported browser error" do 
+  it "should raise selenium unsupported browser error" do
     Taza::Browser.create(:browser => :foo, :driver => :selenium)
   end
 
@@ -55,24 +53,24 @@ describe Taza::Browser do
     browser = Taza::Browser.create(:browser => :firefox, :driver => :selenium)
     browser.should be_a_kind_of(Selenium::SeleniumDriver)
   end
-  
+
   it "should use environment settings for server port and ip" do
+    Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
     ENV['server_port'] = 'server_port'
     ENV['server_ip'] = 'server_ip'
     Selenium::SeleniumDriver.expects(:new).with('server_ip','server_port',anything,anything)
-    Taza::Browser.create(Taza::Settings.config)
+    Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
-  
+
   it "should use environment settings for timeout" do
+    Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
     ENV['timeout'] = 'timeout'
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
-    Taza::Browser.create(Taza::Settings.config)
+    Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
-  
+
   it "should create firewatir instance" do
-    ENV['browser'] = 'firefox'
-    ENV['driver'] = 'watir'
     FireWatir::Firefox.expects(:new)
-    Taza::Browser.create(Taza::Settings.config)
+    Taza::Browser.create(:browser => :firefox, :driver => :watir)
   end
 end

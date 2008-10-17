@@ -9,3 +9,11 @@ Already spiked:
 
 Not yet spiked:
 - accessing the actual browser object (who creates it, who tears it down, etc)
+
+
+block teardown of browser if yield is given for site
+
+gem dependencies via hoe.
+ - taglob
+ - rspec
+ - mocha
