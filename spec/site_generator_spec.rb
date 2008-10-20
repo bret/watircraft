@@ -15,6 +15,7 @@ describe Taza::Generators::Site do
   before :each do
     Taza::Generators::Project.new(@project_folder).generate
   end
+  
   after :each do
     FileUtils.rm_rf(@project_folder)
   end
@@ -33,7 +34,6 @@ describe Taza::Generators::Site do
     File.exists?(File.join(@project_folder,'config','wikipedia_foo.yml')).should be_true
   end
 
-
   it "should generate a site path for pages" do
     Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
     generator = Taza::Generators::Site.new(@site_name)
@@ -48,7 +48,6 @@ describe Taza::Generators::Site do
     File.directory?(File.join(@project_folder,'spec','functional','wikipedia_foo')).should be_true
   end
 
-
   it "should generate a file that can be required" do
     Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
     generator = Taza::Generators::Site.new(@site_name)
@@ -60,4 +59,5 @@ describe Taza::Generators::Site do
     generator = Taza::Generators::Site.new(@site_name)
     generator.folder_path.should eql('.')
   end
+  
 end

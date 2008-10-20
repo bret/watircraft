@@ -17,3 +17,17 @@ gem dependencies via hoe.
  - taglob
  - rspec
  - mocha
+
+taza 
+ - mocks
+ - url resolving
+
+- ability to change yaml for a site
+
+- ability to run integration tests for just a site
+
+
+
+ - getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
+
+ - clean all the config tests
