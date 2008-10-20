@@ -8,15 +8,12 @@ describe Taza::Browser do
 
   before :each do
     Taza::Settings.stubs(:config_file).returns({})
-  end
-
-  after :each do
+    ENV['TAZA_ENV'] = 'isolation'
     ENV['server_port'] = nil
     ENV['server_ip'] = nil
     ENV['browser'] = nil
     ENV['driver'] = nil
     ENV['timeout'] = nil
-    
   end
 
   it "should be able to create a watir driver" do

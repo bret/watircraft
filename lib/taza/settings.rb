@@ -1,3 +1,5 @@
+require 'activesupport'
+
 module Taza
   class Settings
     def self.config(site_name)
@@ -24,7 +26,7 @@ module Taza
     end
     
     def self.site_file(site_name) # :nodoc:
-      YAML.load_file(File.join(config_folder,"#{Inflector.underscore(site_name)}.yml"))
+      YAML.load_file(File.join(config_folder,"#{Inflector.underscore(site_name)}.yml"))[ENV['TAZA_ENV']]
     end
 
     def self.path # :nodoc:

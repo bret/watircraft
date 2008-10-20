@@ -9,6 +9,7 @@ describe Taza::Settings do
   end
   
   before :each do
+    ENV['TAZA_ENV'] = 'isolation'
     ENV['browser'] = nil
     ENV['driver'] = nil
   end
@@ -35,7 +36,12 @@ describe Taza::Settings do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     Taza::Settings.config("SiteName")[:url].should eql('http://google.com')
   end
-    
+
+  it "should be able to load a alternate site url" do
+    ENV['TAZA_ENV'] = 'clown_shoes'
+    Taza::Settings.stubs(:path).returns("spec/sandbox")
+    Taza::Settings.config("SiteName")[:url].should eql('http://clownshoes.com')
+  end
 
   it "should use the config file's variable for browser settings if no environment variable is set" do
     Taza::Settings.expects(:config_file).returns({:browser => :fu})
