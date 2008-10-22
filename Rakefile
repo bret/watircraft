@@ -8,6 +8,7 @@ require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
+require 'rake/rdoctask'
 
 private
 def spec_files
@@ -25,6 +26,17 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.extra_deps << ['rake']
   p.extra_deps << ['mocha','>= 0.9.0']
   p.extra_deps << ['rspec']
+end
+
+Rake::RDocTask.new do |rdoc|
+  files = ['README.txt', 'History.txt',
+           'lib/**/*.rb', 'doc/**/*.rdoc']
+  rdoc.rdoc_files.add(files)
+  rdoc.main = 'README.txt'
+  rdoc.title = 'Taza RDoc'
+  rdoc.template = './vendor/gems/gems/allison-2.0.3/lib/allison.rb'
+  rdoc.rdoc_dir = 'doc'
+  rdoc.options << '--line-numbers' << '--inline-source'
 end
 
 Spec::Rake::SpecTask.new do |t|
