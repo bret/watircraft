@@ -9,11 +9,10 @@ Already spiked:
 + accessing the actual browser object (who creates it, who tears it down, etc)
 + block teardown of browser if yield is given for site
 + gem dependencies via hoe.(taglob,rake,rspec,mocha)
-
++ getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
 Not yet spiked:
 
 taza 
- - getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
  - mocks
  - url resolving
  - ability to change yaml for a site

@@ -21,6 +21,10 @@ module Taza
       end
       
     end
+    
+    def self.settings
+      Taza::Settings.site_file(self.name)
+    end
 
     def attempt_to_close_browser(previous_error)
       begin
@@ -49,5 +53,6 @@ module Taza
     def path # :nodoc:
       File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
     end
+    
   end
 end

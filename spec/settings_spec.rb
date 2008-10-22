@@ -76,4 +76,13 @@ describe Taza::Settings do
     Taza::Settings.config(@site_name)[:driver].should eql(:fun)    
   end
 
+  class SiteName < Taza::Site
+
+  end
+
+  it "a site should be able to load its settings" do
+    Taza::Settings.stubs(:path).returns("spec/sandbox")
+    SiteName.settings[:url].should eql('http://google.com')
+  end
+
 end
