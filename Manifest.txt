@@ -27,11 +27,13 @@ spec/browser_spec.rb
 spec/generation_task_spec.rb
 spec/page_generator_spec.rb
 spec/page_spec.rb
-spec/pages/foo/bar.rb
 spec/platform/osx/browser_spec.rb
 spec/platform/windows/browser_spec.rb
 spec/project_generator_spec.rb
+spec/sandbox/pages/foo/bar.rb
 spec/sandbox/config.yml
+spec/sandbox/config/config.yml
+spec/sandbox/config/site_name.yml
 spec/settings_spec.rb
 spec/site_generator_spec.rb
 spec/site_spec.rb
