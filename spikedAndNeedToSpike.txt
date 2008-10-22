@@ -6,28 +6,16 @@ Already spiked:
 + gem server (resolution: taylor spiked this out)
 + build artifact of a video of a test running (resolution: we have two stories around this now) 
 + test framework choices - what are we going to use and why we are using the one we are (resolution: rspec)
++ accessing the actual browser object (who creates it, who tears it down, etc)
++ block teardown of browser if yield is given for site
++ gem dependencies via hoe.(taglob,rake,rspec,mocha)
 
 Not yet spiked:
-- accessing the actual browser object (who creates it, who tears it down, etc)
-
-
-block teardown of browser if yield is given for site
-
-gem dependencies via hoe.
- - taglob
- - rspec
- - mocha
 
 taza 
+ - getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
  - mocks
  - url resolving
-
-- ability to change yaml for a site
-
-- ability to run integration tests for just a site
-
-
-
- - getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
-
+ - ability to change yaml for a site
+ - ability to run integration tests for just a site
  - clean all the config tests
