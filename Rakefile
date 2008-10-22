@@ -21,6 +21,10 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.rubyforge_name = 'taza' # if different than lowercase project name
   p.developer('Adam Anderson', 'adamandersonis@gmail.com')
   p.remote_rdoc_dir = ''
+  p.extra_deps << ['taglob','>= 1.0.0']
+  p.extra_deps << ['rake']
+  p.extra_deps << ['mocha','>= 0.9.0']
+  p.extra_deps << ['rspec']
 end
 
 Spec::Rake::SpecTask.new do |t|
