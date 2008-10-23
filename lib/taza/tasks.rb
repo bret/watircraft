@@ -52,30 +52,3 @@ namespace :generate do
     Taza::Generators::Page.new(ENV['name'],ENV['site']).generate
   end
 end
-
-namespace :report do
-  desc "Generate report for all functional tests"
-  Spec::Rake::SpecTask.new :functional do |t|
-    t.spec_files = 'spec/functional/**/*_spec.rb'
-    FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
-    t.spec_opts=["--format html:artifacts/all_functional.html"]
-  end
-  desc "Generate report for all integration tests"
-  Spec::Rake::SpecTask.new :integration do |t|
-    t.spec_files = 'spec/integration/**/*_spec.rb'
-    FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
-    t.spec_opts=["--format html:artifacts/all_integration.html"]
-  end
-  
-  namespace :functional do
-    Dir.glob('./spec/functional/*/').each do |dir|
-      site_name = File.basename(dir)
-      desc "generate functional test report for #{site_name}"
-      Spec::Rake::SpecTask.new site_name.to_sym do |t|
-        t.spec_files = "#{dir}**/*_spec.rb"
-        FileUtils.mkdir("artifacts") unless File.directory?("artifacts")
-        t.spec_opts=["--format html:artifacts/#{site_name}_functional.html"]
-      end
-    end
-  end  
-end
