@@ -1,7 +1,7 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
-require 'taza/generators'
+require 'taza'
 
 describe "Taza project generator script" do
 
@@ -12,13 +12,13 @@ describe "Taza project generator script" do
   it "should have an executable script" do
     path = 'spec/sandbox/generators'
     taza_bin = "#{File.expand_path(File.dirname(__FILE__)+'/../bin/taza')} #{path}"
-    system("ruby #{taza_bin}").should be_true
+    system("ruby #{taza_bin} > #{null_device}").should be_true
   end
 
   it "should create a folder for the project skeleton" do 
     path = 'spec/sandbox/generators'
     taza_bin = "#{File.expand_path(File.dirname(__FILE__)+'/../bin/taza')} #{path}"
-    system("ruby #{taza_bin}")
+    system("ruby #{taza_bin} > #{null_device}")
     File.directory?(path).should be_true
   end
 

@@ -2,54 +2,58 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
 require 'taza'
+require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
 describe Taza::Generators::Site do
+  include RubiGen::GeneratorTestHelper
 
   before :all do
-    @project_folder = File.join('spec','example')
+    @spec_helper = File.join(TMP_ROOT,PROJECT_NAME,'spec','spec_helper.rb')
     @site_name = "WikipediaFoo"
-    @site_file = File.join(@project_folder,'lib','sites' , "wikipedia_foo.rb")
-    @site_folder = File.join(@project_folder,'lib','sites' , "wikipedia_foo")
+    @site_file = File.join(PROJECT_FOLDER,'lib','sites' , "wikipedia_foo.rb")
+    @site_folder = File.join(PROJECT_FOLDER,'lib','sites' , "wikipedia_foo")
+
   end
 
   before :each do
-    Taza::Generators::Project.new(@project_folder).generate
+    bare_setup
+    run_generator('taza', [APP_ROOT], sources)
   end
-  
+
   after :each do
-    FileUtils.rm_rf(@project_folder)
+    bare_teardown
   end
 
   it "should generate a site file" do
-    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(PROJECT_FOLDER)
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
     File.exists?(@site_file).should be_true
   end
-  
+
   it "should generate configuration file for a site" do
-    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(PROJECT_FOLDER)
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
-    File.exists?(File.join(@project_folder,'config','wikipedia_foo.yml')).should be_true
+    File.exists?(File.join(PROJECT_FOLDER,'config','wikipedia_foo.yml')).should be_true
   end
 
   it "should generate a site path for pages" do
-    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(PROJECT_FOLDER)
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
     File.directory?(@site_folder).should be_true
   end
 
   it "should generate a folder for a sites functional tests" do
-    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(PROJECT_FOLDER)
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
-    File.directory?(File.join(@project_folder,'spec','functional','wikipedia_foo')).should be_true
+    File.directory?(File.join(PROJECT_FOLDER,'spec','functional','wikipedia_foo')).should be_true
   end
 
   it "should generate a file that can be required" do
-    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(@project_folder)
+    Taza::Generators::Site.any_instance.stubs(:folder_path).returns(PROJECT_FOLDER)
     generator = Taza::Generators::Site.new(@site_name)
     generator.generate
     system("ruby -c #{@site_file} > #{null_device}").should be_true
@@ -59,5 +63,14 @@ describe Taza::Generators::Site do
     generator = Taza::Generators::Site.new(@site_name)
     generator.folder_path.should eql('.')
   end
-  
+  private
+  def sources
+    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", generator_path))]
+  end
+
+  def generator_path
+    "app_generators"
+  end
+
+
 end
