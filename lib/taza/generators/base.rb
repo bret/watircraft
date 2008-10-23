@@ -15,12 +15,12 @@ module Taza
       end
 
       def folder(path)
-        underscored_path = Inflector.underscore(path)
+        underscored_path = ActiveSupport::Inflector.underscore(path)
         Dir.mkdir(underscored_path) unless File.directory?(underscored_path)
       end
 
       def write_file(output_file,contents)
-        File.open(Inflector.underscore(output_file),"w") do |out|
+        File.open(ActiveSupport::Inflector.underscore(output_file),"w") do |out|
           out << contents
         end
       end

@@ -26,7 +26,7 @@ module Taza
     end
     
     def self.site_file(site_name) # :nodoc:
-      YAML.load_file(File.join(config_folder,"#{Inflector.underscore(site_name)}.yml"))[ENV['TAZA_ENV']]
+      YAML.load_file(File.join(config_folder,"#{ActiveSupport::Inflector.underscore(site_name)}.yml"))[ENV['TAZA_ENV']]
     end
 
     def self.path # :nodoc:
