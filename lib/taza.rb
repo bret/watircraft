@@ -1,7 +1,6 @@
 require 'taza/generators'
 require 'taza/page'
 require 'taza/site'
-require 'taza/tasks'
 require 'taza/browser'
 require 'taza/settings'
 
