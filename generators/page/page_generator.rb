@@ -11,12 +11,15 @@ class PageGenerator < RubiGen::Base
     usage if args.size != 2
     @name = args.shift
     @site_name=args.shift
-    usage unless site_exists?
+    check_if_site_exists
     extract_options
   end
 
-  def site_exists?
-    File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
+  def check_if_site_exists
+    unless File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
+      $stderr.puts "******No such site #{site_name} exists.******"
+      usage
+    end
   end
 
   def manifest

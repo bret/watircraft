@@ -37,6 +37,7 @@ describe "Page Generation" do
 
   it "should give you usage if you give a site that does not exist" do
     PageGenerator.any_instance.expects(:usage)
+    $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
     lambda { run_generator('page', [@page_name,"NoSuchSite"], generator_sources) }.should raise_error
   end
 
