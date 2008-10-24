@@ -21,7 +21,6 @@ lib/taza/site.rb
 lib/taza/tasks.rb
 lib/taza.rb
 spec/browser_spec.rb
-spec/generation_task_spec.rb
 spec/page_generator_spec.rb
 spec/page_spec.rb
 spec/platform/osx/browser_spec.rb

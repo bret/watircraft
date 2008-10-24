@@ -1,4 +1,3 @@
-require 'taza/generators'
 require 'taza/page'
 require 'taza/site'
 require 'taza/browser'
