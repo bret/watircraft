@@ -4,7 +4,7 @@ require 'fileutils'
 require 'taza'
 require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
-describe Taza::Generators::Site do
+describe "Site Generation" do
   include RubiGen::GeneratorTestHelper
 
   before :all do
