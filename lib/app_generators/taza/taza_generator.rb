@@ -43,9 +43,7 @@ class TazaGenerator < RubiGen::Base
   protected
     def banner
       <<-EOS
-Creates a ...
-
-USAGE: #{spec.name} name
+USAGE: #{spec.name} path/for/your/test/project [options]
 EOS
     end
 
