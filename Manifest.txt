@@ -3,10 +3,10 @@ Manifest.txt
 README.txt
 Rakefile
 bin/taza
-app_generators/taza/taza_generator.rb
-app_generators/taza/templates/config.yml.erb
-app_generators/taza/templates/rakefile.rb.erb
-app_generators/taza/templates/spec_helper.rb.erb
+lib/app_generators/taza/taza_generator.rb
+lib/app_generators/taza/templates/config.yml.erb
+lib/app_generators/taza/templates/rakefile.rb.erb
+lib/app_generators/taza/templates/spec_helper.rb.erb
 generators/page/page_generator.rb
 generators/page/templates/page.rb.erb
 generators/page/templates/functional_page_spec.rb.erb

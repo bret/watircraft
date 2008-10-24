@@ -16,7 +16,7 @@ describe "Site Generation" do
 
   before :each do
     bare_setup
-    run_generator('taza', [APP_ROOT], sources)
+    run_generator('taza', [APP_ROOT], generator_sources)
   end
 
   after :each do
@@ -24,33 +24,28 @@ describe "Site Generation" do
   end
 
   it "should generate a site file" do
-    run_generator('site', [@site_name], sources)
+    run_generator('site', [@site_name], generator_sources)
     File.exists?(@site_file).should be_true
   end
 
   it "should generate configuration file for a site" do
-    run_generator('site', [@site_name], sources)
+    run_generator('site', [@site_name], generator_sources)
     File.exists?(File.join(PROJECT_FOLDER,'config','wikipedia_foo.yml')).should be_true
   end
 
   it "should generate a site path for pages" do
-    run_generator('site', [@site_name], sources)
+    run_generator('site', [@site_name], generator_sources)
     File.directory?(@site_folder).should be_true
   end
 
   it "should generate a folder for a sites functional tests" do
-    run_generator('site', [@site_name], sources)
+    run_generator('site', [@site_name], generator_sources)
     File.directory?(File.join(PROJECT_FOLDER,'spec','functional','wikipedia_foo')).should be_true
   end
 
   it "should generate a file that can be required" do
-    run_generator('site', [@site_name], sources)
+    run_generator('site', [@site_name], generator_sources)
     system("ruby -c #{@site_file} > #{null_device}").should be_true
-  end
-  private
-  def sources
-    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", "app_generators")),
-    RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", "generators"))]
   end
 
 end
