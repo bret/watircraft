@@ -35,7 +35,7 @@ class TazaGenerator < RubiGen::Base
       # m.file     "file",         "some_file_copied"
       # m.file_copy_each ["path/to/file", "path/to/file2"]
 
-      m.dependency "install_rubigen_scripts", [destination_root, 'foobar'],
+      m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
     end
   end
