@@ -30,6 +30,16 @@ describe "Page Generation" do
     File.exists?(@page_file).should be_true
   end
 
+  it "should give you usage if you do not give two arguments" do
+    PageGenerator.any_instance.expects(:usage)
+    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error
+  end
+
+  it "should give you usage if you give a site that does not exist" do
+    PageGenerator.any_instance.expects(:usage)
+    lambda { run_generator('page', [@page_name,"NoSuchSite"], generator_sources) }.should raise_error
+  end
+
   it "should generate a functional spec for the generated page" do
     run_generator('page', [@page_name,@site_name], generator_sources)
     File.exists?(@page_functional_spec).should be_true

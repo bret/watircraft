@@ -8,12 +8,17 @@ class PageGenerator < RubiGen::Base
 
   def initialize(runtime_args, runtime_options = {})
     super
-    usage if args.empty?
+    usage if args.size != 2
     @name = args.shift
     @site_name=args.shift
+    usage unless site_exists?
     extract_options
   end
-  
+
+  def site_exists?
+    File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
+  end
+
   def manifest
     record do |m|
       m.template "page.rb.erb", File.join('lib','sites', site_name.underscore, "pages",  "#{name.underscore}.rb")
@@ -24,9 +29,9 @@ class PageGenerator < RubiGen::Base
   protected
   def banner
     <<-EOS
-    Creates a ...
+    Creates a taza page for a given taza site, site you are making a page for must exist first.
 
-    USAGE: #{$0} #{spec.name} name
+    USAGE: #{$0} #{spec.name} page_name site_name
     EOS
   end
 
