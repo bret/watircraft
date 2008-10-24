@@ -4,8 +4,8 @@ require 'rubygems'
 require 'rubigen'
 
 if %w(-v --version).include? ARGV.first
-  require 'taza/version'
-  puts "#{File.basename($0)} #{Taza::VERSION::STRING}"
+  require 'taza'
+  puts "#{File.basename($0)} #{Taza::VERSION}"
   exit(0)
 end
 
