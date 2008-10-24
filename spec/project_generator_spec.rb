@@ -20,7 +20,6 @@ describe Taza::Generators::Project do
     bare_teardown
   end
 
-
   it "should generate a spec helper that can be required" do
     run_generator('taza', [APP_ROOT], sources)
     system("ruby -c #{@spec_helper} > #{null_device}").should be_true
@@ -42,11 +41,8 @@ describe Taza::Generators::Project do
 
   private
   def sources
-    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", generator_path))]
-  end
-
-  def generator_path
-    "app_generators"
+    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", "app_generators")),
+    RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", "generators"))]
   end
 
 end
