@@ -14,16 +14,6 @@ describe "Taza Tasks" do
     Rake.application = nil
   end
 
-  it "should create a rake task to generate a site" do
-    load @file_name
-    tasks.include?("generate:site").should be_true
-  end
-
-  it "should create a rake task to generate a page" do
-    load @file_name
-    tasks.include?("generate:page").should be_true
-  end
-
   it "should create rake spec tasks for all sites" do
     Dir.expects(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
     load @file_name
