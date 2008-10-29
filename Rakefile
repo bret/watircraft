@@ -79,10 +79,11 @@ end
  
 desc "Verify Flog Score is under threshold"
 task :verify_flog => :flog do |t|
+  flog_score_threshold = 40.0
   messages = []
   File.readlines("artifacts/flogreport.txt").each do |line|
     line =~ /^(.*): \((\d+\.\d+)\)/
-    if $2.to_f > 30.0
+    if $2.to_f > flog_score_threshold
       messages << "Flog score is too high for #{$1}(#{$2})"
     end
   end
