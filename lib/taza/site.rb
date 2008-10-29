@@ -11,7 +11,7 @@ module Taza
       @browser = params[:browser] || Browser.create(config)
 
       begin
-        @browser.goto(config[:url])
+        @browser.goto(params[:url] || config[:url])
         if block_given?
           yield self
           @browser.close

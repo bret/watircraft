@@ -17,7 +17,6 @@ describe Taza::Browser do
   end
 
   it "should be able to create a watir driver" do
-  
     Taza::Browser.expects(:create_watir_ie)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
   end
