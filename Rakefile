@@ -60,9 +60,9 @@ Spec::Rake::SpecTask.new(:reports) do |t|
   t.spec_opts=["--format html:artifacts/rspec.html"]
 end
 
-desc "Verify Code Coverage is at 100%"
+desc "Verify Code Coverage is at 97.5%"
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
-  t.threshold = 100.0
+  t.threshold = 97.5
   t.index_html = 'artifacts/index.html'
 end
 
