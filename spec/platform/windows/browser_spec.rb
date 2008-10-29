@@ -11,5 +11,4 @@ describe "Taza::Browser with watir ie" do
       browser.close if browser.respond_to?(:close)
     end
   end  
-  
 end
