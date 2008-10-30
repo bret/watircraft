@@ -68,7 +68,7 @@ end
 
 desc "Verify Code Coverage is at 97.5%"
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
-  t.threshold = 97.5
+  t.threshold = 99.3
   t.index_html = 'artifacts/index.html'
 end
 
