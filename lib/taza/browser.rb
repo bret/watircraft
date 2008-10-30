@@ -1,3 +1,6 @@
+require 'taza/browsers/ie_watir'
+require 'taza/browsers/safari_watir'
+
 module Taza
   class Browser
     
@@ -25,19 +28,9 @@ module Taza
       Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
     end
     
-    def self.create_watir_ie
-      require 'watir'
-      Watir::IE.new
-    end
-    
     def self.create_watir_firefox
       require 'firewatir'
       FireWatir::Firefox.new()
-    end
-    
-    def self.create_watir_safari
-      require 'safariwatir'
-      Watir::Safari.new
     end
         
   end
