@@ -50,13 +50,12 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
   t.rcov_dir = 'artifacts'
-  t.rcov_opts = ['--exclude', 'spec']
   if Taza.windows?
-    t.rcov_opts = ['--exclude', 'lib/taza/browsers/ie_watir.rb']
+    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/ie_watir.rb']
   elsif Taza.osx?
-    t.rcov_opts = ['--exclude', 'lib/taza/browsers/safari_watir.rb']
+    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/safari_watir.rb']
   else
-    t.rcov_opts = ['--exclude', 'lib/taza/browsers/ie_watir.rb,lib/taza/browsers/safari_watir.rb']
+    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/ie_watir.rb,lib/taza/browsers/safari_watir.rb']
   end
 end
 
