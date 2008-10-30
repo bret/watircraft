@@ -55,7 +55,7 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   elsif Taza.osx?
     t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/safari_watir.rb']
   else
-    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/ie_watir.rb,lib/taza/browsers/safari_watir.rb']
+    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers']
   end
 end
 
