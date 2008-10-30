@@ -9,12 +9,12 @@ namespace :spec do
   desc "Run all functional specs "
   Spec::Rake::SpecTask.new :functional do |t|
     t.spec_files = 'spec/functional/**/*_spec.rb'
-    t.spec_opts=["--format html:artifacts/all_functional.html"]   
+    t.spec_opts=["--format","html:artifacts/all_functional.html","--format","p"]   
   end
   desc "Run all integration specs "
   Spec::Rake::SpecTask.new :integration do |t|
     t.spec_files = 'spec/integration/**/*_spec.rb'
-    t.spec_opts=["--format html:artifacts/all_integration.html"]    
+    t.spec_opts=["--format","html:artifacts/all_integration.html","--format","p"]    
   end
 
   namespace :functional do
@@ -23,7 +23,7 @@ namespace :spec do
       desc "Run all functional specs for #{site_name} "
       Spec::Rake::SpecTask.new site_name.to_sym do |t|
         t.spec_files = "#{dir}**/*_spec.rb"
-        t.spec_opts=["--format html:artifacts/#{site_name}_functional.html"]        
+        t.spec_opts<<["--format","html:artifacts/#{site_name}_functional.html","--format","-p"]
       end
     end
   end  
