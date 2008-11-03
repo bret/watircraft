@@ -26,6 +26,7 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.extra_deps << ['rake']
   p.extra_deps << ['mocha','>= 0.9.0']
   p.extra_deps << ['rspec']
+  p.extra_deps << ['rubigen']
 end
 
 Rake::RDocTask.new do |rdoc|
