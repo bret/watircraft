@@ -3,6 +3,10 @@ require 'activesupport'
 
 module Taza
   class Site
+    @@before_browser_closes = Proc.new() {}
+    def self.before_browser_closes(&block)
+      @@before_browser_closes = block
+    end
     attr_accessor :browser
 
     def initialize(params={})
@@ -14,10 +18,10 @@ module Taza
         @browser.goto(params[:url] || config[:url])
         if block_given?
           yield self
-          @browser.close
+          close_browser
         end
       rescue => ex
-        attempt_to_close_browser(ex)
+        close_browser_and_raise(ex)
       end
       
     end
@@ -26,11 +30,16 @@ module Taza
       Taza::Settings.site_file(self.name)
     end
 
-    def attempt_to_close_browser(previous_error)
+    def close_browser
+      @@before_browser_closes.call(browser)
+      @browser.close
+    end
+
+    def close_browser_and_raise(original_error)
       begin
-        @browser.close
+        close_browser
       ensure
-        raise previous_error
+        raise original_error
       end
     end
 

@@ -135,6 +135,28 @@ describe Taza::Site do
     foo.bar.browser.should eql(browser)
   end
 
+  it "should have a way to evaluate a block of code before site closes the browser" do
+    browser = stub()
+    browser.stubs(:goto)
+    Taza::Browser.stubs(:create).returns(browser)
+    browser_state = states('browser_open_state').starts_as('on')
+    browser.expects(:close).then(browser_state.is('off'))
+    browser.expects(:doit).when(browser_state.is('on'))
+    Taza::Site.before_browser_closes { |browser| browser.doit }
+    Foo.new {}
+  end
+
+  it "should have a way to evaluate a block of code before site closes the browser if an error occurs" do
+    browser = stub()
+    browser.stubs(:goto)
+    Taza::Browser.stubs(:create).returns(browser)
+    browser_state = states('browser_open_state').starts_as('on')
+    browser.expects(:close).then(browser_state.is('off'))
+    browser.expects(:doit).when(browser_state.is('on'))
+    Taza::Site.before_browser_closes { |browser| browser.doit }
+    lambda { Foo.new { |site| raise StandardError, "innererror" }}.should raise_error(StandardError,"innererror")
+  end
+
   def stub_browser
     browser = stub()
     browser.stubs(:close)
