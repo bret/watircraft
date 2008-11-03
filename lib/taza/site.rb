@@ -13,33 +13,31 @@ module Taza
       define_site_pages
       config = Settings.config(self.class.to_s)
       @browser = params[:browser] || Browser.create(config)
+      @browser.goto(params[:url] || config[:url])
 
-      begin
-        @browser.goto(params[:url] || config[:url])
-        if block_given?
+      if block_given?
+        begin
           yield self
-          close_browser
+        rescue => site_block_exception
+        ensure
+          begin
+            @@before_browser_closes.call(browser)
+          rescue => before_browser_closes_block_exception
+          end
+          close_browser_and_raise_if site_block_exception || before_browser_closes_block_exception
         end
-      rescue => ex
-        close_browser_and_raise(ex)
       end
-      
     end
     
     def self.settings
       Taza::Settings.site_file(self.name)
     end
 
-    def close_browser
-      @@before_browser_closes.call(browser)
-      @browser.close
-    end
-
-    def close_browser_and_raise(original_error)
+    def close_browser_and_raise_if(original_error)
       begin
-        close_browser
+        @browser.close
       ensure
-        raise original_error
+        raise original_error if original_error
       end
     end
 

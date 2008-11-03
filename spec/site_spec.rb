@@ -72,10 +72,10 @@ describe Taza::Site do
     Foo.new
   end
 
-  it "should still close browser if an error is raised on browser goto" do
+  it "should not close browser if an error is raised on browser goto" do
     browser = Object.new
     browser.stubs(:goto).raises(StandardError,"ErrorOnBrowserGoto")
-    browser.expects(:close)
+    browser.expects(:close).never
     Taza::Browser.stubs(:create).returns(browser)
     lambda { Foo.new }.should raise_error(StandardError,"ErrorOnBrowserGoto")
   end
@@ -155,6 +155,15 @@ describe Taza::Site do
     browser.expects(:doit).when(browser_state.is('on'))
     Taza::Site.before_browser_closes { |browser| browser.doit }
     lambda { Foo.new { |site| raise StandardError, "innererror" }}.should raise_error(StandardError,"innererror")
+  end
+
+  it "should still close its browser if #before_browser_closes raises an exception" do
+    browser = stub()
+    browser.stubs(:goto)
+    Taza::Browser.stubs(:create).returns(browser)
+    browser.expects(:close)
+    Taza::Site.before_browser_closes { |browser| raise StandardError, 'foo error' }
+    lambda { Foo.new {} }.should raise_error(StandardError,'foo error')
   end
 
   def stub_browser
