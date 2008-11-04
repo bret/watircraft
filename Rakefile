@@ -2,8 +2,8 @@
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
 require 'rubygems'
-require 'hoe'
 require 'config/vendorized_gems'
+require 'hoe'
 require 'taza'
 require 'rbconfig'
 require 'spec/rake/spectask'
