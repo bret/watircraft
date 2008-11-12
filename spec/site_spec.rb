@@ -7,14 +7,21 @@ describe Taza::Site do
   before :all do
     @pages_path = File.join("spec","sandbox","pages","foo","*.rb")
     Foo = Class.new(Taza::Site)
-    Foo.any_instance.stubs(:pages_path).returns(@pages_path)
   end
 
   before :each do
+    Foo.any_instance.stubs(:pages_path).returns(@pages_path)
     ENV['browser'] = nil
     ENV['driver'] = nil
     Taza::Settings.stubs(:config_file).returns({})
     Taza::Settings.stubs(:site_file).returns({})
+  end
+
+  it "pages_path should contain the site class name" do
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    Bax = Class.new(Taza::Site)
+    Bax.new.pages_path.should eql("lib/sites/bax/pages/*.rb")
   end
 
   it "should create a browser using environment variables" do

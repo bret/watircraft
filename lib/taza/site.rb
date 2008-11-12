@@ -58,7 +58,11 @@ module Taza
     end
 
     def pages_path # :nodoc:
-      File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
+      File.join(path,'pages','*.rb')
+    end
+
+    def path # :nodoc:
+      File.join('lib','sites',self.class.to_s.underscore)
     end
     
   end
