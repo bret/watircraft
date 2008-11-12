@@ -42,7 +42,7 @@ module Taza
     end
 
     def define_site_pages # :nodoc:
-      Dir.glob(path) do |file|
+      Dir.glob(pages_path) do |file|
         require file
 
         page_name = File.basename(file,'.rb')
@@ -57,7 +57,7 @@ module Taza
       end
     end
 
-    def path # :nodoc:
+    def pages_path # :nodoc:
       File.join('lib','sites',self.class.to_s.underscore,'pages','*.rb')
     end
     

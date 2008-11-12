@@ -7,7 +7,7 @@ describe Taza::Site do
   before :all do
     @pages_path = File.join("spec","sandbox","pages","foo","*.rb")
     Foo = Class.new(Taza::Site)
-    Foo.any_instance.stubs(:path).returns(@pages_path)
+    Foo.any_instance.stubs(:pages_path).returns(@pages_path)
   end
 
   before :each do
@@ -114,7 +114,7 @@ describe Taza::Site do
   it "should yield after page methods have been setup" do
     Taza::Browser.stubs(:create).returns(stub_browser)
     klass = Class::new(Taza::Site)
-    klass.any_instance.stubs(:path).returns(@pages_path)
+    klass.any_instance.stubs(:pages_path).returns(@pages_path)
     klass.new do |site|
       site.should respond_to(:bar)
     end
@@ -122,7 +122,7 @@ describe Taza::Site do
   it "should yield after browser has been setup" do
     Taza::Browser.stubs(:create).returns(stub_browser)
     klass = Class::new(Taza::Site)
-    klass.any_instance.stubs(:path).returns(@pages_path)
+    klass.any_instance.stubs(:pages_path).returns(@pages_path)
     klass.new do |site|
       site.browser.should_not be_nil
     end
