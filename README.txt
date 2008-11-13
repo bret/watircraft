@@ -6,21 +6,43 @@
 
 Taza is meant to make acceptance testing more sane for developers(or QA where applicable) and customers.
 
-== FEATURES/PROBLEMS:
+== FEATURES:
 
-* Generate a project for application testing
+* Generate a project for browser-based testing
 * Generate pages and sites for different applications
+* Create flows that move through a site
+* Use filters to control which elements are accessible on a page depending on its state
+* Taza automatically creates and cleans up the browser for each site just like a File block
 * Manage tests by tags
 * Cross-site testing
 
+== ISSUES:
+
+* Taza has only been used in the wild with WATIR(Safari/Firefox/IE), but Selenium support is built-in
+* Taza's generators currently generate RSpec specs, Test::Unit and other test framework support is planned
+
 == SYNOPSIS:
 
-To generate a new skeleton for acceptance testing
- $ taza foo
+Taza is meant to be a refreshing way to look at browser testing. Taza provides a few ways to abstract browser-based testing into three simple ideas.
+  * Sites
+  * Pages
+  * Flows
 
-Inside your new skeleton you'll have a few rake tasks available to help you get started
- $ rake generate:site name=google
- $ rake generate:page site=google name=home_page
+Sites have Pages.
+Pages have elements and filters.
+Flows are common actions on a site such as logging in or performing a search.
+
+Here's an example for starting a project around the Google sites
+
+  $ taza google
+  $ cd google/
+  $ ./script/generate site google
+  $ ./script/generate page home_page google
+  $ ./script/generate flow search google
+  $ rake spec:functional:google
+
+That will generate an RSpec HTML report at artifacts/functional/google/index.html
+
 
 == REQUIREMENTS:
 
