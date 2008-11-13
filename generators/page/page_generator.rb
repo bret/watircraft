@@ -24,8 +24,8 @@ class PageGenerator < RubiGen::Base
 
   def manifest
     record do |m|
-      m.template "page.rb.erb", File.join('lib','sites', site_name.underscore, "pages",  "#{name.underscore}.rb")
-      m.template "functional_page_spec.rb.erb", File.join('spec','functional',site_name.underscore,"#{name.underscore}_spec.rb")
+      m.template "page.rb.erb", File.join('lib','sites', site_name.underscore, "pages",  "#{name.underscore}_page.rb")
+      m.template "functional_page_spec.rb.erb", File.join('spec','functional',site_name.underscore,"#{name.underscore}_page_spec.rb")
     end
   end
 
