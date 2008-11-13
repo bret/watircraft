@@ -109,7 +109,7 @@ module Taza
     #      google.submit.click
     #    end
     #  end
-    def flow(name,params)
+    def flow(name,params={})
       require File.join(path,'flows',name.to_s.underscore)
       flow_class = name.to_s.camelize.constantize
       flow_class.new(self).run(params)
