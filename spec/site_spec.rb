@@ -24,6 +24,27 @@ describe Taza::Site do
     Bax.new.pages_path.should eql("lib/sites/bax/pages/*.rb")
   end
 
+  it "should execute a flow with given parameters" do
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    params = {}
+    require 'spec/sandbox/flows/batman'
+    Batman.any_instance.expects(:run).with(params)
+    Barz = Class.new(Taza::Site)
+    Barz.any_instance.stubs(:path).returns('spec/sandbox')
+    Barz.new.flow(:batman,params)
+  end
+
+  it "should require a flow once it is called" do
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    Class.constants.include?('Robin').should be_false
+    Bayz = Class.new(Taza::Site)
+    Bayz.any_instance.stubs(:path).returns('spec/sandbox')
+    Bayz.new.flow(:robin,{})
+    Class.constants.include?('Robin').should be_true
+  end
+
   it "should create a browser using environment variables" do
     browser = stub_browser
     browser.stubs(:goto)
