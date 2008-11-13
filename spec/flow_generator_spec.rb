@@ -13,6 +13,7 @@ describe "Flow Generation" do
     @site_file = File.join(PROJECT_FOLDER,'lib','sites',"gap.rb")
     @flow_name = "CheckOut"
     @flow_file = File.join(PROJECT_FOLDER,'lib','sites', "gap", "flows" , "check_out.rb")
+    @page_file = File.join(PROJECT_FOLDER,'lib','sites','gap','pages','check_out_page.rb')
   end
 
   before :each do
@@ -23,7 +24,7 @@ describe "Flow Generation" do
   after :each do
     bare_teardown
   end
-  
+
   it "should generate a flow file in lib/\#{site_name}/flows/" do
     run_generator('flow', [@flow_name,@site_name], generator_sources)
     File.exists?(@flow_file).should be_true
@@ -43,6 +44,13 @@ describe "Flow Generation" do
   it "should generate a flow that can be required" do
     run_generator('flow', [@flow_name,@site_name], generator_sources)
     system("ruby -c #{@flow_file} > #{null_device}").should be_true
+  end
+
+  it "should generate flows that will not have namespace collisions with pages" do
+    run_generator('flow', [@flow_name,@site_name], generator_sources)
+    run_generator('page', [@flow_name,@site_name], generator_sources)
+    require @flow_file
+    require @page_file
   end
 
 end

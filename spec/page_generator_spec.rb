@@ -12,8 +12,8 @@ describe "Page Generation" do
     @site_folder = File.join(PROJECT_FOLDER,'lib','sites',"gap")
     @site_file = File.join(PROJECT_FOLDER,'lib','sites',"gap.rb")
     @page_name = "CheckOut"
-    @page_file = File.join(PROJECT_FOLDER,'lib','sites', "gap", "pages" , "check_out.rb")
-    @page_functional_spec = File.join(PROJECT_FOLDER,'spec','functional','gap','check_out_spec.rb')
+    @page_file = File.join(PROJECT_FOLDER,'lib','sites', "gap", "pages" , "check_out_page.rb")
+    @page_functional_spec = File.join(PROJECT_FOLDER,'spec','functional','gap','check_out_page_spec.rb')
   end
 
   before :each do
@@ -51,10 +51,19 @@ describe "Page Generation" do
     system("ruby -c #{@page_file} > #{null_device}").should be_true
   end
 
-
   it "should generate a page spec that can be required" do
-      run_generator('page', [@page_name,@site_name], generator_sources)
+    run_generator('page', [@page_name,@site_name], generator_sources)
     system("ruby -c #{@page_functional_spec} > #{null_device}").should be_true
   end
 
+  it "should be able to access the generated page from the site" do
+    run_generator('page', [@page_name,@site_name], generator_sources)
+    require @site_file
+    Taza::Settings.expects(:config).returns({})
+    stub_browser = stub()
+    stub_browser.stubs(:goto)
+    Taza::Browser.expects(:create).returns(stub_browser)
+    @site_name.constantize.any_instance.expects(:path).returns(@site_folder)
+    @site_name.constantize.new.check_out_page
+  end
 end
