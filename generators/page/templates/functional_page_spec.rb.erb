@@ -1,7 +1,7 @@
 require 'spec/spec_helper'
-require '<%= ActiveSupport::Inflector.underscore(site_name) %>'
+require '<%= site_name.underscore %>'
 
-describe "<%= ActiveSupport::Inflector.camelize(name) %>" do
+describe "<%= name.camelize %>" do
   it "should fail because you haven't written any tests yet" do
 	false.should be_true
   end
