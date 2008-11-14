@@ -112,7 +112,7 @@ module Taza
     #  end
     def flow(name,params={})
       require File.join(path,'flows',name.to_s.underscore)
-      flow_class = name.to_s.camelize.constantize
+      flow_class = "#{self.class.to_s}Site::#{name.to_s.camelize}".constantize
       flow_class.new(self).run(params)
     end
 

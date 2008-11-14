@@ -29,7 +29,7 @@ describe Taza::Site do
     Taza::Browser.stubs(:create).returns(browser)
     params = {}
     require 'spec/sandbox/flows/batman'
-    Batman.any_instance.expects(:run).with(params)
+    BarzSite::Batman.any_instance.expects(:run).with(params)
     Barz = Class.new(Taza::Site)
     Barz.any_instance.stubs(:path).returns('spec/sandbox')
     Barz.new.flow(:batman,params)
@@ -42,7 +42,7 @@ describe Taza::Site do
     Bayz = Class.new(Taza::Site)
     Bayz.any_instance.stubs(:path).returns('spec/sandbox')
     Bayz.new.flow(:robin,{})
-    Class.constants.include?('Robin').should be_true
+    BayzSite::Robin
   end
 
   it "should create a browser using environment variables" do

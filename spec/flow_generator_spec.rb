@@ -4,6 +4,18 @@ require 'fileutils'
 require 'taza'
 require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
+class Taza::Site
+  def flows
+    flows = []
+    Dir.glob(File.join(path,'flows','*.rb')).each do |file|
+      require file
+
+      flows << "#{self.class.to_s}Site::#{File.basename(file,'.rb').camelize}".constantize
+    end
+    flows
+  end
+end
+
 describe "Flow Generation" do
   include RubiGen::GeneratorTestHelper
 
@@ -53,4 +65,22 @@ describe "Flow Generation" do
     require @page_file
   end
 
+  # ack how did we nub this again?!
+  it "should generate flows that will not have namespace collisions with other sites' flows" do
+    new_site_name = "Pag"
+    new_site_folder = File.join(PROJECT_FOLDER,'lib','sites',"pag")
+    new_site_file = File.join(PROJECT_FOLDER,'lib','sites',"pag.rb")
+    run_generator('site', [new_site_name], generator_sources)
+    run_generator('flow', [@flow_name,@site_name], generator_sources)
+    run_generator('flow', [@flow_name,new_site_name], generator_sources)
+    require @site_file
+    require new_site_file
+    Taza::Settings.stubs(:config).returns({})
+    stub_browser = stub()
+    stub_browser.stubs(:goto)
+    Taza::Browser.stubs(:create).returns(stub_browser)
+    @site_name.constantize.any_instance.stubs(:path).returns(@site_folder)
+    new_site_name.constantize.any_instance.stubs(:path).returns(new_site_folder)
+    (@site_name.constantize.new.flows & new_site_name.constantize.new.flows).should be_empty
+  end
 end

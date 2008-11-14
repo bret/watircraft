@@ -1,10 +1,12 @@
 require 'rubygems'
 require 'taza/flow'
 
-class <%= ActiveSupport::Inflector.camelize(name) %> < Taza::Flow
-  alias :<%= ActiveSupport::Inflector.underscore(site_name) %> :site
+module <%= site_name.camelize %>Site
+  class <%= ActiveSupport::Inflector.camelize(name) %> < Taza::Flow
+    alias :<%= ActiveSupport::Inflector.underscore(site_name) %> :site
 
-  def run(params={})
-    
+    def run(params={})
+      
+    end
   end
 end
