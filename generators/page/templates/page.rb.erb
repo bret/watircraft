@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'taza/page'
 
-class <%= ActiveSupport::Inflector.camelize(name) %>Page < Taza::Page
+module <%= site_name.camelize %>Site
+  class <%= ActiveSupport::Inflector.camelize(name) %>Page < Taza::Page
 
+  end
 end

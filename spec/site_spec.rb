@@ -68,7 +68,7 @@ describe Taza::Site do
     f.bar do |bar|
       barzor = bar
     end
-    barzor.should be_an_instance_of(Bar)
+    barzor.should be_an_instance_of(FooSite::Bar)
   end
 
   it "should accept a browser instance" do
