@@ -63,7 +63,7 @@ describe "Page Generation" do
     stub_browser = stub()
     stub_browser.stubs(:goto)
     Taza::Browser.expects(:create).returns(stub_browser)
-    @site_name.constantize.any_instance.expects(:path).returns(@site_folder)
+    "#{@site_name}::#{@site_name}".constantize.any_instance.expects(:path).returns(@site_folder)
     @site_name.constantize.new.check_out_page
   end
 
@@ -83,8 +83,8 @@ describe "Page Generation" do
     stub_browser = stub()
     stub_browser.stubs(:goto)
     Taza::Browser.stubs(:create).returns(stub_browser)
-    @site_name.constantize.any_instance.stubs(:path).returns(@site_folder)
-    new_site_name.constantize.any_instance.stubs(:path).returns(new_site_folder)
+    "#{@site_name}::#{@site_name}".constantize.any_instance.stubs(:path).returns(@site_folder)
+    "#{new_site_name}::#{new_site_name}".constantize.any_instance.stubs(:path).returns(new_site_folder)
     @site_name.constantize.new.check_out_page
     Pag.new.check_out_page.class.should_not eql(Gap.new.check_out_page.class)
   end

@@ -1,4 +1,7 @@
-module BarzSite
-  class Batman < Taza::Flow
+module Barz
+  def self.new(params={})
+    Barz.new(params)
+  end
+  class Batman < ::Taza::Flow
   end
 end

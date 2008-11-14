@@ -10,7 +10,7 @@ class Taza::Site
     Dir.glob(File.join(path,'flows','*.rb')).each do |file|
       require file
 
-      flows << "#{self.class.to_s}Site::#{File.basename(file,'.rb').camelize}".constantize
+      flows << "#{self.class.parent.to_s}::#{File.basename(file,'.rb').camelize}".constantize
     end
     flows
   end
@@ -79,8 +79,10 @@ describe "Flow Generation" do
     stub_browser = stub()
     stub_browser.stubs(:goto)
     Taza::Browser.stubs(:create).returns(stub_browser)
-    @site_name.constantize.any_instance.stubs(:path).returns(@site_folder)
-    new_site_name.constantize.any_instance.stubs(:path).returns(new_site_folder)
-    (@site_name.constantize.new.flows & new_site_name.constantize.new.flows).should be_empty
+    site_class = "#{@site_name}::#{@site_name}".constantize
+    new_site_class = "#{new_site_name}::#{new_site_name}".constantize
+    site_class.any_instance.stubs(:path).returns(@site_folder)
+    new_site_class.any_instance.stubs(:path).returns(new_site_folder)
+    (site_class.new.flows & new_site_class.new.flows).should be_empty
   end
 end
