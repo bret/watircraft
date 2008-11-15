@@ -67,25 +67,34 @@ describe "Page Generation" do
     @site_name.constantize.new.check_out_page
   end
 
-  # LOL this is nub
-  it "should be able to access the generated page for its site" do
-    new_site_name = "Pag"
-    new_site_folder = File.join(PROJECT_FOLDER,'lib','sites',"pag")
-    new_site_file = File.join(PROJECT_FOLDER,'lib','sites',"pag.rb")
-    new_page_file = File.join(PROJECT_FOLDER,'lib','sites', "pag", "pages" , "check_out_page.rb")
-    new_page_functional_spec = File.join(PROJECT_FOLDER,'spec','functional','pag','check_out_page_spec.rb')
-    run_generator('site', [new_site_name], generator_sources)
-    run_generator('page', [@page_name,@site_name], generator_sources)
-    run_generator('page', [@page_name,new_site_name], generator_sources)
-    require @site_file
-    require new_site_file
+  def generate_site(site_name)
+    run_generator('site', [site_name], generator_sources)
+    site_file_path = File.join(PROJECT_FOLDER,'lib','sites',"#{site_name.underscore}.rb")
+    require site_file_path
+    "#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
+    site_file_path
+  end
+
+  def stub_settings
     Taza::Settings.stubs(:config).returns({})
+  end
+
+  def stub_browser
     stub_browser = stub()
     stub_browser.stubs(:goto)
     Taza::Browser.stubs(:create).returns(stub_browser)
+  end
+
+  # LOL this is nub
+  it "should be able to access the generated page for its site" do
+    stub_browser
+    stub_settings
+    new_site_name = "Pag"
+    generate_site(new_site_name)
+    run_generator('page', [@page_name,@site_name], generator_sources)
+    run_generator('page', [@page_name,new_site_name], generator_sources)
+    require @site_file
     "#{@site_name}::#{@site_name}".constantize.any_instance.stubs(:path).returns(@site_folder)
-    "#{new_site_name}::#{new_site_name}".constantize.any_instance.stubs(:path).returns(new_site_folder)
-    @site_name.constantize.new.check_out_page
     Pag.new.check_out_page.class.should_not eql(Gap.new.check_out_page.class)
   end
 end
