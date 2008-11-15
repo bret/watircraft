@@ -21,7 +21,7 @@ describe Taza::Site do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql("lib/sites/bax/pages/*.rb")
+    Bax.new.pages_path.should eql("./lib/sites/bax/pages/*.rb")
   end
 
   it "should execute a flow with given parameters" do
