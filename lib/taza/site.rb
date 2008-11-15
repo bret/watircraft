@@ -80,7 +80,6 @@ module Taza
     def define_site_pages # :nodoc:
       Dir.glob(pages_path) do |file|
         require file
-
         page_name = File.basename(file,'.rb')
         page_class = "#{self.class.parent.to_s}::#{page_name.camelize}"
         self.class.class_eval <<-EOS
@@ -121,7 +120,7 @@ module Taza
     end
 
     def path # :nodoc:
-      File.join(base_path,'lib','sites',self.class.to_s.underscore)
+      File.join(base_path,'lib','sites',self.class.parent.to_s.underscore)
     end
     
     def base_path # :nodoc:
