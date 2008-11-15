@@ -6,24 +6,9 @@ require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
 describe "Page Generation" do
   include RubiGen::GeneratorTestHelper
+  include Helpers::Generator
+  include Helpers::Taza
 
-  def generate_site(site_name)
-    run_generator('site', [site_name], generator_sources)
-    site_file_path = File.join(PROJECT_FOLDER,'lib','sites',"#{site_name.underscore}.rb")
-    require site_file_path
-    "#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
-    site_file_path
-  end
-
-  def stub_settings
-    Taza::Settings.stubs(:config).returns({})
-  end
-
-  def stub_browser
-    stub_browser = stub()
-    stub_browser.stubs(:goto)
-    Taza::Browser.stubs(:create).returns(stub_browser)
-  end
   before :all do
     @site_name = "Gap"
     @page_name = "CheckOut"
