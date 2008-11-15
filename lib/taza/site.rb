@@ -121,8 +121,11 @@ module Taza
     end
 
     def path # :nodoc:
-      File.join('lib','sites',self.class.to_s.underscore)
+      File.join(base_path,'lib','sites',self.class.to_s.underscore)
     end
     
+    def base_path # :nodoc:
+      '.'
+    end
   end
 end
