@@ -25,11 +25,12 @@ end
 module Helpers
   module Generator
     def generate_site(site_name)
+      site_name = "#{site_name}#{Time.now.to_i}"
       run_generator('site', [site_name], generator_sources)
       site_file_path = File.join(PROJECT_FOLDER,'lib','sites',"#{site_name.underscore}.rb")
       require site_file_path
       "::#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
-      site_file_path
+      site_name.camelize.constantize
     end
   end
   
