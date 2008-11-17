@@ -81,7 +81,7 @@ module Taza
       Dir.glob(pages_path) do |file|
         require file
         page_name = File.basename(file,'.rb')
-        page_class = "#{self.class.parent.to_s}::#{page_name.camelize}"
+        page_class = "#{module_name}::#{page_name.camelize}"
         self.class.class_eval <<-EOS
         def #{page_name}
           page = '#{page_class}'.constantize.new
@@ -111,7 +111,7 @@ module Taza
     #  end
     def flow(name,params={})
       require File.join(path,'flows',name.to_s.underscore)
-      flow_class = "#{self.class.parent.to_s}::#{name.to_s.camelize}".constantize
+      flow_class = "#{module_name}::#{name.to_s.camelize}".constantize
       flow_class.new(self).run(params)
     end
 
@@ -126,5 +126,10 @@ module Taza
     def base_path # :nodoc:
       '.'
     end
+    
+    def module_name # :nodoc:
+      self.class.parent.to_s
+    end
+    
   end
 end
