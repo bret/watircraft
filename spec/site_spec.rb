@@ -64,14 +64,12 @@ describe Taza::Site do
   end
 
   it "should yield an instance of a page class" do
-    pending "we need to stop using sandbox files and use generators instead" do 
-      f = Foo.new(:browser => stub_browser)
-      barzor = nil
-      f.bar do |bar|
-        barzor = bar
-      end
-      barzor.should be_an_instance_of(Foo::Bar)
+    f = Foo.new(:browser => stub_browser)
+    barzor = nil
+    f.bar do |bar|
+      barzor = bar
     end
+    barzor.should be_an_instance_of(Bar)
   end
 
   it "should accept a browser instance" do
@@ -160,12 +158,10 @@ describe Taza::Site do
   end
 
   it "should pass its browser instance to its pages " do
-    pending "we need to stop using sandbox files and use generators instead" do 
-      browser = stub_browser
-      Taza::Browser.stubs(:create).returns(browser)
-      foo = Foo.new
-      foo.bar.browser.should eql(browser)
-    end
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    foo = Foo.new
+    foo.bar.browser.should eql(browser)
   end
 
   it "should have a way to evaluate a block of code before site closes the browser" do
