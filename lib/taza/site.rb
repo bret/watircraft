@@ -73,7 +73,7 @@ module Taza
     end
 
     def self.settings # :nodoc:
-      Taza::Settings.site_file(self.name)
+      Taza::Settings.site_file(self.name.to_s.split("::").last)
     end
 
     def close_browser_and_raise_if(original_error) # :nodoc:
