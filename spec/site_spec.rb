@@ -19,12 +19,10 @@ describe Taza::Site do
   end
 
   it "pages_path should contain the site class name" do
-    pending "we need to stop using sandbox files and use generators instead" do 
-      browser = stub_browser
-      Taza::Browser.stubs(:create).returns(browser)
-      Bax = Class.new(Taza::Site)
-      Bax.new.pages_path.should eql("./lib/sites/bax/pages/*.rb")
-    end
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    Bax = Class.new(Taza::Site)
+    Bax.new.pages_path.should eql("./lib/sites/bax/pages/*.rb")
   end
 
   it "should execute a flow with given parameters" do
@@ -39,15 +37,13 @@ describe Taza::Site do
   end
 
   it "should require a flow once it is called" do
-    pending "we need to stop using sandbox files and use generators instead" do 
-      browser = stub_browser
-      Taza::Browser.stubs(:create).returns(browser)
-      Class.constants.include?('Robin').should be_false
-      Bayz::Bayz = Class.new(Taza::Site)
-      Bayz::Bayz.any_instance.stubs(:path).returns('spec/sandbox')
-      Bayz.new.flow(:robin,{})
-      Bayz::Robin
-    end
+    browser = stub_browser
+    Taza::Browser.stubs(:create).returns(browser)
+    Class.constants.include?('Robin').should be_false
+    Bayz = Class.new(Taza::Site)
+    Bayz.any_instance.stubs(:path).returns('spec/sandbox')
+    Bayz.new.flow(:robin,{})
+    Robin
   end
 
   it "should create a browser using environment variables" do
