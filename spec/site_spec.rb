@@ -30,9 +30,9 @@ describe Taza::Site do
     Taza::Browser.stubs(:create).returns(browser)
     params = {}
     require 'spec/sandbox/flows/batman'
-    Barz::Batman.any_instance.expects(:run).with(params)
-    Barz::Barz = Class.new(Taza::Site)
-    Barz::Barz.any_instance.stubs(:path).returns('spec/sandbox')
+    Batman.any_instance.expects(:run).with(params)
+    Barz = Class.new(Taza::Site)
+    Barz.any_instance.stubs(:path).returns('spec/sandbox')
     Barz.new.flow(:batman,params)
   end
 
