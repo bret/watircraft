@@ -49,7 +49,7 @@ module Taza
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
       define_site_pages
-      config = Settings.config(self.class.to_s)
+      config = Settings.config(@class_name)
       if params[:browser]
         @browser = params[:browser]
       else

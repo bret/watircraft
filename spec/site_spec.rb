@@ -201,7 +201,20 @@ describe Taza::Site do
     browser.expects(:close).never
     Foo.new(:browser => browser) {}
   end
-
+  
+  it "should pass in the class name to settings config" do
+    
+    module Zoro
+      class Zoro < ::Taza::Site
+      end
+    end
+    browser = stub()
+    browser.stubs(:goto)
+    Taza::Browser.stubs(:create).returns(browser)
+    Taza::Settings.expects(:config).with('Zoro').returns({})
+    Zoro::Zoro.new
+  end
+  
   def stub_browser
     browser = stub()
     browser.stubs(:close)
