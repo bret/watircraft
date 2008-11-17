@@ -4,12 +4,12 @@ require 'activesupport'
 module Taza
   # An abstraction of a website, but more really a container for a sites pages.
   #
-  # You can generate a site by performing the following command: 
+  # You can generate a site by performing the following command:
   #   $ ./script/generate site google
   #
   # This will generate a site file for google, a flows folder, and a pages folder in lib
   #
-  # Example: 
+  # Example:
   #
   #   require 'taza'
   #
@@ -18,7 +18,7 @@ module Taza
   #   end
   class Site
     @@before_browser_closes = Proc.new() {}
-    # Use this to do something with the browser before it closes, but note that it is a class method which 
+    # Use this to do something with the browser before it closes, but note that it is a class method which
     # means that this will get called for any instance of a site.
     #
     # Here's an example of how you might use it to print the DOM output of a browser before it closes:
@@ -34,13 +34,13 @@ module Taza
     # A site can be called a few different ways
     #
     # The following example creates a new browser object and closes it:
-    #  Google.new do 
+    #  Google.new do
     #    google.search.set "taza"
     #    google.submit.click
     #  end
     #
     # This example will create a browser object but not close it:
-    #  Google.new.search.set "taza" 
+    #  Google.new.search.set "taza"
     #
     # Sites can take a couple of parameters in the constructor:
     #   :browser => a browser object to act on instead of creating one automatically
@@ -48,7 +48,12 @@ module Taza
     def initialize(params={})
       define_site_pages
       config = Settings.config(self.class.to_s)
-      @browser = params[:browser] || Browser.create(config)
+      if params[:browser]
+        @browser = params[:browser]
+      else
+        @browser = Browser.create(config)
+        @i_created_browser = true
+      end
       @browser.goto(params[:url] || config[:url])
 
       if block_given?
@@ -64,14 +69,16 @@ module Taza
         end
       end
     end
-    
+
     def self.settings # :nodoc:
       Taza::Settings.site_file(self.name)
     end
 
     def close_browser_and_raise_if(original_error) # :nodoc:
       begin
-        @browser.close
+        if @i_created_browser
+          @browser.close
+        end
       ensure
         raise original_error if original_error
       end
@@ -122,14 +129,14 @@ module Taza
     def path # :nodoc:
       File.join(base_path,'lib','sites',self.class.parent.to_s.underscore)
     end
-    
+
     def base_path # :nodoc:
       '.'
     end
-    
+
     def module_name # :nodoc:
       self.class.parent.to_s
     end
-    
+
   end
 end

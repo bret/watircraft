@@ -15,6 +15,7 @@ describe Taza::Site do
     ENV['driver'] = nil
     Taza::Settings.stubs(:config_file).returns({})
     Taza::Settings.stubs(:site_file).returns({})
+    Taza::Site.before_browser_closes {}
   end
 
   it "pages_path should contain the site class name" do
@@ -200,6 +201,13 @@ describe Taza::Site do
     browser.expects(:close)
     Taza::Site.before_browser_closes { |browser| raise StandardError, 'foo error' }
     lambda { Foo.new {} }.should raise_error(StandardError,'foo error')
+  end
+
+  it "should not close a browser it did not make" do
+    browser = stub()
+    browser.stubs(:goto)
+    browser.expects(:close).never
+    Foo.new(:browser => browser) {}
   end
 
   def stub_browser
