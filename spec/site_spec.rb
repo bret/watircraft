@@ -201,6 +201,15 @@ describe Taza::Site do
     browser.expects(:close).never
     Foo.new(:browser => browser) {}
   end
+
+  it "should close a browser it did make" do
+    browser = stub()
+    Taza::Browser.stubs(:create).returns(browser)
+    browser.stubs(:goto)
+    browser.expects(:close)
+    Foo.new() {}
+  end
+
     
   module Zoro
     class Zoro < ::Taza::Site

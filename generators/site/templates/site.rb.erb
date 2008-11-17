@@ -2,8 +2,8 @@ require 'rubygems'
 require 'taza'
 
 module <%= name.camelize %>
-  def self.new(params={})
-    <%= name.camelize %>.new(params)
+  def self.new(params={}, &block)
+		    <%= name.camelize %>.new(params,&block)
   end
   class <%= name.camelize %> < ::Taza::Site
 

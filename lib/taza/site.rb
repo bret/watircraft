@@ -76,7 +76,7 @@ module Taza
       Taza::Settings.site_file(self.name.to_s.split("::").last)
     end
 
-    def close_browser_and_raise_if(original_error) # :nodoc:
+    def close_browser_and_raise_if original_error # :nodoc:
       begin
         if @i_created_browser
           @browser.close
