@@ -1,0 +1,45 @@
+require 'rubygems'
+gem 'rspec', '>=1.0.8'
+gem 'spec_distributed', '>=0.0.3'
+require 'spec/rake/spectask'
+
+desc "Run Selenium Specs"
+Spec::Rake::SpecTask.new('spec:selenium') do |t|
+  t.spec_files = FileList['spec/selenium/**/*.rb']
+  t.spec_opts = [
+    '--color', '--diff',
+    '--require', 'rubygems,spec/ui', 
+    '--format', 'Spec::Ui::ScreenshotFormatter:doc/report/index.html',
+    '--format', 'progress'
+  ]
+  t.libs = ["../../lib"] # This line is not necessary if you have Spec::Ui installed as a gem
+end
+
+# IMPORTANT: If you use the master/slave mode you really ought to
+# run everything on different machines.
+
+desc "Run Selenium Specs as Spec::Distributed slave"
+Spec::Rake::SpecTask.new('spec:selenium:slave') do |t|
+  t.spec_files = FileList['spec/selenium/**/*.rb']
+  t.spec_opts = [
+    '--color', '--diff',
+    '--require', 'rubygems,spec/ui,spec/distributed', 
+    '--format', 'Spec::Ui::SlaveScreenshotFormatter:doc/report/index.html',
+    '--format', 'progress',
+    '--runner', 'Spec::Distributed::RindaSlaveRunner'
+  ]
+  t.libs = ["../../lib"] # This line is not necessary if you have Spec::Ui installed as a gem
+end
+
+desc "Run Selenium Specs as Spec::Distributed master"
+Spec::Rake::SpecTask.new('spec:selenium:master') do |t|
+  t.spec_files = FileList['spec/selenium/**/*.rb']
+  t.spec_opts = [
+    '--color', '--diff',
+    '--require', 'rubygems,spec/ui,spec/distributed', 
+    '--format', 'Spec::Ui::MasterScreenshotFormatter:doc/report/index.html',
+    '--format', 'progress',
+    '--runner', 'Spec::Distributed::RindaMasterRunner'
+  ]
+  t.libs = ["../../lib"] # This line is not necessary if you have Spec::Ui installed as a gem
+end
