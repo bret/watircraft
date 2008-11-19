@@ -14,3 +14,15 @@ module Taza
     PLATFORM.include?("darwin")
   end
 end
+
+module ForwardInitialization
+  module ClassMethods
+    def new(*args,&block)
+      const_get("#{name.split("::").last}").new(*args,&block)
+    end
+  end
+
+  def self.included(klass)
+    klass.extend(ClassMethods)
+  end
+end
