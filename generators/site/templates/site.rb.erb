@@ -2,9 +2,8 @@ require 'rubygems'
 require 'taza'
 
 module <%= name.camelize %>
-  def self.new(*args, &block)
-    <%= name.camelize %>.new(*args,&block)
-  end
+  include ForwardInitialization
+
   class <%= name.camelize %> < ::Taza::Site
 
   end
