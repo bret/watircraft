@@ -10,6 +10,11 @@ describe Taza::Page do
       browser
     end
   end
+
+  it "should execute an element's block with the params provided for its method" do
+    Taza::Page.element(:boo){|baz| baz}
+    Taza::Page.new.boo("rofl").should == "rofl"
+  end
   
   it "should execute elements and filters in the context of the page instance" do
     page = ElementAndFilterContextExample.new
