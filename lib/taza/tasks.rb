@@ -26,13 +26,21 @@ namespace :spec do
   namespace :functional do
     Dir.glob('./spec/functional/*/').each do |dir|
       site_name = File.basename(dir)
-
       desc "Run all functional specs for #{site_name}"
       Spec::Rake::SpecTask.new site_name.to_sym do |t|
         t.spec_files = "#{dir}**/*_spec.rb"
         t.spec_opts << format_options("functional/#{site_name}/all")
       end
-
+      namespace site_name.to_sym do
+        Dir.glob("./spec/functional/#{site_name}/*_spec.rb").each do |page_spec_file|
+          page_spec_name = File.basename(page_spec_file)
+          page_name = page_spec_name.chomp('_spec.rb')
+          Spec::Rake::SpecTask.new page_name.to_sym do |t|
+            t.spec_files = page_spec_file
+            t.spec_opts << format_options("functional/#{site_name}/#{page_name}")
+          end
+        end
+      end
     end
   end
 end
