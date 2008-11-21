@@ -15,10 +15,19 @@ describe "Taza Tasks" do
   end
 
   it "should create rake spec tasks for all sites" do
-    Dir.expects(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
+    Dir.stubs(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
+    Dir.stubs(:glob).with('./spec/functional/foo/*_spec.rb').returns([])
     load @file_name
     tasks.include?("spec:functional:foo").should be_true
   end
+
+  it "should create rake spec tasks for all sites page specs" do
+    Dir.expects(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
+    Dir.expects(:glob).with('./spec/functional/foo/*_spec.rb').returns(['./spec/functional/foo/page_spec.rb'])
+    load @file_name
+    tasks.include?("spec:functional:foo:page").should be_true
+  end
+
 
   def tasks
     @rake.tasks.collect{|task| task.name }
