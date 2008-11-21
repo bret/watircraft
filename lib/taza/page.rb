@@ -77,9 +77,9 @@ module Taza
 
     def add_element_method(params) # :nodoc:
       self.class.class_eval do
-        define_method(params[:element_name]) do
+        define_method(params[:element_name]) do |*args|
           check_filters(params)
-          self.instance_eval(&params[:element_block])
+          self.instance_exec(*args,&params[:element_block])
         end
       end
     end
