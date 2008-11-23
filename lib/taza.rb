@@ -5,7 +5,7 @@ require 'taza/settings'
 require 'taza/flow'
 
 module Taza
-  VERSION = '0.5.0'
+  VERSION = '0.8.0'
   
   def self.windows?
     PLATFORM.include?("mswin")  
