@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{taza}
-  s.version = "0.5.0"
+  s.version = "0.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Anderson"]
-  s.date = %q{2008-11-18}
+  s.date = %q{2008-11-24}
   s.default_executable = %q{taza}
   s.description = %q{Taza is meant to make acceptance testing more sane for developers(or QA where applicable) and customers.}
   s.email = ["adamandersonis@gmail.com"]
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.txt"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{taza}
-  s.rubygems_version = %q{1.3.1}
+  s.rubygems_version = %q{1.3.0}
   s.summary = %q{Taza is meant to make acceptance testing more sane for developers(or QA where applicable) and customers.}
 
   if s.respond_to? :specification_version then
