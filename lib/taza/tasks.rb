@@ -4,6 +4,8 @@ require 'rubygems'
 require 'taglob/rake/tasks'
 require 'spec/rake/spectask'
 
+TAGS = ENV['TAGS']
+
 namespace :spec do
   def format_options(file_name)
     file_name = "artifacts/#{file_name}/index.html"
@@ -14,12 +16,12 @@ namespace :spec do
 
   desc "Run all functional specs"
   Spec::Rake::SpecTask.new :functional do |t|
-    t.spec_files = 'spec/functional/**/*_spec.rb'
+    t.spec_files = Dir.taglob('spec/functional/**/*_spec.rb',TAGS)
     t.spec_opts << format_options("functional/all")
   end
   desc "Run all integration specs"
   Spec::Rake::SpecTask.new :integration do |t|
-    t.spec_files = 'spec/integration/**/*_spec.rb'
+    t.spec_files = Dir.taglob('spec/integration/**/*_spec.rb',TAGS)
     t.spec_opts << format_options("integration/all")
   end
 
@@ -28,7 +30,7 @@ namespace :spec do
       site_name = File.basename(dir)
       desc "Run all functional specs for #{site_name}"
       Spec::Rake::SpecTask.new site_name.to_sym do |t|
-        t.spec_files = "#{dir}**/*_spec.rb"
+        t.spec_files = Dir.taglob("#{dir}**/*_spec.rb",TAGS)
         t.spec_opts << format_options("functional/#{site_name}/all")
       end
       namespace site_name.to_sym do
