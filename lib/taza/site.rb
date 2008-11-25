@@ -78,9 +78,7 @@ module Taza
 
     def close_browser_and_raise_if original_error # :nodoc:
       begin
-        if @i_created_browser
-          @browser.close
-        end
+        @browser.close if @i_created_browser
       ensure
         raise original_error if original_error
       end
