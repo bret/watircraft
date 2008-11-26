@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'rubygems'
 require 'rake'
+require 'taglob'
 
 describe "Taza Tasks" do
 
@@ -8,6 +9,10 @@ describe "Taza Tasks" do
     @file_name ="./lib/taza/tasks.rb"
     @rake = Rake::Application.new
     Rake.application = @rake
+  end
+
+  before :each do
+    Dir.stubs(:taglob).returns([])
   end
 
   after :all do
