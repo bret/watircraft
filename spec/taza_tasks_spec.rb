@@ -23,6 +23,7 @@ describe "Taza Tasks" do
     Dir.stubs(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
     Dir.stubs(:glob).with('./spec/functional/foo/*_spec.rb').returns([])
     load @file_name
+    Taza::Rake::Tasks.new
     tasks.include?("spec:functional:foo").should be_true
   end
 
@@ -30,6 +31,7 @@ describe "Taza Tasks" do
     Dir.expects(:glob).with('./spec/functional/*/').returns(['./spec/functional/foo/'])
     Dir.expects(:glob).with('./spec/functional/foo/*_spec.rb').returns(['./spec/functional/foo/page_spec.rb'])
     load @file_name
+    Taza::Rake::Tasks.new
     tasks.include?("spec:functional:foo:page").should be_true
   end
 
