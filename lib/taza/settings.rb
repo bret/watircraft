@@ -4,11 +4,11 @@ module Taza
   class Settings
     def self.config(site_name)
       env_settings = {}
-      env_settings[:browser] = ENV['browser'].to_sym if ENV['browser']
-      env_settings[:driver]  = ENV['driver'].to_sym if ENV['driver']
-      env_settings[:timeout] = ENV['timeout'] if ENV['timeout']
-      env_settings[:server_ip] = ENV['server_ip'] if ENV['server_ip']
-      env_settings[:server_port] = ENV['server_port'] if ENV['server_port']
+      env_settings[:browser] = ENV['BROWSER'].to_sym if ENV['BROWSER']
+      env_settings[:driver]  = ENV['DRIVER'].to_sym if ENV['DRIVER']
+      env_settings[:timeout] = ENV['TIMEOUT'] if ENV['TIMEOUT']
+      env_settings[:server_ip] = ENV['SERVER_IP'] if ENV['SERVER_IP']
+      env_settings[:server_port] = ENV['SERVER_PORT'] if ENV['SERVER_PORT']
       env_settings = {:browser=>:firefox,:driver=>:selenium}.merge(config_file.merge(env_settings))
       site_file(site_name).merge(env_settings)
     end
