@@ -34,7 +34,7 @@ module Taza
     end
         
   end
+
+  class BrowserUnsupportedError < StandardError; end
 end
 
-class BrowserUnsupportedError < StandardError
-end
