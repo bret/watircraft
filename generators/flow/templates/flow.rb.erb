@@ -1,11 +1,8 @@
 require 'rubygems'
-require 'taza/flow'
 
 module <%= site_name.camelize %>
-  class <%= name.camelize %> < ::Taza::Flow
-    alias :<%= site_name.underscore %> :site
-
-    def run(params={})
+  class <%= site_name.camelize %> < ::Taza::Site
+    def <%= name.underscore %>_flow(params={})
       
     end
   end

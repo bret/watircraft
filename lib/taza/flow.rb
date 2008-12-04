@@ -12,15 +12,15 @@ module Taza
   #
   #   From here you can create the logic needed to perform these flows without ever referencing a browser object:
   #
-  #   class CreateAnAccount < Taza::Flow
-  #     alias :widgets_of_the_future :site
-  #
-  #     def run(params={})
-  #       widgets_of_the_future.home_page.create_an_account_link.click
-  #       widgets_of_the_future.create_an_account_page do |cap|
-  #         cap.email.set params[:email]
-  #         cap.password.set params[:password]
-  #         cap.submit.click
+  #   module WidgetsOfTheFuture
+  #     class WidgetsOfTheFuture < Taza::Site
+  #       def create_an_account_flow(params={})
+  #         home_page.create_an_account_link.click
+  #         create_an_account_page do |cap|
+  #           cap.email.set params[:email]
+  #           cap.password.set params[:password]
+  #           cap.submit.click
+  #         end
   #       end
   #     end
   #   end
@@ -31,15 +31,10 @@ module Taza
   #   describe "Widgets of the Future" do
   #     it "should do widgety things so that we can make more monies" do
   #       WidgetsOfTheFuture.new do |w|
-  #         w.flow :create_an_account, :email => "i.am@the.widget.store.com", :password => "secret"
+  #         w.create_an_account_flow :email => "i.am@the.widget.store.com", :password => "secret"
   #       end
   #     end
   #   end
   class Flow
-    attr_reader :site
-
-    def initialize(site_instance)
-      @site = site_instance
-    end
   end
 end

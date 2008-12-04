@@ -4,19 +4,7 @@ require 'fileutils'
 require 'taza'
 require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
-class Taza::Site
-  def flows
-    flows = []
-    Dir.glob(File.join(path,'flows','*.rb')).each do |file|
-      require file
-
-      flows << "#{self.class.parent.to_s}::#{File.basename(file,'.rb').camelize}".constantize
-    end
-    flows
-  end
-end
-
-describe "Flow Generation" do
+describe "Partial Generation" do
   include RubiGen::GeneratorTestHelper
   include Helpers::Generator
   include Helpers::Taza
@@ -25,7 +13,7 @@ describe "Flow Generation" do
     @site_name = "Foo"
     @site_folder = File.join(PROJECT_FOLDER,'lib','sites',"gap")
     @site_file = File.join(PROJECT_FOLDER,'lib','sites',"gap.rb")
-    @flow_name = "CheckOut"
+    @partial_name = "Header"
   end
 
   before :each do
@@ -38,14 +26,14 @@ describe "Flow Generation" do
   end
 
   it "should give you usage if you do not give two arguments" do
-    FlowGenerator.any_instance.expects(:usage)
-    lambda { run_generator('flow', [@flow_name], generator_sources) }.should raise_error
+    PartialGenerator.any_instance.expects(:usage)
+    lambda { run_generator('partial', [@partial_name], generator_sources) }.should raise_error
   end
 
   it "should give you usage if you give a site that does not exist" do
-    FlowGenerator.any_instance.expects(:usage)
+    PartialGenerator.any_instance.expects(:usage)
     $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('flow', [@flow_name,"NoSuchSite"], generator_sources) }.should raise_error
+    lambda { run_generator('partial', [@partial_name,"NoSuchSite"], generator_sources) }.should raise_error
   end
 
 end

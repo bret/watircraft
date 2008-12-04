@@ -2,36 +2,38 @@ require 'rubygems'
 require 'rubigen'
 require 'activesupport'
 
-class SiteGenerator < RubiGen::Base
+class PartialGenerator < RubiGen::Base
   default_options :author => nil
-  attr_reader :name
+  attr_reader :site_name,:name
 
   def initialize(runtime_args, runtime_options = {})
     super
-    usage if args.empty?
+    usage if args.size != 2
     @name = args.shift
+    @site_name=args.shift
+    check_if_site_exists
     extract_options
+  end
+
+  def check_if_site_exists
+    unless File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
+      $stderr.puts "******No such site #{site_name} exists.******"
+      usage
+    end
   end
 
   def manifest
     record do |m|
-      site_path = File.join('lib','sites')
-      m.template "site.rb.erb", File.join(site_path,"#{name.underscore}.rb")
-      m.directory File.join(site_path,"#{name.underscore}")
-      m.directory File.join(site_path,("#{name.underscore}"),"flows")
-      m.directory File.join(site_path,("#{name.underscore}"),"pages")
-      m.directory File.join(site_path,("#{name.underscore}"),"pages","partials")
-      m.directory File.join('spec','functional',name.underscore)
-      m.template "site.yml.erb", File.join('config',"#{name.underscore}.yml")
+      m.template "partial.rb.erb", File.join('lib','sites', site_name.underscore, "pages", "partials",  "#{name.underscore}.rb")
     end
   end
 
   protected
   def banner
     <<-EOS
-    Creates a taza site.
+    Creates a taza partial for a given taza site, site you are making a partial for must exist first.
 
-    USAGE: #{$0} #{spec.name} name
+    USAGE: #{$0} #{spec.name} partial_name site_name
     EOS
   end
 
@@ -52,5 +54,4 @@ class SiteGenerator < RubiGen::Base
     # raw instance variable value.
     # @author = options[:author]
   end
-
 end

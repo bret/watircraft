@@ -25,6 +25,7 @@ class TazaGenerator < RubiGen::Base
       m.directory File.join('lib','flows')
       m.directory File.join('spec','functional')
       m.directory File.join('spec','integration')
+      m.directory File.join('spec','story')
       
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", File.join("config","config.yml")
