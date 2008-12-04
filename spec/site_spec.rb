@@ -11,8 +11,8 @@ describe Taza::Site do
 
   before :each do
     Foo.any_instance.stubs(:pages_path).returns(@pages_path)
-    ENV['browser'] = nil
-    ENV['driver'] = nil
+    ENV['BROWSER'] = nil
+    ENV['DRIVER'] = nil
     Taza::Settings.stubs(:config_file).returns({})
     Taza::Settings.stubs(:site_file).returns({})
     Taza::Site.before_browser_closes {}
@@ -50,8 +50,8 @@ describe Taza::Site do
     browser = stub_browser
     browser.stubs(:goto)
     Taza::Browser.expects(:create_watir_ie).returns browser
-    ENV['browser'] = 'ie'
-    ENV['driver'] = 'watir'
+    ENV['BROWSER'] = 'ie'
+    ENV['DRIVER'] = 'watir'
     f = Foo.new
   end
 

@@ -9,11 +9,11 @@ describe Taza::Browser do
   before :each do
     Taza::Settings.stubs(:config_file).returns({})
     ENV['TAZA_ENV'] = 'isolation'
-    ENV['server_port'] = nil
-    ENV['server_ip'] = nil
-    ENV['browser'] = nil
-    ENV['driver'] = nil
-    ENV['timeout'] = nil
+    ENV['SERVER_PORT'] = nil
+    ENV['SERVER_IP'] = nil
+    ENV['BROWSER'] = nil
+    ENV['DRIVER'] = nil
+    ENV['TIMEOUT'] = nil
   end
 
   it "should be able to create a watir driver" do
@@ -52,15 +52,15 @@ describe Taza::Browser do
 
   it "should use environment settings for server port and ip" do
     Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
-    ENV['server_port'] = 'server_port'
-    ENV['server_ip'] = 'server_ip'
+    ENV['SERVER_PORT'] = 'server_port'
+    ENV['SERVER_IP'] = 'server_ip'
     Selenium::SeleniumDriver.expects(:new).with('server_ip','server_port',anything,anything)
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
 
   it "should use environment settings for timeout" do
     Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
-    ENV['timeout'] = 'timeout'
+    ENV['TIMEOUT'] = 'timeout'
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
