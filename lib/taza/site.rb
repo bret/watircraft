@@ -125,7 +125,7 @@ module Taza
     #  end
 
     def pages_path # :nodoc:
-      File.join(path,'pages','*.rb')
+      File.join(path,'pages','**','*.rb')
     end
 
     def flows_path # :nodoc:

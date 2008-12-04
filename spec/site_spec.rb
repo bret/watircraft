@@ -5,7 +5,7 @@ require 'taza'
 describe Taza::Site do
 
   before :all do
-    @pages_path = File.join("spec","sandbox","pages","foo","*.rb")
+    @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
     @flows_path = File.join("spec","sandbox","flows","*.rb")
     Foo = Class.new(Taza::Site)
   end
@@ -23,7 +23,7 @@ describe Taza::Site do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql("./lib/sites/bax/pages/*.rb")
+    Bax.new.pages_path.should eql("./lib/sites/bax/pages/**/*.rb")
   end
 
   it "should have flows defined as instance methods" do
@@ -137,6 +137,7 @@ describe Taza::Site do
       site.should respond_to(:bar)
     end
   end
+
   it "should yield after browser has been setup" do
     Taza::Browser.stubs(:create).returns(stub_browser)
     klass = Class::new(Taza::Site)
@@ -151,6 +152,15 @@ describe Taza::Site do
     Taza::Browser.stubs(:create).returns(browser)
     foo = Foo.new
     foo.bar.browser.should eql(browser)
+  end
+
+  it "should add partials defined under the pages directory" do
+    Taza::Browser.stubs(:create).returns(stub_browser)
+    klass = Class::new(Taza::Site)
+    klass.any_instance.stubs(:pages_path).returns(@pages_path)
+    klass.new do |site|
+      site.partial_the_reckoning
+    end
   end
 
   it "should have a way to evaluate a block of code before site closes the browser" do
