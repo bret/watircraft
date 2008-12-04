@@ -15,6 +15,7 @@ lib/app_generators/taza/taza_generator.rb
 lib/app_generators/taza/templates/config.yml.erb
 lib/app_generators/taza/templates/rakefile.rb.erb
 lib/app_generators/taza/templates/spec_helper.rb.erb
+lib/extensions/object.rb
 lib/taza.rb
 lib/taza/browser.rb
 lib/taza/browsers/ie_watir.rb
