@@ -10,13 +10,13 @@ describe Taza::Settings do
   
   before :each do
     ENV['TAZA_ENV'] = 'isolation'
-    ENV['browser'] = nil
-    ENV['driver'] = nil
+    ENV['BROWSER'] = nil
+    ENV['DRIVER'] = nil
   end
 
   it "should use environment variable for browser settings" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    ENV['browser'] = 'foo'
+    ENV['BROWSER'] = 'foo'
     Taza::Settings.config(@site_name)[:browser].should eql(:foo)
   end
   
@@ -28,7 +28,7 @@ describe Taza::Settings do
   
   it "should use environment variable for driver settings" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    ENV['driver'] = 'bar'
+    ENV['DRIVER'] = 'bar'
     Taza::Settings.config(@site_name)[:driver].should eql(:bar)
   end
   
@@ -50,7 +50,7 @@ describe Taza::Settings do
   end
 
   it "should use the ENV variables if specfied instead of config files" do
-    ENV['browser'] = 'opera'
+    ENV['BROWSER'] = 'opera'
     Taza::Settings.expects(:config_file).returns({:browser => :fu})
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     Taza::Settings.config(@site_name)[:browser].should eql(:opera)
