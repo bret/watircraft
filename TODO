@@ -1,4 +1,4 @@
-Already spiked:
+Done:
 + Tagging test's (resolution: taglob)
 + sites and pages (resolution: Taza::Site)
 + generators for rakefile (resolution: uhh we made one?)
@@ -10,10 +10,10 @@ Already spiked:
 + block teardown of browser if yield is given for site
 + gem dependencies via hoe.(taglob,rake,rspec,mocha)
 + getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
-Not yet spiked:
++ mocks
 
 taza 
- - mocks
+ - get rid of all the dumb ^M windows line endings
  - url resolving
  - ability to change yaml for a site
  - ability to run integration tests for just a site
