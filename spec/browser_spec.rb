@@ -32,7 +32,7 @@ describe Taza::Browser do
   end
 
   it "should raise unknown browser error for unsupported watir browsers" do
-    lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(BrowserUnsupportedError)
+    lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(Taza::BrowserUnsupportedError)
   end
 
   it "should use params browser type when creating selenium" do
