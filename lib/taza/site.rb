@@ -49,6 +49,7 @@ module Taza
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
       define_site_pages
+      define_flows
       config = Settings.config(@class_name)
       if params[:browser]
         @browser = params[:browser]
@@ -100,6 +101,12 @@ module Taza
       end
     end
 
+    def define_flows # :nodoc:
+      Dir.glob(flows_path) do |file|
+        require file
+      end
+    end
+
     # This is used to call a flow belonging to the site
     #
     # Example:
@@ -116,14 +123,13 @@ module Taza
     #      google.submit.click
     #    end
     #  end
-    def flow(name,params={})
-      require File.join(path,'flows',name.to_s.underscore)
-      flow_class = "#{@module_name}::#{name.to_s.camelize}".constantize
-      flow_class.new(self).run(params)
-    end
 
     def pages_path # :nodoc:
       File.join(path,'pages','*.rb')
+    end
+
+    def flows_path # :nodoc:
+      File.join(path,'flows','*.rb')
     end
 
     def path # :nodoc:
