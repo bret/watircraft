@@ -1,0 +1,10 @@
+require 'rubygems'
+require 'taza'
+
+module <%= name.camelize %>
+  include ForwardInitialization
+
+  class <%= name.camelize %> < ::Taza::Site
+
+  end
+end
