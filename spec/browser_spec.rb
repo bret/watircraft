@@ -17,17 +17,17 @@ describe Taza::Browser do
   end
 
   it "should be able to create a watir driver" do
-    Taza::Browser.expects(:create_watir_ie)
+    Taza::Browser.expects(:watir_ie).returns(Object)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
   end
 
   it "should be able to create a firewatir driver" do
-    Taza::Browser.expects(:create_watir_firefox)
+    Taza::Browser.expects(:watir_firefox).returns(Object)
     Taza::Browser.create(:browser => :firefox,:driver => :watir)
   end
 
   it "should be able to create a safariwatir driver" do
-    Taza::Browser.expects(:create_watir_safari)
+    Taza::Browser.expects(:watir_safari).returns(Object)
     Taza::Browser.create(:browser => :safari,:driver => :watir)
   end
 
@@ -69,4 +69,9 @@ describe Taza::Browser do
     FireWatir::Firefox.expects(:new)
     Taza::Browser.create(:browser => :firefox, :driver => :watir)
   end
+  
+  it "should be able to give you the class of browser" do
+    Taza::Browser.browser_class(:browser => :firefox, :driver => :watir)    
+  end
+  
 end

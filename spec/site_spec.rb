@@ -38,7 +38,9 @@ describe Taza::Site do
   it "should create a browser using environment variables" do
     browser = stub_browser
     browser.stubs(:goto)
-    Taza::Browser.expects(:create_watir_ie).returns browser
+    stub_browser_class = stub
+    stub_browser_class.stubs(:new).returns(browser)
+    Taza::Browser.expects(:watir_ie).returns stub_browser_class
     ENV['BROWSER'] = 'ie'
     ENV['DRIVER'] = 'watir'
     f = Foo.new
