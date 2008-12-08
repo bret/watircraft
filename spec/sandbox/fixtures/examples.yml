@@ -1,0 +1,6 @@
+first_example:
+  name: first
+  price: 1
+second_example:
+  name: second
+  price: 2
