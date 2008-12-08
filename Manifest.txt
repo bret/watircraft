@@ -19,6 +19,8 @@ lib/app_generators/taza/templates/rakefile.rb.erb
 lib/app_generators/taza/templates/spec_helper.rb.erb
 lib/extensions/object.rb
 lib/taza.rb
+lib/taza/fixture.rb
+lib/taza/entity.rb
 lib/taza/browser.rb
 lib/taza/browsers/ie_watir.rb
 lib/taza/browsers/safari_watir.rb
