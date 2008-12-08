@@ -1,6 +1,5 @@
 require 'spec/spec_helper'
-require 'rubygems'
-require 'taza/fixture'
+require 'taza'
 
 describe Taza::Fixture do
   
@@ -16,8 +15,4 @@ describe Taza::Fixture do
     example.price.should eql(1)
   end
   
-  it "should foo" do
-    entry = Taza::Entity.new({'apple' => 'pie'})
-    entry.apple.should eql('pie')
-  end
 end
