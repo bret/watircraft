@@ -1,8 +1,8 @@
 module Taza
   class Browser
-    def self.create_watir_ie
+    def self.watir_ie
       require 'watir'
-      Watir::IE.new
+      Watir::IE
     end
   end
 end

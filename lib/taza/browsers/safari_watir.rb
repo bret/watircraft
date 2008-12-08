@@ -1,8 +1,8 @@
 module Taza
   class Browser
-    def self.create_watir_safari
+    def self.watir_safari
       require 'safariwatir'
-      Watir::Safari.new
+      Watir::Safari
     end
   end
 end
