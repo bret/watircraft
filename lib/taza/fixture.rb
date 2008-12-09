@@ -24,12 +24,11 @@ module Taza
     end
     
     def fixtures_pattern
-      base_path + '/fixtures/*.yml'
+      File.join(base_path, 'fixtures','*.yml')
     end
 
-    #todo unit and
     def base_path
-      '.'
+      File.join('.','spec')
     end
   end
 
@@ -43,7 +42,6 @@ module Taza
         super
       end
     end
-    
-
   end
+
 end
