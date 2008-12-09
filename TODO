@@ -18,3 +18,5 @@ taza
  - ability to change yaml for a site
  - ability to run integration tests for just a site
  - clean all the config tests
+ - add test/spec support for generators
+ - add test/spec support for fixtures

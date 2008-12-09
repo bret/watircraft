@@ -30,7 +30,10 @@ lib/taza/settings.rb
 lib/taza/site.rb
 lib/taza/tasks.rb
 spec/browser_spec.rb
+spec/entity_spec.rb
 spec/flow_generator_spec.rb
+spec/fixture_spec.rb
+spec/fixture_methods_spec.rb
 spec/object_spec.rb
 spec/page_generator_spec.rb
 spec/page_spec.rb
