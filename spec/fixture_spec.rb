@@ -23,5 +23,12 @@ describe Taza::Fixture do
   it "should use the spec folder as the base path" do
     Taza::Fixture.new.base_path.should eql('./spec')
   end
+
+  it "should use the spec folder as the base path" do
+    Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
+    fixture = Taza::Fixture.new
+    fixture.load_all
+    fixture.pluralized_fixture_exists?('example').should be_true
+  end
   
 end
