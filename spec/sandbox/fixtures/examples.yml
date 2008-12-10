@@ -1,6 +1,8 @@
 first_example:
   name: first
+  user: shatner
   price: 1
 second_example:
   name: second
   price: 2
+  user: shatner

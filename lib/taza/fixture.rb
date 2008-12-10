@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'activesupport'
+
 module Taza
   class Fixture
 
@@ -14,7 +17,11 @@ module Taza
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
     end
-
+        
+    def pluralized_fixture_exists?(singularized_fixture_name)
+      has_fixture_file?(singularized_fixture_name.pluralize.to_sym)
+    end
+    
     def fixtures(fixture)
       @fixtures[fixture]
     end
