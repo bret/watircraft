@@ -12,4 +12,8 @@ describe Taza::Fixture_methods do
     examples(:first_example).name.should eql('first')
   end
   
+  it "should still raise method missing error" do
+    lambda{zomgwtf(:first_example)}.should raise_error(NoMethodError)
+  end
+  
 end
