@@ -4,6 +4,7 @@ require 'taza/browser'
 require 'taza/settings'
 require 'taza/flow'
 require 'extensions/object'
+require 'extensions/string'
 require 'taza/fixture'
 require 'taza/entity'
 
