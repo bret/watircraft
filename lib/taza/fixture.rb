@@ -36,7 +36,7 @@ module Taza
     end
   end
 
-  module Fixture_methods
+  module Fixtures
     def method_missing(method, *args)
       fixture = Fixture.new
       fixture.load_all
