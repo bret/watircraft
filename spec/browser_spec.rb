@@ -2,7 +2,6 @@ require 'spec/spec_helper'
 require 'taza/browser'
 require 'taza/settings'
 require 'selenium'
-require 'firewatir'
 
 describe Taza::Browser do
 
@@ -65,13 +64,9 @@ describe Taza::Browser do
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
 
-  it "should create firewatir instance" do
-    FireWatir::Firefox.expects(:new)
-    Taza::Browser.create(:browser => :firefox, :driver => :watir)
-  end
-  
   it "should be able to give you the class of browser" do
-    Taza::Browser.browser_class(:browser => :firefox, :driver => :watir)    
+    Taza::Browser.expects(:watir_safari).returns(Object)
+    Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object) 
   end
   
 end
