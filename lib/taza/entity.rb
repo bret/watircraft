@@ -3,6 +3,10 @@ module Taza
     def initialize(hash,fixture)
       @hash = hash
       @fixture = fixture
+      define_methods_for_hash_keys
+    end
+    
+    def define_methods_for_hash_keys
       @hash.keys.each do |key|
         self.instance_eval <<-EOS
         def #{key}
