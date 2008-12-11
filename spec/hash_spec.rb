@@ -1,9 +1,8 @@
 require 'spec/spec_helper'
-require 'taza/entity'
 
-describe 'Taza::Entity' do
+describe 'Hash Extensions' do
   it "should add methods for hash string keys" do
-    entry = Taza::Entity.new({'apple' => 'pie'})
+    entry = {'apple' => 'pie'}.add_hash_keys_as_methods
     entry.apple.should eql('pie')
   end
 end

@@ -9,12 +9,12 @@ module Taza
       Dir.glob(fixtures_pattern) do |file|
         entitized_fixture = {}
         YAML.load_file(file).each do |key, value|
-          entitized_fixture[key] = Entity.new(value)
+          entitized_fixture[key] = value.add_hash_keys_as_methods
         end
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
     end
-
+    
     def replace_one_to_one_relationship_keys_with_values(input_value)
       input_value.each do |key,value|
         if(pluralized_fixture_exists?(key))
