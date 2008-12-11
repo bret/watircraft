@@ -32,12 +32,4 @@ describe Taza::Fixture do
     fixture.pluralized_fixture_exists?('foo').should be_false
   end
 
-  it "should use the spec folder as the base path" do
-    Taza::Fixture.any_instance.stubs(:base_path).returns('./spec/sandbox')
-    fixture = Taza::Fixture.new
-    fixture.load_all
-    hash = fixture.replace_one_to_one_relationship_keys_with_values({'user' => 'shatner'})
-    hash['user'].name.should eql("William Shatner")
-  end
-  
 end
