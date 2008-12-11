@@ -14,16 +14,7 @@ module Taza
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
     end
-    
-    def replace_one_to_one_relationship_keys_with_values(input_value)
-      input_value.each do |key,value|
-        if(pluralized_fixture_exists?(key))
-          input_value[key] = get_fixture_entity(key,value)
-        end
-      end
-      input_value
-    end
-    
+
     def get_fixture_entity(singular_fixture_file_key,entity_key)
       @fixtures[singular_fixture_file_key.pluralize_to_sym][entity_key]
     end
