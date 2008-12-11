@@ -8,6 +8,7 @@ require 'taza/fixture'
 require 'extensions/object'
 require 'extensions/string'
 require 'extensions/hash'
+require 'extensions/array'
 
 module Taza
   VERSION = '0.8.0'
