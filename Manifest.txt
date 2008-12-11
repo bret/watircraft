@@ -18,6 +18,8 @@ lib/app_generators/taza/templates/config.yml.erb
 lib/app_generators/taza/templates/rakefile.rb.erb
 lib/app_generators/taza/templates/spec_helper.rb.erb
 lib/extensions/object.rb
+lib/extensions/string.rb
+lib/extensions/hash.rb
 lib/taza.rb
 lib/taza/fixture.rb
 lib/taza/entity.rb
