@@ -5,8 +5,8 @@ require 'taza/settings'
 require 'taza/flow'
 require 'extensions/object'
 require 'extensions/string'
+require 'extensions/hash'
 require 'taza/fixture'
-require 'taza/entity'
 
 module Taza
   VERSION = '0.8.0'
