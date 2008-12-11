@@ -3,10 +3,11 @@ require 'taza/site'
 require 'taza/browser'
 require 'taza/settings'
 require 'taza/flow'
+require 'taza/entity'
+require 'taza/fixture'
 require 'extensions/object'
 require 'extensions/string'
 require 'extensions/hash'
-require 'taza/fixture'
 
 module Taza
   VERSION = '0.8.0'
