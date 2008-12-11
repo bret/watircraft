@@ -42,12 +42,12 @@ module Taza
   
   module Fixtures
     def Fixtures.included(other_module)
-      fixtures = Fixture.new
-      fixtures.load_all
-      fixtures.fixtures.each do |fixture|
+      zoo = Fixture.new
+      zoo.load_all
+      zoo.fixtures.each do |fixture|
         self.class_eval do
           define_method(fixture) do |entity_key|
-            fixtures.get_fixture_entity(fixture,entity_key.to_s)
+            zoo.get_fixture_entity(fixture,entity_key.to_s)
           end
         end
       end
