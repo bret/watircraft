@@ -9,7 +9,7 @@ module Taza
       Dir.glob(fixtures_pattern) do |file|
         entitized_fixture = {}
         YAML.load_file(file).each do |key, value|
-          entitized_fixture[key] = value.add_hash_keys_as_methods(self)
+          entitized_fixture[key] = value.convert_hash_keys_to_methods(self)
         end
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
