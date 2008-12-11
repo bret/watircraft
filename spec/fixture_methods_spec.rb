@@ -16,4 +16,8 @@ describe Taza::Fixture_methods do
     lambda{zomgwtf(:first_example)}.should raise_error(NoMethodError)
   end
   
+  it "should be able to look up a fixture entity off fixture_methods module" do
+    examples(:first_example).user.name.should eql(users(:shatner).name)
+  end
+  
 end
