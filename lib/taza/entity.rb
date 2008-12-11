@@ -9,13 +9,13 @@ module Taza
     def define_methods_for_hash_keys
       @hash.keys.each do |key|
         create_method(key) do
-          lookup_other_fixture_or_get_value(key)
+          get_value_for_entry(key)
         end
       end
     end
 
-    def lookup_other_fixture_or_get_value(key)
-      if(@fixture.pluralized_fixture_exists?(key))
+    def get_value_for_entry(key)
+      if @fixture.pluralized_fixture_exists?(key)
         @fixture.get_fixture_entity(key.pluralize_to_sym,@hash[key])
       else
         @hash[key]
