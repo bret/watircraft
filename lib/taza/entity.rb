@@ -7,7 +7,7 @@ module Taza
         self.instance_eval <<-EOS
         def #{key}
           if(@fixture.pluralized_fixture_exists?('#{key}'))
-            @fixture.get_fixture_entity('#{key}',@hash['#{key}'])
+            @fixture.get_fixture_entity('#{key}'.pluralize_to_sym,@hash['#{key}'])
           else
             @hash['#{key}']
           end

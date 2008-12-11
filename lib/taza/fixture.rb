@@ -14,9 +14,13 @@ module Taza
         @fixtures[File.basename(file,'.yml').to_sym] = entitized_fixture
       end
     end
-
-    def get_fixture_entity(singular_fixture_file_key,entity_key)
-      @fixtures[singular_fixture_file_key.pluralize_to_sym][entity_key]
+    
+    def fixtures
+      @fixtures.keys
+    end
+    
+    def get_fixture_entity(fixture_file_key,entity_key)
+      @fixtures[fixture_file_key][entity_key]
     end
 
     def pluralized_fixture_exists?(singularized_fixture_name)
@@ -35,15 +39,17 @@ module Taza
       File.join('.','spec')
     end
   end
-
+  
   module Fixtures
-    def method_missing(method, *args)
-      fixture = Fixture.new
-      fixture.load_all
-      if fixture.has_fixture_file?(method)
-        fixture.get_fixture_entity(method.to_s,args.first.to_s)
-      else
-        super
+    def Fixtures.included(other_module)
+      fixtures = Fixture.new
+      fixtures.load_all
+      fixtures.fixtures.each do |fixture|
+        self.class_eval do
+          define_method(fixture) do |entity_key|
+            fixtures.get_fixture_entity(fixture,entity_key.to_s)
+          end
+        end
       end
     end
   end
