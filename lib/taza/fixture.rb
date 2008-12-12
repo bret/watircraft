@@ -24,7 +24,7 @@ module Taza
     end
 
     def pluralized_fixture_exists?(singularized_fixture_name)
-      @fixtures.keys.include?(singularized_fixture_name.pluralize_to_sym)
+      fixture_names.include?(singularized_fixture_name.pluralize_to_sym)
     end
 
     def fixtures_pattern
