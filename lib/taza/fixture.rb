@@ -24,11 +24,7 @@ module Taza
     end
 
     def pluralized_fixture_exists?(singularized_fixture_name)
-      has_fixture_file?(singularized_fixture_name.pluralize_to_sym)
-    end
-
-    def has_fixture_file?(fixture)
-      @fixtures.keys.include?(fixture)
+      @fixtures.keys.include?(singularized_fixture_name.pluralize_to_sym)
     end
 
     def fixtures_pattern
