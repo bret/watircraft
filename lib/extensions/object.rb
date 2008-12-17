@@ -3,6 +3,7 @@ if VERSION <= '1.8.6'
   class Object
     module InstanceExecHelper; end
     include InstanceExecHelper
+    # instance_exec method evaluates a block of code relative to the specified object, with parameters whom come from outside the object.
     def instance_exec(*args, &block)
       begin
         old_critical, Thread.critical = Thread.critical, true
