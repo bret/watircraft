@@ -2,6 +2,15 @@ require 'activesupport'
 
 module Taza
   class Settings
+    # The config settings for a site.yml file.  ENV variables will override the settings:
+    #  Can override the browser in config via ENV['BROWSER']
+    #  Can override the driver in config via ENV['DRIVER']
+    #  Can override the timeout in config via ENV['TIMEOUT']
+    #  Can override the server_ip in config via ENV['SERVER_IP']
+    #  Can override the server_port in config via ENV['SERVER_PORT']
+    #
+    # Example:
+    #   Taza::Settings.Config('google')
     def self.config(site_name)
       env_settings = {}
       env_settings[:browser] = ENV['BROWSER'].to_sym if ENV['BROWSER']
@@ -13,7 +22,9 @@ module Taza
       site_file(site_name).merge(env_settings)
     end
 
-    def self.config_file # :nodoc:
+    # Loads the config file for the entire project and returns the hash.
+    # Does not override settings from the ENV variables.
+    def self.config_file
       YAML.load_file(config_file_path)
     end
 
