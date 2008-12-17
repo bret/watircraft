@@ -37,7 +37,8 @@ module Taza
     end
         
   end
-
+  
+  # We don't know how to create the browser you asked for
   class BrowserUnsupportedError < StandardError; end
 end
 
