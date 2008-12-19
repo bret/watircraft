@@ -10,6 +10,9 @@ require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'rake/rdoctask'
 
+RCOV_THRESHOLD = 100.0
+FLOG_THRESHOLD = 40.0
+
 private
 def spec_files
   return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!osx)/) if Taza.osx?
@@ -51,13 +54,17 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.spec_files = spec_files
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
-  t.rcov_dir = 'artifacts'
+  t.rcov_dir = 'artifacts/rcov'
+  t.rcov_opts << '--text-report'
   if Taza.windows?
-    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/ie_watir.rb']
+    t.rcov_opts << '--exclude'
+    t.rcov_opts << 'spec,lib/taza/browsers/ie_watir.rb'
   elsif Taza.osx?
-    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers/safari_watir.rb']
+    t.rcov_opts << '--exclude'
+    t.rcov_opts << 'spec,lib/taza/browsers/safari_watir.rb'
   else
-    t.rcov_opts = ['--exclude', 'spec,lib/taza/browsers']
+    t.rcov_opts << '--exclude'
+    t.rcov_opts << 'spec,lib/taza/browsers'
   end
 end
 
@@ -68,10 +75,10 @@ Spec::Rake::SpecTask.new(:reports) do |t|
   t.spec_opts=["--format html:artifacts/rspec.html"]
 end
 
-desc "Verify Code Coverage is at 99.4%"
+desc "Verify Code Coverage"
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
-  t.threshold = 99.6
-  t.index_html = 'artifacts/index.html'
+  t.threshold = RCOV_THRESHOLD
+  t.index_html = 'artifacts/rcov/index.html'
 end
 
 desc "Run flog against all the files in the lib"
@@ -87,16 +94,15 @@ end
  
 desc "Verify Flog Score is under threshold"
 task :verify_flog => :flog do |t|
-  flog_score_threshold = 40.0
-  messages = []
-  File.readlines("artifacts/flogreport.txt").each do |line|
-    line =~ /^(.*): \((\d+\.\d+)\)/
-    if $2.to_f > flog_score_threshold
+  messages = File.readlines("artifacts/flogreport.txt").inject([]) do |messages,line|
+    if line =~ /^(.*): \((\d+\.\d+)\)/ && $2.to_f > FLOG_THRESHOLD
       messages << "Flog score is too high for #{$1}(#{$2})"
+    else
+      messages
     end
   end
+  puts messages
   unless messages.empty?
-    puts messages
     raise "Your Flog score is too high and you ought to think about the children who will have to maintain your code."
   end
 end
