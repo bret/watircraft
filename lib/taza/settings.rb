@@ -25,15 +25,16 @@ module Taza
     # Loads the config file for the entire project and returns the hash.
     # Does not override settings from the ENV variables.
     def self.config_file
+      return {} unless File.exists?(config_file_path)
       YAML.load_file(config_file_path)
     end
 
     def self.config_file_path # :nodoc:
-      File.join(config_folder,'config.yml')
+      File.join(config_folder, 'config.yml')
     end
     
     def self.config_folder # :nodoc:
-      File.join(path,'config')
+      File.join(path, 'config')
     end
     
     def self.site_file(site_name) # :nodoc:

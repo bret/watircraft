@@ -5,13 +5,15 @@ require 'taza/settings'
 
 class PageGenerator < RubiGen::Base
   default_options :author => nil
-  attr_reader :site_name,:name
+  attr_reader :site_name, :name
+  
+  @@default_site = Taza::Settings.config_file[:default_site]
 
   def initialize(runtime_args, runtime_options = {})
     super
     usage unless (1..2).include? args.size
     @name = args[0]
-    @site_name = (args.size == 2) ? args[1] : Taza::Settings.config_file[:default_site]  
+    @site_name = (args.size == 2) ? args[1] : @@default_site
     usage if @site_name.nil?
     check_if_site_exists
     extract_options
@@ -32,6 +34,7 @@ class PageGenerator < RubiGen::Base
   end
 
   protected
+
   def banner
     <<-EOS
     Creates a taza page for a given taza site, site you are making a page for must exist first.

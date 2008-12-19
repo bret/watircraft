@@ -20,18 +20,33 @@ describe "Page Generation" do
 
   after :each do
     bare_teardown
+    PageGenerator.class_eval "@@default_site = nil"     
   end
   
-  it "should give you usage if you do not give two arguments" do
+  # Negative
+  
+  it "should give you usage if you give no arguments" do
     PageGenerator.any_instance.expects(:usage)
-    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error
+    lambda { run_generator('page', [], generator_sources) }.should raise_error(Mocha::ExpectationError)
+  end
+ 
+  it "should give you usage if you only give one argument and no default site is specified" do
+    PageGenerator.any_instance.expects(:usage)
+    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error(NoMethodError)
+  end
+
+  it "should give you usage if you three arguments" do
+    PageGenerator.any_instance.expects(:usage)
+    lambda { run_generator('page', [@page_name, @site_class.to_s, 'extra'], generator_sources) }.should raise_error(Mocha::ExpectationError)
   end
 
   it "should give you usage if you give a site that does not exist" do
     PageGenerator.any_instance.expects(:usage)
     $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('page', [@page_name,"NoSuchSite"], generator_sources) }.should raise_error
+    lambda { run_generator('page', [@page_name, "NoSuchSite"], generator_sources) }.should raise_error(Errno::ENOENT)
   end
+
+  # Positive
 
   it "should generate a page spec that can be required" do
     run_generator('page', [@page_name,@site_class.to_s], generator_sources)
@@ -54,4 +69,10 @@ describe "Page Generation" do
     run_generator('page', [@page_name,new_site_class.to_s], generator_sources)
     new_site_class.new.check_out_page.class.should_not eql(@site_class.new.check_out_page.class)
   end
+
+  it "should be able to generate a page when there is a site default" do
+    PageGenerator.class_eval "@@default_site = '#{@site_class.to_s}'"
+    lambda{run_generator('page', [@page_name], generator_sources)}.should_not raise_error
+  end
+    
 end
