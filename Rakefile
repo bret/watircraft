@@ -10,8 +10,13 @@ require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'rake/rdoctask'
 
+ARTIFACTS_DIR = 'artifacts'
+
 RCOV_THRESHOLD = 100.0
+RCOV_DIR = File.join(ARTIFACTS_DIR,"rcov")
+
 FLOG_THRESHOLD = 40.0
+FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
 
 private
 def spec_files
@@ -54,7 +59,7 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.spec_files = spec_files
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
-  t.rcov_dir = 'artifacts/rcov'
+  t.rcov_dir = RCOV_DIR
   t.rcov_opts << '--text-report'
   if Taza.windows?
     t.rcov_opts << '--exclude'
@@ -71,14 +76,14 @@ end
 desc "Generate html reports for specs"
 Spec::Rake::SpecTask.new(:reports) do |t|
   t.spec_files=FileList['spec/**/*_spec.rb']
-  FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
-  t.spec_opts=["--format html:artifacts/rspec.html"]
+  FileUtils.mkdir(ARTIFACTS_DIR) unless File.directory?(ARTIFACTS_DIR)
+  t.spec_opts=["--format html:#{ARTIFACTS_DIR}/rspec.html"]
 end
 
 desc "Verify Code Coverage"
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
   t.threshold = RCOV_THRESHOLD
-  t.index_html = 'artifacts/rcov/index.html'
+  t.index_html = File.join(RCOV_DIR,"index.html")
 end
 
 desc "Run flog against all the files in the lib"
@@ -86,25 +91,23 @@ task :flog do
   require "flog"
   flogger = Flog.new
   flogger.flog_files Dir["lib/**/*.rb"]
-  FileUtils.mkdir('artifacts') unless File.directory?('artifacts')
-  File.open("artifacts/flogreport.txt","w") do |file|
-    flogger.report file
-  end
+  FileUtils.mkdir_p(ARTIFACTS_DIR)
+  File.open(FLOG_REPORT,"w") {|file| flogger.report file }
+  puts File.readlines(FLOG_REPORT).select {|line| line =~ /^(.*): \((\d+\.\d+)\)/}
 end
  
 desc "Verify Flog Score is under threshold"
 task :verify_flog => :flog do |t|
-  messages = File.readlines("artifacts/flogreport.txt").inject([]) do |messages,line|
+  messages = File.readlines(FLOG_REPORT).inject([]) do |messages,line|
     if line =~ /^(.*): \((\d+\.\d+)\)/ && $2.to_f > FLOG_THRESHOLD
-      messages << "Flog score is too high for #{$1}(#{$2})"
+      messages << "#{$1}(#{$2})"
     else
       messages
     end
   end
-  puts messages
-  unless messages.empty?
-    raise "Your Flog score is too high and you ought to think about the children who will have to maintain your code."
-  end
+  #lol flog log
+  flog_log = "\nFLOG THRESHOLD(#{FLOG_THRESHOLD}) EXCEEDED\n #{messages.join("\n ")}\n\n"
+  raise flog_log unless messages.empty?
 end
 
 desc "Run saikuro cyclo complexity against the lib"
@@ -127,5 +130,4 @@ end
 desc "Should you check-in?"
 task :quick_build => [:verify_rcov, :verify_flog]
 
-#define a task which uses flog
 # vim: syntax=ruby
