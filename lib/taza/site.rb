@@ -45,7 +45,7 @@ module Taza
     # Sites can take a couple of parameters in the constructor:
     #   :browser => a browser object to act on instead of creating one automatically
     #   :url => the url of where to start the site
-    def initialize(params={})
+    def initialize(params={},&block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
       define_site_pages
@@ -58,18 +58,19 @@ module Taza
         @i_created_browser = true
       end
       @browser.goto(params[:url] || config[:url])
+      execute_block_and_close_browser(browser,&block) if block_given?
+    end
 
-      if block_given?
+    def execute_block_and_close_browser(browser)
+      begin
+        yield self
+      rescue => site_block_exception
+      ensure
         begin
-          yield self
-        rescue => site_block_exception
-        ensure
-          begin
-            @@before_browser_closes.call(browser)
-          rescue => before_browser_closes_block_exception
-          end
-          close_browser_and_raise_if site_block_exception || before_browser_closes_block_exception
+          @@before_browser_closes.call(browser)
+        rescue => before_browser_closes_block_exception
         end
+        close_browser_and_raise_if site_block_exception || before_browser_closes_block_exception
       end
     end
 
