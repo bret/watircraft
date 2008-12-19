@@ -38,15 +38,9 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.extra_deps << ['rubigen','>= 1.3.4']
 end
 
-Rake::RDocTask.new do |rdoc|
-  files = ['README.txt', 'History.txt',
-           'lib/**/*.rb', 'doc/**/*.rdoc']
-  rdoc.rdoc_files.add(files)
-  rdoc.main = 'README.txt'
-  rdoc.title = 'Taza RDoc'
-  rdoc.template = './vendor/gems/gems/allison-2.0.3/lib/allison.rb'
-  rdoc.rdoc_dir = 'doc'
-  rdoc.options << '--line-numbers' << '--inline-source'
+desc "Build RDoc"
+task :rdoc do
+  system "./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README.txt --title 'Taza RDoc' README.txt History.txt lib "
 end
 
 Spec::Rake::SpecTask.new do |t|
