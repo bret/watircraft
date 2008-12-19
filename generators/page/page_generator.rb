@@ -8,9 +8,9 @@ class PageGenerator < RubiGen::Base
 
   def initialize(runtime_args, runtime_options = {})
     super
-    usage if args.size != 2
-    @name = args.shift
-    @site_name=args.shift
+    usage unless (1..2).include? args.size
+    @name = args[0]
+    @site_name = (args.size == 2) ? args[1] : 'depot'  
     check_if_site_exists
     extract_options
   end
