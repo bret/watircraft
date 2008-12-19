@@ -12,6 +12,7 @@ Done:
 + getting settings of a site: ex ECOM.settings delgates to taza::settings.site_file(ecom)
 + mocks
 
+
 taza 
  - get rid of all the dumb ^M windows line endings
  - url resolving
