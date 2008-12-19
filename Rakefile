@@ -40,7 +40,7 @@ end
 
 desc "Build RDoc"
 task :rdoc do
-  system "./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README.txt --title 'Taza RDoc' README.txt History.txt lib "
+  system "ruby ./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README.txt --title 'Taza RDoc' README.txt History.txt lib "
 end
 
 Spec::Rake::SpecTask.new do |t|
