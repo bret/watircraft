@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rubigen'
 require 'activesupport'
+require 'taza/settings'
 
 class PageGenerator < RubiGen::Base
   default_options :author => nil
@@ -10,7 +11,8 @@ class PageGenerator < RubiGen::Base
     super
     usage unless (1..2).include? args.size
     @name = args[0]
-    @site_name = (args.size == 2) ? args[1] : 'depot'  
+    @site_name = (args.size == 2) ? args[1] : Taza::Settings.config_file[:default_site]  
+    usage if @site_name.nil?
     check_if_site_exists
     extract_options
   end
