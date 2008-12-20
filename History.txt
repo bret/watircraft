@@ -1,3 +1,8 @@
+=== 0.8.1 / 2008-12-20
+
+* Added Partials
+* Added Preliminary Fixture Support
+
 === 0.8.0 / 2008-11-23
 
 Taza is a web application testing framework meant to be used with browsed-based testing libraries like WATIR or Selenium
