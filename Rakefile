@@ -86,7 +86,7 @@ end
 desc "Run saikuro cyclo complexity against the lib"
 task :saikuro do
   #we can specify options like ignore filters and set warning or error thresholds
-  system "ruby vendor/gems/gems/Saikuro-1.1.0/bin/saikuro -c -t -i lib -y 0 -o artifacts"
+  system "ruby vendor/gems/gems/Saikuro-1.1.0/bin/saikuro -c -t -i lib -y 0 -o #{ARTIFACTS_DIR}/saikuro"
 end
 
 namespace :gem do
