@@ -45,12 +45,13 @@ Spec::Rake::SpecTask.new do |t|
 end
 
 desc "Run all examples with RCov"
-Spec::Rake::SpecTask.new('rcov') do |t|
+Spec::Rake::SpecTask.new(:rcov) do |t|
   t.spec_files = spec_files
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
   t.rcov_dir = RCOV_DIR
   t.rcov_opts << '--text-report'
+  t.rcov_opts << '--exclude spec'
 end
 
 desc "Verify Code Coverage"
