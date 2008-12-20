@@ -55,16 +55,6 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov = true
   t.rcov_dir = RCOV_DIR
   t.rcov_opts << '--text-report'
-  if Taza.windows?
-    t.rcov_opts << '--exclude'
-    t.rcov_opts << 'spec,lib/taza/browsers/ie_watir.rb'
-  elsif Taza.osx?
-    t.rcov_opts << '--exclude'
-    t.rcov_opts << 'spec,lib/taza/browsers/safari_watir.rb'
-  else
-    t.rcov_opts << '--exclude'
-    t.rcov_opts << 'spec,lib/taza/browsers'
-  end
 end
 
 desc "Generate html reports for specs"
