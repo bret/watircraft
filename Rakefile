@@ -16,13 +16,11 @@ RCOV_DIR = File.join(ARTIFACTS_DIR,"rcov")
 FLOG_THRESHOLD = 40.0
 FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
 
-private
 def spec_files
   return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!osx)/) if Taza.osx?
   return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!windows)/) if Taza.windows?
   return FileList['spec/**/*_spec.rb'].exclude('spec/platform/*')
 end
-public
 
 Hoe.new('taza', Taza::VERSION) do |p|
   p.rubyforge_name = 'taza' # if different than lowercase project name
