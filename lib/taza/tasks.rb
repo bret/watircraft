@@ -35,15 +35,14 @@ module Taza
             Dir.glob('./spec/functional/*/').each do |dir|
               site_name = File.basename(dir)
               desc "Run all functional specs for #{site_name}"
-              Spec::Rake::SpecTask.new site_name.to_sym do |t|
+              Spec::Rake::SpecTask.new site_name do |t|
                 t.spec_files = Dir.taglob("#{dir}**/*_spec.rb",tags)
                 t.spec_opts << spec_opts
               end
               namespace site_name.to_sym do
                 Dir.glob("./spec/functional/#{site_name}/*_spec.rb").each do |page_spec_file|
-                  page_spec_name = File.basename(page_spec_file)
-                  page_name = page_spec_name.chomp('_spec.rb')
-                  Spec::Rake::SpecTask.new page_name.to_sym do |t|
+                  page_name = File.basename(page_spec_file,'_spec.rb')
+                  Spec::Rake::SpecTask.new page_name do |t|
                     t.spec_files = page_spec_file
                     t.spec_opts << spec_opts
                   end
