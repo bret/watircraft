@@ -76,7 +76,7 @@ task :flog do
   flogger.flog_files Dir["lib/**/*.rb"]
   FileUtils.mkdir_p(ARTIFACTS_DIR)
   File.open(FLOG_REPORT,"w") {|file| flogger.report file }
-  puts File.readlines(FLOG_REPORT).select {|line| line =~ FLOG_LINE}
+  puts File.readlines(FLOG_REPORT).select {|line| line =~ FLOG_LINE || line =~ /Total Flog/}
 end
  
 desc "Verify Flog Score is under threshold"
