@@ -2,7 +2,6 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
 require 'taza'
-require 'vendor/gems/gems/rubigen-1.4.0/test/test_generator_helper'
 
 describe "Site Generation" do
   include RubiGen::GeneratorTestHelper
