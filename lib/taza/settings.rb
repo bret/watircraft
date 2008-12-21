@@ -2,18 +2,29 @@ require 'activesupport'
 
 module Taza
   class Settings
+    # The config settings for a site.yml file.  ENV variables will override the settings:
+    #  Can override the browser in config via ENV['BROWSER']
+    #  Can override the driver in config via ENV['DRIVER']
+    #  Can override the timeout in config via ENV['TIMEOUT']
+    #  Can override the server_ip in config via ENV['SERVER_IP']
+    #  Can override the server_port in config via ENV['SERVER_PORT']
+    #
+    # Example:
+    #   Taza::Settings.Config('google')
     def self.config(site_name)
       env_settings = {}
-      env_settings[:browser] = ENV['browser'].to_sym if ENV['browser']
-      env_settings[:driver]  = ENV['driver'].to_sym if ENV['driver']
-      env_settings[:timeout] = ENV['timeout'] if ENV['timeout']
-      env_settings[:server_ip] = ENV['server_ip'] if ENV['server_ip']
-      env_settings[:server_port] = ENV['server_port'] if ENV['server_port']
+      env_settings[:browser] = ENV['BROWSER'].to_sym if ENV['BROWSER']
+      env_settings[:driver]  = ENV['DRIVER'].to_sym if ENV['DRIVER']
+      env_settings[:timeout] = ENV['TIMEOUT'] if ENV['TIMEOUT']
+      env_settings[:server_ip] = ENV['SERVER_IP'] if ENV['SERVER_IP']
+      env_settings[:server_port] = ENV['SERVER_PORT'] if ENV['SERVER_PORT']
       env_settings = {:browser=>:firefox,:driver=>:selenium}.merge(config_file.merge(env_settings))
       site_file(site_name).merge(env_settings)
     end
 
-    def self.config_file # :nodoc:
+    # Loads the config file for the entire project and returns the hash.
+    # Does not override settings from the ENV variables.
+    def self.config_file
       YAML.load_file(config_file_path)
     end
 

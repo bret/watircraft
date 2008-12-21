@@ -5,14 +5,15 @@ require 'taza'
 describe Taza::Site do
 
   before :all do
-    @pages_path = File.join("spec","sandbox","pages","foo","*.rb")
+    @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
+    @flows_path = File.join("spec","sandbox","flows","*.rb")
     Foo = Class.new(Taza::Site)
   end
 
   before :each do
     Foo.any_instance.stubs(:pages_path).returns(@pages_path)
-    ENV['browser'] = nil
-    ENV['driver'] = nil
+    ENV['BROWSER'] = nil
+    ENV['DRIVER'] = nil
     Taza::Settings.stubs(:config_file).returns({})
     Taza::Settings.stubs(:site_file).returns({})
     Taza::Site.before_browser_closes {}
@@ -22,36 +23,26 @@ describe Taza::Site do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql("./lib/sites/bax/pages/*.rb")
+    Bax.new.pages_path.should eql("./lib/sites/bax/pages/**/*.rb")
   end
 
-  it "should execute a flow with given parameters" do
+  it "should have flows defined as instance methods" do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
-    params = {}
-    require 'spec/sandbox/flows/batman'
-    Batman.any_instance.expects(:run).with(params)
     Barz = Class.new(Taza::Site)
     Barz.any_instance.stubs(:path).returns('spec/sandbox')
-    Barz.new.flow(:batman,params)
-  end
-
-  it "should require a flow once it is called" do
-    browser = stub_browser
-    Taza::Browser.stubs(:create).returns(browser)
-    Class.constants.include?('Robin').should be_false
-    Bayz = Class.new(Taza::Site)
-    Bayz.any_instance.stubs(:path).returns('spec/sandbox')
-    Bayz.new.flow(:robin,{})
-    Robin
+    Barz.any_instance.stubs(:flows_path).returns(@flows_path)
+    Barz.new.batman_flow.should == "i am batman"
   end
 
   it "should create a browser using environment variables" do
     browser = stub_browser
     browser.stubs(:goto)
-    Taza::Browser.expects(:create_watir_ie).returns browser
-    ENV['browser'] = 'ie'
-    ENV['driver'] = 'watir'
+    stub_browser_class = stub
+    stub_browser_class.stubs(:new).returns(browser)
+    Taza::Browser.expects(:watir_ie).returns stub_browser_class
+    ENV['BROWSER'] = 'ie'
+    ENV['DRIVER'] = 'watir'
     f = Foo.new
   end
 
@@ -148,6 +139,7 @@ describe Taza::Site do
       site.should respond_to(:bar)
     end
   end
+
   it "should yield after browser has been setup" do
     Taza::Browser.stubs(:create).returns(stub_browser)
     klass = Class::new(Taza::Site)
@@ -162,6 +154,15 @@ describe Taza::Site do
     Taza::Browser.stubs(:create).returns(browser)
     foo = Foo.new
     foo.bar.browser.should eql(browser)
+  end
+
+  it "should add partials defined under the pages directory" do
+    Taza::Browser.stubs(:create).returns(stub_browser)
+    klass = Class::new(Taza::Site)
+    klass.any_instance.stubs(:pages_path).returns(@pages_path)
+    klass.new do |site|
+      site.partial_the_reckoning
+    end
   end
 
   it "should have a way to evaluate a block of code before site closes the browser" do

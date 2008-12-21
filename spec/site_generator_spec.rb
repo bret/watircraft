@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'fileutils'
 require 'taza'
-require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
+require 'vendor/gems/gems/rubigen-1.4.0/test/test_generator_helper'
 
 describe "Site Generation" do
   include RubiGen::GeneratorTestHelper
@@ -33,6 +33,11 @@ describe "Site Generation" do
   it "should generate a site path for pages" do
     run_generator('site', [@site_name], generator_sources)
     File.directory?(@site_folder).should be_true
+  end
+
+  it "should generate a partials folder under pages" do
+    run_generator('site', [@site_name], generator_sources)
+    File.directory?(File.join(@site_folder,"pages","partials")).should be_true
   end
 
   it "should generate a folder for a sites functional tests" do

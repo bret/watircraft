@@ -8,6 +8,8 @@ generators/flow/templates/flow.rb.erb
 generators/page/page_generator.rb
 generators/page/templates/functional_page_spec.rb.erb
 generators/page/templates/page.rb.erb
+generators/partial/partial_generator.rb
+generators/partial/templates/partial.rb.erb
 generators/site/site_generator.rb
 generators/site/templates/site.rb.erb
 generators/site/templates/site.yml.erb
@@ -15,7 +17,13 @@ lib/app_generators/taza/taza_generator.rb
 lib/app_generators/taza/templates/config.yml.erb
 lib/app_generators/taza/templates/rakefile.rb.erb
 lib/app_generators/taza/templates/spec_helper.rb.erb
+lib/extensions/object.rb
+lib/extensions/string.rb
+lib/extensions/hash.rb
+lib/extensions/array.rb
 lib/taza.rb
+lib/taza/fixture.rb
+lib/taza/entity.rb
 lib/taza/browser.rb
 lib/taza/browsers/ie_watir.rb
 lib/taza/browsers/safari_watir.rb
@@ -25,9 +33,14 @@ lib/taza/settings.rb
 lib/taza/site.rb
 lib/taza/tasks.rb
 spec/browser_spec.rb
+spec/entity_spec.rb
 spec/flow_generator_spec.rb
+spec/fixture_spec.rb
+spec/fixtures_spec.rb
+spec/object_spec.rb
 spec/page_generator_spec.rb
 spec/page_spec.rb
+spec/partial_generator_spec.rb
 spec/platform/osx/browser_spec.rb
 spec/platform/windows/browser_spec.rb
 spec/project_generator_spec.rb
@@ -37,6 +50,7 @@ spec/sandbox/config/site_name.yml
 spec/sandbox/flows/batman.rb
 spec/sandbox/flows/robin.rb
 spec/sandbox/pages/foo/bar.rb
+spec/sandbox/pages/foo/partials/partial_the_reckoning.rb
 spec/settings_spec.rb
 spec/site_generator_spec.rb
 spec/site_spec.rb

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'rubigen'
+
+if %w(-v --version).include? ARGV.first
+  require 'rubigen/version'
+  puts "#{File.basename($0)} (via rubigen - #{RubiGen::VERSION})"
+  exit(0)
+end
+
+require 'rubigen/scripts/generate'
+RubiGen::Base.use_component_sources!
+RubiGen::Scripts::Generate.new.run(ARGV, :generator => 'install_rubigen_scripts')
