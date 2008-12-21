@@ -35,17 +35,6 @@ describe Taza::Site do
     Barz.new.batman_flow.should == "i am batman"
   end
 
-  it "should create a browser using environment variables" do
-    browser = stub_browser
-    browser.stubs(:goto)
-    stub_browser_class = stub
-    stub_browser_class.stubs(:new).returns(browser)
-    Taza::Browser.expects(:watir_ie).returns stub_browser_class
-    ENV['BROWSER'] = 'ie'
-    ENV['DRIVER'] = 'watir'
-    f = Foo.new
-  end
-
   it "should open watir browsers at the configuration URL" do
     browser = stub_browser
     browser.expects(:goto).with('a_url')
