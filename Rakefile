@@ -3,7 +3,6 @@ $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
 require 'rubygems'
 require 'config/vendorized_gems'
-require 'hoe'
 require 'taza'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
@@ -23,16 +22,32 @@ def spec_files
   return FileList['spec/**/*_spec.rb'].exclude('spec/platform/*')
 end
 
-Hoe.new('taza', Taza::VERSION) do |p|
-  p.rubyforge_name = 'taza' # if different than lowercase project name
-  p.developer('Adam Anderson', 'adamandersonis@gmail.com')
-  p.remote_rdoc_dir = ''
-  p.extra_deps << ['taglob','>= 1.1.1']
-  p.extra_deps << ['rake','>= 0.8.3']
-  p.extra_deps << ['mocha','>= 0.9.3']
-  p.extra_deps << ['rspec','>= 1.1.11']
-  p.extra_deps << ['rubigen','>= 1.4.0']
-end
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = 'taza'
+    s.rubyforge_project = 'taza'
+    s.email = "adamandersonis@gmail.com"
+    s.homepage = "http://github.com/scudco/taza"
+    s.summary = "Taza is an opionated browser-based testing framework."
+    s.description = "Taza is an opionated browser-based testing framework."
+    s.authors = ["Adam Anderson"]
+
+    s.executables = ["taza"]
+    s.files = FileList["[A-Z]*.*", "{bin,generators,lib,spec}/**/*"]
+    s.add_dependency(%q<taglob>, [">= 1.1.1"])
+    s.add_dependency(%q<rake>, [">= 0.8.3"])
+    s.add_dependency(%q<mocha>, [">= 0.9.3"])
+    s.add_dependency(%q<rspec>, [">= 1.1.11"])
+    s.add_dependency(%q<rubigen>, [">= 1.4.0"])
+
+    s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
+    s.has_rdoc = true
+    s.rdoc_options = ["--main", "README.txt"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end  
 
 desc "Build RDoc"
 task :rdoc do
