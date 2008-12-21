@@ -1,6 +1,5 @@
-require 'rake'
-require 'rake/testtask'
 require 'rubygems'
+require 'rake'
 require 'taglob/rake/tasks'
 require 'spec/rake/spectask'
 
@@ -18,36 +17,33 @@ module Taza
         define
       end
 
+      def define_spec_task(name,glob_path)
+        Spec::Rake::SpecTask.new name do |t|
+          t.spec_files = Dir.taglob(glob_path,tags)
+          t.spec_opts << spec_opts
+        end
+      end
+
       def define
         namespace :spec do
           desc "Run all functional specs"
-          Spec::Rake::SpecTask.new :functional do |t|
-            t.spec_files = Dir.taglob('spec/functional/**/*_spec.rb',tags)
-            t.spec_opts << spec_opts
-          end
+          define_spec_task(:functional,'spec/functional/**/*_spec.rb')
           desc "Run all integration specs"
-          Spec::Rake::SpecTask.new :integration do |t|
-            t.spec_files = Dir.taglob('spec/integration/**/*_spec.rb',tags)
-            t.spec_opts << spec_opts
-          end
+          define_spec_task(:integration,'spec/integration/**/*_spec.rb')
 
           namespace :functional do
             Dir.glob('./spec/functional/*/').each do |dir|
               site_name = File.basename(dir)
               desc "Run all functional specs for #{site_name}"
-              Spec::Rake::SpecTask.new site_name do |t|
-                t.spec_files = Dir.taglob("#{dir}**/*_spec.rb",tags)
-                t.spec_opts << spec_opts
-              end
-              namespace site_name.to_sym do
+              define_spec_task(site_name,"#{dir}**/*_spec.rb")
+
+              namespace site_name do
                 Dir.glob("./spec/functional/#{site_name}/*_spec.rb").each do |page_spec_file|
                   page_name = File.basename(page_spec_file,'_spec.rb')
-                  Spec::Rake::SpecTask.new page_name do |t|
-                    t.spec_files = page_spec_file
-                    t.spec_opts << spec_opts
-                  end
+                  define_spec_task(page_name,page_spec_file)
                 end
               end
+
             end
           end
 
