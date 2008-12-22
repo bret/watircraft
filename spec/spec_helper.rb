@@ -11,7 +11,7 @@ Spec::Runner.configure do |config|
 end
 
 def null_device  
-  Taza.windows? ? 'NUL': '/dev/null'
+  File.exists?('/dev/null') ? '/dev/null' : 'NUL'
 end
 
 #### Rubigen helpers
