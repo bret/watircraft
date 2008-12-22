@@ -5,10 +5,8 @@ require 'rubygems'
 require 'config/vendorized_gems'
 require 'hoe'
 require 'taza'
-require 'rbconfig'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
-require 'rake/rdoctask'
 
 ARTIFACTS_DIR = 'artifacts'
 
