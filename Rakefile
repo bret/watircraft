@@ -15,6 +15,7 @@ RCOV_DIR = File.join(ARTIFACTS_DIR,"rcov")
 
 FLOG_THRESHOLD = 40.0
 FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
+FLOG_LINE = /^(.*): \((\d+\.\d+)\)/
 
 def spec_files
   return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!osx)/) if Taza.osx?
@@ -67,17 +68,15 @@ task :flog do
   flogger.flog_files Dir["lib/**/*.rb"]
   FileUtils.mkdir_p(ARTIFACTS_DIR)
   File.open(FLOG_REPORT,"w") {|file| flogger.report file }
-  puts File.readlines(FLOG_REPORT).select {|line| line =~ /^(.*): \((\d+\.\d+)\)/}
+  puts File.readlines(FLOG_REPORT).select {|line| line =~ FLOG_LINE}
 end
  
 desc "Verify Flog Score is under threshold"
 task :verify_flog => :flog do |t|
+  # I hate how ridiclous this is (Adam)
   messages = File.readlines(FLOG_REPORT).inject([]) do |messages,line|
-    if line =~ /^(.*): \((\d+\.\d+)\)/ && $2.to_f > FLOG_THRESHOLD
-      messages << "#{$1}(#{$2})"
-    else
-      messages
-    end
+    line =~ FLOG_LINE && $2.to_f > FLOG_THRESHOLD ?
+      messages << "#{$1}(#{$2})" : messages
   end
   #lol flog log
   flog_log = "\nFLOG THRESHOLD(#{FLOG_THRESHOLD}) EXCEEDED\n #{messages.join("\n ")}\n\n"
