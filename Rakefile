@@ -29,8 +29,7 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.remote_rdoc_dir = ''
   p.extra_deps << ['taglob','>= 1.1.1']
   p.extra_deps << ['rake','>= 0.8.3']
-  p.extra_deps << ['hoe','>= 1.8.2']
-  p.extra_deps << ['mocha','>= 0.9.0']
+  p.extra_deps << ['mocha','>= 0.9.3']
   p.extra_deps << ['rspec','>= 1.1.11']
   p.extra_deps << ['rubigen','>= 1.3.4']
 end
