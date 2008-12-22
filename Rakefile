@@ -35,9 +35,9 @@ begin
     s.add_dependency(%q<rspec>, [">= 1.1.11"])
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
 
-    s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
+    s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
     s.has_rdoc = true
-    s.rdoc_options = ["--main", "README.txt"]
+    s.rdoc_options = ["--main", "README"]
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -45,7 +45,7 @@ end
 
 desc "Build RDoc"
 task :rdoc do
-  system "ruby ./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README.txt --title 'Taza RDoc' README.txt History.txt lib "
+  system "ruby ./vendor/gems/gems/allison-2.0.3/bin/allison --line-numbers --inline-source --main README --title 'Taza RDoc' README History.txt lib "
 end
 
 Spec::Rake::SpecTask.new do |t|
