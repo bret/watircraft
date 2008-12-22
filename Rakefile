@@ -55,13 +55,6 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov_opts << '--text-report'
 end
 
-desc "Generate html reports for specs"
-Spec::Rake::SpecTask.new(:reports) do |t|
-  t.spec_files=FileList['spec/**/*_spec.rb']
-  FileUtils.mkdir(ARTIFACTS_DIR) unless File.directory?(ARTIFACTS_DIR)
-  t.spec_opts=["--format html:#{ARTIFACTS_DIR}/rspec.html"]
-end
-
 desc "Verify Code Coverage"
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
   t.threshold = RCOV_THRESHOLD
