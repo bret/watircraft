@@ -15,6 +15,32 @@ describe Taza::Browser do
     ENV['TIMEOUT'] = nil
   end
 
+  module Watir
+    class Safari
+    end
+  end
+
+  describe "Taza::Browser with Safari Watir" do
+    it "should be able to make a safari watir instance" do
+      Taza::Browser.expects(:require).with('safariwatir')
+      browser = Taza::Browser.create({:browser => :safari, :driver => :watir,:url =>'http://www.google.com'})
+      browser.should be_a_kind_of(Watir::Safari)
+    end
+  end
+
+  module Watir
+    class IE
+    end
+  end
+
+  describe "Taza::Browser with watir ie" do
+    it "should be able to make watir ie instance" do
+      Taza::Browser.expects(:require).with('watir')
+      browser =  Taza::Browser.create({:browser => :ie,:driver =>:watir,:url => 'http://www.google.com'})
+      browser.should be_a_kind_of(Watir::IE)
+    end
+  end
+
   it "should be able to create a watir driver" do
     Taza::Browser.expects(:watir_ie).returns(Object)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
