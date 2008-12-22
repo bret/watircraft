@@ -30,12 +30,21 @@ module Taza
       require 'selenium'
       Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
     end
-    
+
     def self.watir_firefox
       require 'firewatir'
       FireWatir::Firefox
     end
-        
+
+    def self.watir_safari
+      require 'safariwatir'
+      Watir::Safari
+    end
+
+    def self.watir_ie
+      require 'watir'
+      Watir::IE
+    end
   end
   
   # We don't know how to create the browser you asked for
