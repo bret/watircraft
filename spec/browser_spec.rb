@@ -41,6 +41,19 @@ describe Taza::Browser do
     end
   end
 
+  module FireWatir
+    class Firefox
+    end
+  end
+
+  describe "Taza::Browser with watir firefox" do
+    it "should be able to make watir firefox instance" do
+      Taza::Browser.expects(:require).with('firewatir')
+      browser =  Taza::Browser.create({:browser => :firefox,:driver =>:watir,:url => 'http://www.google.com'})
+      browser.should be_a_kind_of(FireWatir::Firefox)
+    end
+  end
+
   it "should be able to create a watir driver" do
     Taza::Browser.expects(:watir_ie).returns(Object)
     Taza::Browser.create(:browser => :ie, :driver => :watir)
