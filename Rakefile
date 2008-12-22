@@ -31,7 +31,7 @@ Hoe.new('taza', Taza::VERSION) do |p|
   p.extra_deps << ['rake','>= 0.8.3']
   p.extra_deps << ['mocha','>= 0.9.3']
   p.extra_deps << ['rspec','>= 1.1.11']
-  p.extra_deps << ['rubigen','>= 1.3.4']
+  p.extra_deps << ['rubigen','>= 1.4.0']
 end
 
 desc "Build RDoc"
