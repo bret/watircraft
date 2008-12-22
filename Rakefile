@@ -16,12 +16,6 @@ FLOG_THRESHOLD = 40.0
 FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
 FLOG_LINE = /^(.*): \((\d+\.\d+)\)/
 
-def spec_files
-  return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!osx)/) if Taza.osx?
-  return FileList['spec/**/*_spec.rb'].exclude(/spec\/platform\/(?!windows)/) if Taza.windows?
-  return FileList['spec/**/*_spec.rb'].exclude('spec/platform/*')
-end
-
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
@@ -56,12 +50,12 @@ end
 
 Spec::Rake::SpecTask.new do |t|
   t.libs << File.join(File.dirname(__FILE__), 'lib')
-  t.spec_files = spec_files
+  t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
 desc "Run all examples with RCov"
 Spec::Rake::SpecTask.new(:rcov) do |t|
-  t.spec_files = spec_files
+  t.spec_files = FileList['spec/**/*_spec.rb']
   t.libs << File.join(File.dirname(__FILE__), 'lib')
   t.rcov = true
   t.rcov_dir = RCOV_DIR
