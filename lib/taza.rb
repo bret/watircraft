@@ -11,7 +11,7 @@ require 'extensions/hash'
 require 'extensions/array'
 
 module Taza
-  VERSION = '0.8.0'
+  VERSION = '0.8.1'
 
   def self.windows?
     PLATFORM.include?("mswin")  
