@@ -89,17 +89,6 @@ task :saikuro do
   system "ruby vendor/gems/gems/Saikuro-1.1.0/bin/saikuro -c -t -i lib -y 0 -o #{ARTIFACTS_DIR}/saikuro"
 end
 
-namespace :gem do
-  desc "install a gem into vendor/gems"
-  task :install do
-    if ENV["name"].nil?
-      STDERR.puts "Usage: rake gem:install name=the_gem_name"; exit 1
-    end
-    gem = Taza.windows? ? "gem.bat" : "gem"
-    system "#{gem} install #{ENV['name']} --install-dir=vendor/gems  --no-rdoc --no-ri -p ""http://10.8.77.100:8080"""
-  end
-end
-
 desc "Should you check-in?"
 task :quick_build => [:verify_rcov, :verify_flog]
 
