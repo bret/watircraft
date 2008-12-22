@@ -1,7 +1,18 @@
 require 'spec/spec_helper'
-require 'taza'
 
 describe "Object" do
+  before :all do
+    @orig_version = VERSION
+    Object.send :remove_const, :VERSION
+    Object.const_set :VERSION, "1.8.6"
+    load 'lib/extensions/object.rb'
+  end
+
+  after :all do
+    Object.send :remove_const, :VERSION
+    Object.const_set :VERSION, @orig_version
+  end
+
   it "should execute blocks with args in instance context" do
     str = "string"
 
