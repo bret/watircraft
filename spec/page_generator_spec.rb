@@ -47,12 +47,6 @@ describe "Page Generation" do
 
   # Positive
 
-  it "should generate a page spec that can be required" do
-    run_generator('page', [@page_name,@site_class.to_s], generator_sources)
-    page_functional_spec = File.join(PROJECT_FOLDER,'spec','functional',@site_class.to_s.underscore,'check_out_page_spec.rb')
-    system("ruby -c #{page_functional_spec} > #{null_device}").should be_true
-  end
-
   it "should be able to access the generated page from the site" do
     run_generator('page', [@page_name,@site_class.to_s], generator_sources)
     stub_settings
