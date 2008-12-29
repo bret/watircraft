@@ -2,6 +2,7 @@ require 'spec/spec_helper'
 require 'taza/browser'
 require 'taza/settings'
 require 'selenium'
+require 'watir'
 
 describe Taza::Browser do
 
@@ -15,23 +16,13 @@ describe Taza::Browser do
     ENV['TIMEOUT'] = nil
   end
 
-  it "should be able to create a watir driver" do
-    Taza::Browser.expects(:watir_ie).returns(Object)
-    Taza::Browser.create(:browser => :ie, :driver => :watir)
-  end
-
-  it "should be able to create a firewatir driver" do
-    Taza::Browser.expects(:watir_firefox).returns(Object)
-    Taza::Browser.create(:browser => :firefox,:driver => :watir)
-  end
-
-  it "should be able to create a safariwatir driver" do
-    Taza::Browser.expects(:watir_safari).returns(Object)
-    Taza::Browser.create(:browser => :safari,:driver => :watir)
+  module Watir
+#    class Safari
+#    end
   end
 
   it "should raise unknown browser error for unsupported watir browsers" do
-    lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(Taza::BrowserUnsupportedError)
+    lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(StandardError)
   end
 
   it "should use params browser type when creating selenium" do

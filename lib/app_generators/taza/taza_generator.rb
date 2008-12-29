@@ -17,30 +17,25 @@ class TazaGenerator < RubiGen::Base
   end
 
   def manifest
-    record do |m|
-      # Ensure appropriate folder(s) exists
-      
-      BASEDIRS.each { |path| m.directory path }
-      m.directory File.join('lib','sites')
-      m.directory File.join('lib','flows')
-      m.directory File.join('spec','functional')
-      m.directory File.join('spec','integration')
-      m.directory File.join('spec','story')
-      
+    record do |m|    
+      create_directories(m)
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", File.join("config","config.yml")
       m.template "spec_helper.rb.erb", File.join("spec","spec_helper.rb")
-      
-      # Create stubs
-      # m.template_copy_each ["template.rb", "template2.rb"]
-      # m.file     "file",         "some_file_copied"
-      # m.file_copy_each ["path/to/file", "path/to/file2"]
-
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
     end
   end
 
+  def create_directories(m)
+    BASEDIRS.each { |path| m.directory path }
+    m.directory File.join('lib','sites')
+    m.directory File.join('lib','flows')
+    m.directory File.join('spec','functional')
+    m.directory File.join('spec','integration')
+    m.directory File.join('spec','story')
+  end
+  
   protected
     def banner
       <<-EOS

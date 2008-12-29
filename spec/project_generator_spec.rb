@@ -3,7 +3,6 @@ require 'rubygems'
 require 'rake'
 require 'fileutils'
 require 'taza'
-require 'vendor/gems/gems/rubigen-1.3.2/test/test_generator_helper'
 
 describe "Project Generator" do
   include RubiGen::GeneratorTestHelper
