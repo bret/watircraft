@@ -16,11 +16,6 @@ describe Taza::Browser do
     ENV['TIMEOUT'] = nil
   end
 
-  module Watir
-    class Safari
-    end
-  end
-
   it "should raise unknown browser error for unsupported watir browsers" do
     lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(StandardError)
   end
