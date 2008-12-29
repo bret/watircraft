@@ -17,8 +17,8 @@ describe Taza::Browser do
   end
 
   module Watir
-    class Safari
-    end
+#    class Safari
+#    end
   end
 
   it "should raise unknown browser error for unsupported watir browsers" do
