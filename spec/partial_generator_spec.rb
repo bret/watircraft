@@ -10,8 +10,8 @@ describe "Partial Generation" do
 
   before :all do
     @site_name = "Foo"
-    @site_folder = File.join(PROJECT_FOLDER,'lib','sites',"gap")
-    @site_file = File.join(PROJECT_FOLDER,'lib','sites',"gap.rb")
+    @site_folder = File.join(PROJECT_FOLDER,'lib')
+    @site_file = File.join(PROJECT_FOLDER,'lib',"gap.rb")
     @partial_name = "Header"
   end
 
@@ -25,14 +25,12 @@ describe "Partial Generation" do
   end
 
   it "should give you usage if you do not give two arguments" do
-    PartialGenerator.any_instance.expects(:usage)
-    lambda { run_generator('partial', [@partial_name], generator_sources) }.should raise_error
+    lambda { run_generator('partial', [@partial_name], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
 
   it "should give you usage if you give a site that does not exist" do
-    PartialGenerator.any_instance.expects(:usage)
     $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('partial', [@partial_name,"NoSuchSite"], generator_sources) }.should raise_error
+    lambda { run_generator('partial', [@partial_name,"NoSuchSite"], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
 
 end

@@ -2,8 +2,10 @@ require 'rubygems'
 require 'rubigen'
 require 'activesupport'
 require 'taza/settings'
+require 'taza/generator'
 
 class PageGenerator < RubiGen::Base
+  include Taza::Generator
   default_options :author => nil
   attr_reader :site_name, :name
   
@@ -18,17 +20,10 @@ class PageGenerator < RubiGen::Base
     check_if_site_exists
     extract_options
   end
-
-  def check_if_site_exists
-    unless File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
-      $stderr.puts "******No such site #{site_name} exists.******"
-      usage
-    end
-  end
-
+  
   def manifest
     record do |m|
-      m.template "page.rb.erb", File.join('lib','sites', site_name.underscore, "pages",  "#{name.underscore}_page.rb")
+      m.template "page.rb.erb", File.join('lib', 'pages', "#{name.underscore}_page.rb")
     end
   end
 

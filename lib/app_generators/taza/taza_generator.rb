@@ -29,8 +29,10 @@ class TazaGenerator < RubiGen::Base
 
   def create_directories(m)
     BASEDIRS.each { |path| m.directory path }
-    m.directory File.join('lib','sites')
+    m.directory File.join('lib','pages')
     m.directory File.join('lib','steps')
+    m.directory File.join('lib','flows')
+    m.directory File.join('lib','partials')
     m.directory File.join('spec','functional')
     m.directory File.join('spec','features')
   end

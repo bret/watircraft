@@ -25,24 +25,20 @@ describe "Page Generation" do
   # Negative
   
   it "should give you usage if you give no arguments" do
-    PageGenerator.any_instance.expects(:usage)
-    lambda { run_generator('page', [], generator_sources) }.should raise_error(Mocha::ExpectationError)
+    lambda { run_generator('page', [], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
  
   it "should give you usage if you only give one argument and no default site is specified" do
-    PageGenerator.any_instance.expects(:usage)
-    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error(NoMethodError)
+    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
 
   it "should give you usage if you three arguments" do
-    PageGenerator.any_instance.expects(:usage)
-    lambda { run_generator('page', [@page_name, @site_class.to_s, 'extra'], generator_sources) }.should raise_error(Mocha::ExpectationError)
+    lambda { run_generator('page', [@page_name, @site_class.to_s, 'extra'], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
 
   it "should give you usage if you give a site that does not exist" do
-    PageGenerator.any_instance.expects(:usage)
     $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('page', [@page_name, "NoSuchSite"], generator_sources) }.should raise_error(Errno::ENOENT)
+    lambda { run_generator('page', [@page_name, "NoSuchSite"], generator_sources) }.should raise_error(RubiGen::UsageError)
   end
 
   # Positive
@@ -52,15 +48,6 @@ describe "Page Generation" do
     stub_settings
     stub_browser
     @site_class.new.check_out_page
-  end
-
-  it "should be able to access the generated page for its site" do
-    stub_browser
-    stub_settings
-    new_site_class = generate_site('Pag')
-    run_generator('page', [@page_name,@site_class.to_s], generator_sources)
-    run_generator('page', [@page_name,new_site_class.to_s], generator_sources)
-    new_site_class.new.check_out_page.class.should_not eql(@site_class.new.check_out_page.class)
   end
 
   it "should be able to generate a page when there is a site default" do

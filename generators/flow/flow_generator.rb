@@ -1,8 +1,10 @@
 require 'rubygems'
 require 'rubigen'
 require 'activesupport'
+require 'taza/generator'
 
 class FlowGenerator < RubiGen::Base
+  include Taza::Generator
   default_options :author => nil
   attr_reader :site_name,:name
 
@@ -10,21 +12,14 @@ class FlowGenerator < RubiGen::Base
     super
     usage if args.size != 2
     @name = args.shift
-    @site_name=args.shift
+    @site_name = args.shift
     check_if_site_exists
     extract_options
   end
 
-  def check_if_site_exists
-    unless File.directory?(File.join(destination_root,'lib','sites',site_name.underscore))
-      $stderr.puts "******No such site #{site_name} exists.******"
-      usage
-    end
-  end
-
   def manifest
     record do |m|
-      m.template "flow.rb.erb", File.join('lib','sites', site_name.underscore, "flows",  "#{name.underscore}.rb")
+      m.template "flow.rb.erb", File.join('lib', 'flows',  "#{name.underscore}.rb")
     end
   end
 

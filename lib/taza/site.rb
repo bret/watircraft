@@ -127,7 +127,7 @@ module Taza
     #  end
 
     def pages_path # :nodoc:
-      File.join(path,'pages','**','*.rb')
+      File.join(path,'pages','**','*.rb') # does this need to include partials?
     end
 
     def flows_path # :nodoc:
@@ -135,7 +135,7 @@ module Taza
     end
 
     def path # :nodoc:
-      File.join(base_path,'lib','sites',@class_name.underscore)
+      File.join(base_path,'lib')
     end
 
     def base_path # :nodoc:

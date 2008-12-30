@@ -19,11 +19,11 @@ describe Taza::Site do
     Taza::Site.before_browser_closes {}
   end
 
-  it "pages_path should contain the site class name" do
+  it "pages_path should not contain the site class name" do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql("./lib/sites/bax/pages/**/*.rb")
+    Bax.new.pages_path.should eql("./lib/pages/**/*.rb")
   end
 
   it "should have flows defined as instance methods" do

@@ -11,8 +11,9 @@ describe "Site Generation" do
   before :all do
     @spec_helper = File.join(TMP_ROOT,PROJECT_NAME,'spec','spec_helper.rb')
     @site_name = "WikipediaFoo"
-    @site_file = File.join(PROJECT_FOLDER,'lib','sites' , "wikipedia_foo.rb")
-    @site_folder = File.join(PROJECT_FOLDER,'lib','sites' , "wikipedia_foo")
+    @site_file = File.join(PROJECT_FOLDER,'lib', "wikipedia_foo.rb")
+    @site_folder = File.join(PROJECT_FOLDER,'lib')
+    @page_folder = File.join(@site_folder, 'pages')
   end
 
   before :each do
@@ -32,11 +33,12 @@ describe "Site Generation" do
   it "should generate a site path for pages" do
     run_generator('site', [@site_name], generator_sources)
     File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
   end
 
-  it "should generate a partials folder under pages" do
+  it "should generate a partials folder" do
     run_generator('site', [@site_name], generator_sources)
-    File.directory?(File.join(@site_folder,"pages","partials")).should be_true
+    File.directory?(File.join(@site_folder,"partials")).should be_true
   end
 
   it "should generate a folder for a sites functional tests" do

@@ -3,8 +3,7 @@ require 'rubygems'
 require 'spec'
 require 'mocha'
 
-lib_path = File.expand_path("#{File.dirname(__FILE__)}/../lib/sites")
-$LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib/')
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
