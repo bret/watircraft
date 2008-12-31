@@ -20,21 +20,26 @@ class TazaGenerator < RubiGen::Base
     record do |m|    
       create_directories(m)
       m.template "rakefile.rb.erb", "rakefile"
-      m.template "config.yml.erb", File.join("config","config.yml")
-      m.template "spec_helper.rb.erb", File.join("test","specs","spec_helper.rb")
+      m.template "config.yml.erb", File.join("config", "config.yml")
+      m.template "spec_helper.rb.erb", File.join("test", "specs", "spec_helper.rb")
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
     end
   end
 
   def create_directories(m)
-    BASEDIRS.each { |path| m.directory path }
-    m.directory File.join('lib','pages')
-    m.directory File.join('lib','steps')
-    m.directory File.join('lib','flows')
-    m.directory File.join('lib','partials')
-    m.directory File.join('test','specs')
-    m.directory File.join('test','features')
+    %w(
+      lib
+      config
+      script
+      test
+      lib/pages
+      lib/steps
+      lib/flows
+      lib/partials
+      test/specs
+      test/features
+    ).each { |path| m.directory path }
   end
   
   protected
@@ -62,12 +67,4 @@ EOS
       # @author = options[:author]
     end
 
-    # Installation skeleton.  Intermediate directories are automatically
-    # created so don't sweat their absence here.
-    BASEDIRS = %w(
-      lib
-      config
-      script
-      test
-    )
 end
