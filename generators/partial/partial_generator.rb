@@ -1,10 +1,10 @@
 require 'rubygems'
 require 'rubigen'
 require 'activesupport'
-require 'taza/generator'
+require 'taza/generator_helper'
 
 class PartialGenerator < RubiGen::Base
-  include Taza::Generator
+  include Taza::GeneratorHelper
   default_options :author => nil
   attr_reader :site_name,:name
 
