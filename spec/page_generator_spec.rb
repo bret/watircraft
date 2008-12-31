@@ -23,20 +23,29 @@ describe "Page Generation" do
   
   # Negative
   
-  it "should give you usage if you give no arguments" do
+  it "should give you usage if you provide no arguments" do
     lambda { run_generator('page', [], generator_sources) }.
       should raise_error(RubiGen::UsageError)
-  end
- 
-  it "should display an error if no site is specified in the config.yml" do
-    lambda { run_generator('page', [@page_name], generator_sources) }.
-      should raise_error(Taza::SiteDoesNotExistError)
   end
 
   it "should give you usage if you provide two arguments" do
     lambda { run_generator('page', [@page_name, 'extra'], generator_sources) }.
       should raise_error(RubiGen::UsageError)
   end
+
+  it "should display an error if no site is specified in the config.yml" do
+    PageGenerator.any_instance.stubs(:site_name).returns(nil)
+    lambda { run_generator('page', [@page_name], generator_sources) }.
+      should raise_error(RubiGen::UsageError, "Error. A site must first be specified in config.yml")
+  end
+
+  it "should display an error if the site in config.yml can't be found" do
+    PageGenerator.any_instance.stubs(:site_name).returns('no_such_site')
+    lambda { run_generator('page', [@page_name], generator_sources) }.
+      should raise_error(RubiGen::UsageError, /Error\. Site file .*lib\/no_such_site.rb not found\./)
+  end
+    
+
 
   # Positive
 
