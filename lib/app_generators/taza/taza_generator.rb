@@ -8,20 +8,20 @@ class TazaGenerator < RubiGen::Base
 
   attr_reader :name
 
+  component_generators_path = File.dirname(__FILE__) + '/../../../generators'
+  prepend_sources(RubiGen::PathSource.new(:taza, component_generators_path))    
+
   def initialize(runtime_args, runtime_options = {})
     super
     usage if args.empty?
     @destination_root = File.expand_path(args.shift)
     @name = base_name
     extract_options
-    component_generators_path = File.dirname(__FILE__) + '/../../../generators'
-    self.class.prepend_sources(
-      RubiGen::PathSource.new(:taza, component_generators_path))    
   end
 
   def manifest
     record do |m|    
-      create_directories(m)
+      @@new_directories.each { |path| m.directory path }
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", "config/config.yml"
       m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb"
@@ -32,7 +32,7 @@ class TazaGenerator < RubiGen::Base
     end
   end
 
-  def create_directories(m)
+  @@new_directories =
     %w(
       lib
       config
@@ -44,8 +44,7 @@ class TazaGenerator < RubiGen::Base
       lib/partials
       test/specs
       test/features
-    ).each { |path| m.directory path }
-  end
+    )  
   
   protected
     def banner
