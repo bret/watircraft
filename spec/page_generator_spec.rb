@@ -18,41 +18,40 @@ describe "Page Generation" do
   end
 
   after :each do
-    bare_teardown
-    PageGenerator.class_eval "@@default_site = nil"     
+    bare_teardown   
   end
   
   # Negative
   
   it "should give you usage if you give no arguments" do
-    lambda { run_generator('page', [], generator_sources) }.should raise_error(RubiGen::UsageError)
+    lambda { run_generator('page', [], generator_sources) }.
+      should raise_error(RubiGen::UsageError)
   end
  
-  it "should give you usage if you only give one argument and no default site is specified" do
-    lambda { run_generator('page', [@page_name], generator_sources) }.should raise_error(RubiGen::UsageError)
+  it "should display an error if no site is specified in the config.yml" do
+    lambda { run_generator('page', [@page_name], generator_sources) }.
+      should raise_error(Taza::SiteDoesNotExistError)
   end
 
-  it "should give you usage if you three arguments" do
-    lambda { run_generator('page', [@page_name, @site_class.to_s, 'extra'], generator_sources) }.should raise_error(RubiGen::UsageError)
-  end
-
-  it "should give you usage if you give a site that does not exist" do
-    $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('page', [@page_name, "NoSuchSite"], generator_sources) }.should raise_error(RubiGen::UsageError)
+  it "should give you usage if you provide two arguments" do
+    lambda { run_generator('page', [@page_name, 'extra'], generator_sources) }.
+      should raise_error(RubiGen::UsageError)
   end
 
   # Positive
 
   it "should be able to access the generated page from the site" do
-    run_generator('page', [@page_name,@site_class.to_s], generator_sources)
+    PageGenerator.any_instance.stubs(:site_name).returns(@site_class.to_s)    
+    run_generator('page', [@page_name], generator_sources)
     stub_settings
     stub_browser
     @site_class.new.check_out_page
   end
 
   it "should be able to generate a page when there is a site default" do
-    PageGenerator.class_eval "@@default_site = '#{@site_class.to_s}'"
-    lambda{run_generator('page', [@page_name], generator_sources)}.should_not raise_error
+    PageGenerator.any_instance.stubs(:site_name).returns(@site_class.to_s)    
+    lambda{run_generator('page', [@page_name], generator_sources)}.
+      should_not raise_error
   end
     
 end

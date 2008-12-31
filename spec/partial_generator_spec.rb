@@ -30,7 +30,8 @@ describe "Partial Generation" do
 
   it "should give you usage if you give a site that does not exist" do
     $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
-    lambda { run_generator('partial', [@partial_name,"NoSuchSite"], generator_sources) }.should raise_error(RubiGen::UsageError)
+    lambda { run_generator('partial', [@partial_name,"NoSuchSite"], generator_sources) }.
+      should raise_error(Taza::SiteDoesNotExistError)
   end
 
 end
