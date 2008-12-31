@@ -16,7 +16,6 @@ class SiteGenerator < RubiGen::Base
   def manifest
     record do |m|
       m.template "site.rb.erb", File.join('lib',"#{name.underscore}.rb")
-      m.directory File.join('spec','functional',name.underscore)
       m.template "site.yml.erb", File.join('config',"#{name.underscore}.yml")
     end
   end
