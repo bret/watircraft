@@ -21,7 +21,7 @@ class TazaGenerator < RubiGen::Base
       create_directories(m)
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", File.join("config","config.yml")
-      m.template "spec_helper.rb.erb", File.join("spec","spec_helper.rb")
+      m.template "spec_helper.rb.erb", File.join("test","specs","spec_helper.rb")
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
     end
@@ -33,8 +33,8 @@ class TazaGenerator < RubiGen::Base
     m.directory File.join('lib','steps')
     m.directory File.join('lib','flows')
     m.directory File.join('lib','partials')
-    m.directory File.join('spec','functional')
-    m.directory File.join('spec','features')
+    m.directory File.join('test','specs')
+    m.directory File.join('test','features')
   end
   
   protected
@@ -68,6 +68,6 @@ EOS
       lib
       config
       script
-      spec
+      test
     )
 end

@@ -8,7 +8,7 @@ describe "Project Generator" do
   include RubiGen::GeneratorTestHelper
 
   before :all do
-    @spec_helper = File.join(TMP_ROOT,PROJECT_NAME,'spec','spec_helper.rb')
+    @spec_helper = File.join(TMP_ROOT, PROJECT_NAME, 'test', 'specs', 'spec_helper.rb')
   end
 
   before :each do
