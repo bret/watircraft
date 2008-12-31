@@ -14,16 +14,21 @@ class TazaGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     @name = base_name
     extract_options
+    component_generators_path = File.dirname(__FILE__) + '/../../../generators'
+    self.class.prepend_sources(
+      RubiGen::PathSource.new(:taza, component_generators_path))    
   end
 
   def manifest
     record do |m|    
       create_directories(m)
       m.template "rakefile.rb.erb", "rakefile"
-      m.template "config.yml.erb", File.join("config", "config.yml")
-      m.template "spec_helper.rb.erb", File.join("test", "specs", "spec_helper.rb")
+      m.template "config.yml.erb", "config/config.yml"
+      m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb"
+      m.template "steps.rb.erb", "test/features/steps.rb"
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
+      m.dependency "site", [@name], :destination => destination_root
     end
   end
 
