@@ -7,19 +7,14 @@ require 'taza/generator_helper'
 class PageGenerator < RubiGen::Base
   include Taza::GeneratorHelper
   default_options :author => nil
-  attr_reader :name
+  attr_reader :name, :site_name
 
   def initialize(runtime_args, runtime_options = {})
     super
     usage unless args.size == 1
     @name = args[0]
-    @site_name = site_name
-    check_if_site_exists
+    @site_name = configured_validated_site
     extract_options
-  end
-
-  def site_name
-    Taza::Settings.config_file['site']
   end
   
   def manifest

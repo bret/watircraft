@@ -34,13 +34,13 @@ describe "Page Generation" do
   end
 
   it "should display an error if no site is specified in the config.yml" do
-    PageGenerator.any_instance.stubs(:site_name).returns(nil)
+    PageGenerator.any_instance.stubs(:configured_site).returns(nil)
     lambda { run_generator('page', [@page_name], generator_sources) }.
       should raise_error(RubiGen::UsageError, "Error. A site must first be specified in config.yml")
   end
 
   it "should display an error if the site in config.yml can't be found" do
-    PageGenerator.any_instance.stubs(:site_name).returns('no_such_site')
+    PageGenerator.any_instance.stubs(:configured_site).returns('no_such_site')
     lambda { run_generator('page', [@page_name], generator_sources) }.
       should raise_error(RubiGen::UsageError, /Error\. Site file .*lib\/no_such_site.rb not found\./)
   end
@@ -48,7 +48,7 @@ describe "Page Generation" do
   # Positive
 
   it "should be able to access the generated page from the site" do
-    PageGenerator.any_instance.stubs(:site_name).returns(@site_class.to_s)    
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
     run_generator('page', [@page_name], generator_sources)
     stub_settings
     stub_browser
@@ -56,7 +56,7 @@ describe "Page Generation" do
   end
 
   it "should be able to generate a page when there is a site default" do
-    PageGenerator.any_instance.stubs(:site_name).returns(@site_class.to_s)    
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
     lambda{run_generator('page', [@page_name], generator_sources)}.
       should_not raise_error
   end
