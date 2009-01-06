@@ -9,8 +9,7 @@ describe "Spec Generation" do
   include Helpers::Taza
   
   before :each do
-    run_generator('taza', [APP_ROOT], generator_sources)
-    @site_class = generate_site('Gap')
+    generate_project
   end  
 
   after :each do
@@ -18,7 +17,6 @@ describe "Spec Generation" do
   end
 
   it "should be able to generate a spec" do
-    SpecGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)
     run_generator('spec', ['add penguin'], generator_sources)
   end
 

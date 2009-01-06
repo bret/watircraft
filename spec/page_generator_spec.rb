@@ -13,7 +13,7 @@ describe "Page Generation" do
   end
 
   before :each do
-    run_generator('taza', [APP_ROOT], generator_sources)
+    generate_project
     @site_class = generate_site('Gap')
   end
 
@@ -55,8 +55,7 @@ describe "Page Generation" do
     @site_class.new.check_out_page
   end
 
-  it "should be able to generate a page when there is a site default" do
-    PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
+  it "should be able to generate a page using the project default" do
     lambda{run_generator('page', [@page_name], generator_sources)}.
       should_not raise_error
   end
