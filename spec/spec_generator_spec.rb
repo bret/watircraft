@@ -13,9 +13,13 @@ describe "Spec Generation" do
     @site_class = generate_site('Gap')
   end  
 
+  after :each do
+    bare_teardown   
+  end
+
   it "should be able to generate a spec" do
     SpecGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)
-    run_generator('spec', ['add_book'], generator_sources)
+    run_generator('spec', ['add penguin'], generator_sources)
   end
 
 end

@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'rubigen'
 require 'activesupport'
-require 'taza/settings'
 require 'taza/generator_helper'
 
 class PageGenerator < RubiGen::Base

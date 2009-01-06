@@ -2,6 +2,7 @@ require 'rubygems'
 require 'rubigen'
 require 'activesupport'
 require 'taza/generator_helper'
+require 'extensions/string'
 
 class SpecGenerator < RubiGen::Base
   include Taza::GeneratorHelper
@@ -18,7 +19,7 @@ class SpecGenerator < RubiGen::Base
 
   def manifest
     record do |m|
-      m.template "spec.rb.erb", File.join('test','specs',"#{name.underscore}_spec.rb")
+      m.template "spec.rb.erb", File.join('test','specs',"#{name.computerize}_spec.rb")
     end
   end
 
