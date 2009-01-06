@@ -16,7 +16,7 @@ module Taza
       
       default_settings = {:browser => :firefox, :driver => :selenium}
       
-      # Because of the way #merge works, the settings at the bottom of the list,
+      # Because of the way #merge works, the settings at the bottom of the list
       # trump those at the top.
       settings = site_file(site_name).merge(
                    default_settings.merge(
