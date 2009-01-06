@@ -41,9 +41,8 @@ describe "Flow Generation" do
   end
 
   it "should give you usage if you give a site that does not exist" do
-    $stderr.expects(:puts).with(regexp_matches(/NoSuchSite/))
     lambda { run_generator('flow', [@flow_name,"NoSuchSite"], generator_sources) }.
-      should raise_error(Taza::SiteDoesNotExistError)
+      should raise_error(RubiGen::UsageError)
   end
 
 end
