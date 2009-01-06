@@ -45,8 +45,6 @@ describe "Page Generation" do
       should raise_error(RubiGen::UsageError, /Error\. Site file .*lib\/no_such_site.rb not found\./)
   end
     
-
-
   # Positive
 
   it "should be able to access the generated page from the site" do
