@@ -80,12 +80,17 @@ describe Taza::Settings do
     SiteName.settings[:url].should eql('http://google.com')
   end
 
-  it "setting keys can be specified as strings (i.e. without a colon) in the files" do
+  it "setting keys can be specified as strings (i.e. without a colon) in the config file" do
     Taza::Settings.stubs(:config_file_path).returns("spec/sandbox/config/simpler.yml")
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     Taza::Settings.config('SiteName')[:browser].should eql(:opera)
   end
   
+  it "setting keys can be specified as strings (i.e. without a colon) in the config file" do
+    Taza::Settings.stubs(:path).returns("spec/sandbox")
+    Taza::Settings.config('SimplerSite')[:url].should eql('http://makezine.com')
+  end
+
   it "should be able to convert string keys to symbol keys" do
     result = Taza::Settings.convert_string_keys_to_symbols 'browser' => :foo
     result.should == {:browser => :foo}
