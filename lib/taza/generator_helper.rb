@@ -10,7 +10,7 @@ module Taza
       site
     end
     def configured_site
-      site_name = Taza::Settings.config_file['site']
+      site_name = Taza::Settings.config_file[:site]
     end
     def check_if_site_exists site_name=@site_name
       if site_name.nil?

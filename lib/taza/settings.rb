@@ -23,16 +23,20 @@ module Taza
                      config_file.merge(
                        env_settings)))
 
+      puts settings.inspect
       settings[:browser] = settings[:browser].to_sym
       settings[:driver] = settings[:driver].to_sym
-
       settings
     end
 
     # Returns a hash corresponding to the project config file.
     def self.config_file
-      return {} unless File.exists?(config_file_path)
-      YAML.load_file(config_file_path)
+      if File.exists?(config_file_path)
+        hash = YAML.load_file(config_file_path)
+      else
+        hash = {}
+      end
+      self.convert_string_keys_to_symbols hash
     end
 
     def self.config_file_path # :nodoc:
@@ -41,11 +45,18 @@ module Taza
     
     # Returns a hash for the currently specified test environment
     def self.site_file(site_name) # :nodoc:
-      YAML.load_file(File.join(path, 'config', "#{site_name.underscore}.yml"))[ENV['TAZA_ENV']]
+      array_of_hashes = YAML.load_file(File.join(path, 'config', "#{site_name.underscore}.yml"))
+      array_of_hashes[ENV['TAZA_ENV']]
     end
 
     def self.path # :nodoc:
       '.'
+    end
+    
+    def self.convert_string_keys_to_symbols hash
+      returning Hash.new do |new_hash|
+        hash.each_pair {|k, v| new_hash[k.to_sym] = v}
+      end
     end
   end
 end
