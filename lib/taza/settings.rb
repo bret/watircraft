@@ -23,7 +23,6 @@ module Taza
                      config_file.merge(
                        env_settings)))
 
-      puts settings.inspect
       settings[:browser] = settings[:browser].to_sym
       settings[:driver] = settings[:driver].to_sym
       settings
