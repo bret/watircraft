@@ -210,13 +210,18 @@ describe Taza::Site do
     browser = stub()
     browser.stubs(:goto)
     Taza::Browser.stubs(:create).returns(browser)
-    Taza::Settings.expects(:config).with('Zoro').returns({})
+    Taza::Settings.expects(:config).with('Zoro').returns({}).at_least_once
     Zoro::Zoro.new
   end
   
   it "should load settings based on the sites class name" do
     Taza::Settings.expects(:site_file).with('Zoro').returns({})
     Zoro::Zoro.settings
+  end
+
+  it "should return the configured site url" do
+    Taza::Settings.expects(:site_file).with('Zoro').returns({:url => 'http://www.zoro.com'}).at_least_once
+    Zoro::Zoro.new(:browser => stub_browser).url.should == 'http://www.zoro.com'
   end
   
   def stub_browser
@@ -225,5 +230,5 @@ describe Taza::Site do
     browser.stubs(:goto)
     browser
   end
-
+  
 end

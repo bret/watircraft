@@ -43,22 +43,28 @@ module Taza
     #  Google.new.search.set "taza"
     #
     # Sites can take a couple of parameters in the constructor:
-    #   :browser => a browser object to act on instead of creating one automatically
-    #   :url => the url of where to start the site
+    #   :browser => a browser object to act on instead of creating one automatically (mainly for unit-testing purposes)
     def initialize(params={},&block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
       define_site_pages
       define_flows
-      config = Settings.config(@class_name)
       if params[:browser]
         @browser = params[:browser]
       else
         @browser = Browser.create(config)
         @i_created_browser = true
       end
-      @browser.goto(params[:url] || config[:url])
+      @browser.goto(url)
       execute_block_and_close_browser(browser,&block) if block_given?
+    end
+    
+    def config
+      Settings.config(@class_name)
+    end
+    
+    def url
+      config[:url]
     end
 
     def execute_block_and_close_browser(browser)
