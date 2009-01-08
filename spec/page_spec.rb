@@ -11,6 +11,20 @@ describe Taza::Page do
     end
   end
 
+  class RecursiveFilterExample < Taza::Page
+    element(:foo) {}
+    filter :sample_filter
+    def sample_filter
+      foo
+      true
+    end
+  end
+
+  it "should not enter a infinite loop if you call a filtered element inside of a filter" do
+    page = RecursiveFilterExample.new
+    lambda { page.foo }.should_not raise_error
+  end
+
   it "should execute an element's block with the params provided for its method" do
     Taza::Page.element(:boo){|baz| baz}
     Taza::Page.new.boo("rofl").should == "rofl"

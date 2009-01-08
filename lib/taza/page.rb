@@ -1,17 +1,17 @@
 module Taza
   # An abstraction of a web page, place the elements you care about accessing in here as well as specify the filters that apply when trying to access the element.
-  # 
+  #
   # Example:
   #   require 'taza'
   #   class HomePage < Taza::Page
   #     element(:foo) {browser.element_by_xpath('some xpath')}
-  #     filter :title_given, :foo 
-  #   
+  #     filter :title_given, :foo
+  #
   #     def title_given
   #       browser.title.nil?
   #     end
   #   end
-  # 
+  #
   # homepage.foo will return the element specified in the block if the filter returned true
   class Page
     attr_accessor :browser
@@ -39,12 +39,12 @@ module Taza
     # Example:
     #   class HomePage < Taza::Page
     #     element(:foo) {browser.element_by_xpath('some xpath')}
-    #     filter :title_given, :foo 
+    #     filter :title_given, :foo
     #     #a filter will apply to all elements if none are specified
     #     filter :some_filter
     #     #a filter will also apply to all elements if the symbol :all is given
     #     filter :another_filter, :all
-    #     
+    #
     #     def some_filter
     #       true
     #     end
@@ -66,6 +66,7 @@ module Taza
 
     def initialize
       add_element_methods
+      @active_filters = []
     end
 
     def add_element_methods # :nodoc:
@@ -83,10 +84,14 @@ module Taza
         end
       end
     end
-    
+
     def check_filters(params) # :nodoc:
       params[:filters].each do |filter_method|
-        raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
+        unless @active_filters.include?(filter_method)
+          @active_filters << filter_method
+          raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
+          @active_filters.delete(filter_method)
+        end
       end
     end
   end
