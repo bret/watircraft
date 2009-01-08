@@ -66,6 +66,10 @@ module Taza
     def url
       config[:url]
     end
+    
+    def goto relative_url
+      @browser.goto(File.join(url, relative_url))
+    end
 
     def execute_block_and_close_browser(browser)
       begin
