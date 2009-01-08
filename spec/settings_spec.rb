@@ -95,5 +95,10 @@ describe Taza::Settings do
     result = Taza::Settings.convert_string_keys_to_symbols 'browser' => :foo
     result.should == {:browser => :foo}
   end
+  
+  it "should provide an empty hash when the config file doesn't exist" do
+    Taza::Settings.stubs(:config_file_path).returns('spec/sandbox/config/no_such_file.yml')
+    Taza::Settings.config_file.should == {} 
+  end
 
 end

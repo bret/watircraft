@@ -49,10 +49,5 @@ describe Taza::Browser do
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
-
-  it "should be able to give you the class of browser" do
-    Taza::Browser.expects(:watir_safari).returns(Object)
-    Taza::Browser.browser_class(:browser => :safari, :driver => :watir).should eql(Object) 
-  end
   
 end

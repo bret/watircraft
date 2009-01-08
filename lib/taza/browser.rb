@@ -9,10 +9,6 @@ module Taza
     def self.create(params={})
       self.send("create_#{params[:driver]}".to_sym,params)
     end
-    
-    def self.browser_class(params)
-      self.send("#{params[:driver]}_#{params[:browser]}".to_sym)
-    end
 
     private    
 
