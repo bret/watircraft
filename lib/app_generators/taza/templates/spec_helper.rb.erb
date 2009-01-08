@@ -1,9 +1,9 @@
-ENV['TAZA_ENV'] = "isolation" if ENV['TAZA_ENV'].nil?
 require 'rubygems'
 require 'spec'
 require 'mocha'
 
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../../lib/')
+require '<%= name %>'
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
