@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 require 'taza/page'
-
+require 'taza/site'
 
 describe Taza::Page do
   
@@ -94,5 +94,16 @@ describe Taza::Page do
     page.site = Class.new(Taza::Site).new(:browser => browser)
     page.goto
   end  
+
+  it "should report the full url of the page" do
+    browser = stub
+    browser.stubs(:goto)
+    Taza::Settings.stubs(:config).returns(:url => 'http://www.llamas.com')    
+    page = CheckOutPage.new
+    page.site = Class.new(Taza::Site).new(:browser => browser)
+    page.full_url.should == 'http://www.llamas.com/check_out'
+  end
+    
+  
   
 end

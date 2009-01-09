@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'activesupport'
+require 'taza/settings'
 
 module Taza
   # An abstraction of a website, but more really a container for a sites pages.

@@ -97,9 +97,17 @@ module Taza
       end
     end
     
+    # Go to this page. Url is computed based the page url and the url from the
+    # Site & Settings.
     def goto
       @site.goto self.class.url
     end
+    # Return the full url expected for the page, taking into account the Site 
+    # and settings.
+    def full_url
+      File.join(@site.url, self.class.url)
+    end
+  
   end
 
   class FilterError < StandardError; end
