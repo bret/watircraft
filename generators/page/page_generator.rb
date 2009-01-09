@@ -18,7 +18,7 @@ class PageGenerator < RubiGen::Base
   
   def manifest
     record do |m|
-      m.template "page.rb.erb", File.join('lib', 'pages', "#{name.underscore}_page.rb")
+      m.template "page.rb.erb", File.join('lib', 'pages', "#{name.computerize}_page.rb")
     end
   end
 

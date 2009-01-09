@@ -9,7 +9,7 @@ describe "Page Generation" do
   include Helpers::Taza
 
   before :all do
-    @page_name = "CheckOut"
+    @page_name = "check out"
   end
 
   before :each do
@@ -49,12 +49,28 @@ describe "Page Generation" do
 
   it "should be able to access the generated page from the site" do
     PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
-    run_generator('page', [@page_name], generator_sources)
+    run_generator('page', ['simple'], generator_sources)
+    stub_settings
+    stub_browser
+    @site_class.new.simple_page
+  end
+
+  it "should be able to access the generated page when it has a space" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
+    run_generator('page', ['check out'], generator_sources)
     stub_settings
     stub_browser
     @site_class.new.check_out_page
   end
 
+  it "should be able to access the generated page when it has an underscore" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_class.to_s)    
+    run_generator('page', ['check_out'], generator_sources)
+    stub_settings
+    stub_browser
+    @site_class.new.check_out_page
+  end
+  
   it "should be able to generate a page using the project default" do
     lambda{run_generator('page', [@page_name], generator_sources)}.
       should_not raise_error
