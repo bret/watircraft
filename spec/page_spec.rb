@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 require 'taza/page'
 
+
 describe Taza::Page do
   
   class ElementAndFilterContextExample < Taza::Page
@@ -79,4 +80,19 @@ describe Taza::Page do
     lambda { page.false_item }.should raise_error
     page.called_element_method.should_not be_true
   end
+
+  class CheckOutPage < Taza::Page
+    url 'check_out'
+  end
+  
+  it "should goto the url relative to the site url" do
+    browser = stub
+    browser.expects(:goto).with('http://www.llamas.com')
+    browser.expects(:goto).with('http://www.llamas.com/check_out')
+    Taza::Settings.stubs(:config).returns(:url => 'http://www.llamas.com')    
+    page = CheckOutPage.new
+    page.site = Class.new(Taza::Site).new(:browser => browser)
+    page.goto
+  end  
+  
 end

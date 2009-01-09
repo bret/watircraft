@@ -14,13 +14,20 @@ module Taza
   # 
   # homepage.foo will return the element specified in the block if the filter returned true
   class Page
-    attr_accessor :browser
+    attr_accessor :browser, :site
     class << self
       def elements # :nodoc:
         @elements ||= {}
       end
       def filters # :nodoc:
         @filters ||= Hash.new { [] }
+      end
+      def url string=nil
+        if string.nil?
+          @url
+        else
+          @url = string
+        end
       end
     end
 
@@ -89,7 +96,12 @@ module Taza
         raise FilterError, "#{filter_method} returned false for #{params[:element_name]}" unless send(filter_method)
       end
     end
+    
+    def goto
+      @site.goto self.class.url
+    end
   end
 
   class FilterError < StandardError; end
+    
 end
