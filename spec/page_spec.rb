@@ -3,6 +3,9 @@ require 'taza/page'
 require 'taza/site'
 
 describe Taza::Page do
+  before :each do
+    @page_class = Class.new(Taza::Page)
+  end
   
   class ElementAndFilterContextExample < Taza::Page
     element(:sample_element) {browser}
@@ -13,8 +16,8 @@ describe Taza::Page do
   end
 
   it "should execute an element's block with the params provided for its method" do
-    Taza::Page.element(:boo){|baz| baz}
-    Taza::Page.new.boo("rofl").should == "rofl"
+    @page_class.element(:boo){|baz| baz}
+    @page_class.new.boo("rofl").should == "rofl"
   end
   
   it "should execute elements and filters in the context of the page instance" do
@@ -28,10 +31,10 @@ describe Taza::Page do
   end
   
   it "should store the block given to the element method in a method with the name of the parameter" do
-    Taza::Page.element(:foo) do
+    @page_class.element(:foo) do
       "bar"
     end
-    Taza::Page.new.foo.should == "bar"
+    @page_class.new.foo.should == "bar"
   end
 
   class FilterAllElements < Taza::Page
@@ -50,13 +53,13 @@ describe Taza::Page do
   end
   
   it "should have empty elements on a new class" do
-    foo = Class::new(superclass=Taza::Page)
+    foo = @page_class
     foo.elements.should_not be_nil
     foo.elements.should be_empty
   end
 
   it "should have empty filters on a new class" do
-    foo = Class::new(superclass=Taza::Page)
+    foo = @page_class
     foo.filters.should_not be_nil
     foo.filters.should be_empty
   end
@@ -104,6 +107,28 @@ describe Taza::Page do
     page.full_url.should == 'http://www.llamas.com/check_out'
   end
     
+  it "should create elements for fields" do    
+    @page_class.field(:foo) {'element'}
+    @page_class.new.foo_element.should == 'element'
+  end
   
+  it "should allow you to override the suffix for fields" do
+    @page_class.field(:foo, 'link') {'link element'}
+    @page_class.new.foo_link.should == 'link element'
+  end
+  
+  it "should return the display_value of the field's element" do
+    element = stub
+    element.stubs(:display_value).with().returns('tomorrow')
+    @page_class.field(:foo) {element}
+    page = @page_class.new
+    page.foo_element.display_value.should == 'tomorrow'
+    page.foo.should == 'tomorrow'
+  end
+
+  it "should create elements for inputs" do 
+    @page_class.input(:foo) {'input element'}
+    @page_class.new.foo_element.should == 'input element'
+  end
   
 end

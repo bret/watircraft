@@ -42,6 +42,20 @@ module Taza
       self.elements[name] = block
     end
 
+    def self.field(name, suffix='element', &block)
+      element_name = "#{name}_#{suffix}"
+      self.elements[element_name] = block
+      self.class_eval <<-EOS
+        def #{name}
+          #{element_name}.display_value
+        end
+      EOS
+    end
+
+    def self.input(name, suffix='element', &block)
+      self.field(name, suffix) &block
+    end
+
     # A filter for elemenet(s) on a page
     # Example:
     #   class HomePage < Taza::Page
