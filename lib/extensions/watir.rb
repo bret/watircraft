@@ -33,4 +33,9 @@ module Watir
       text
     end
   end
+  class TableCell
+    def display_value
+      text
+    end
+  end
 end

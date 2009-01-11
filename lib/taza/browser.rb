@@ -14,6 +14,10 @@ module Taza
 
     def self.create_watir(params)
       require 'watir'
+      if params[:browser] == :ie
+        require 'watir/ie'
+        require 'extensions/watir'
+      end
       Watir::Browser.default = params[:browser].to_s
       Watir::Browser.new
     end
