@@ -38,7 +38,7 @@ module Taza
     #     element(:foo) {browser.element_by_xpath('some xpath')}
     #   end
     # homepage.foo.click
-    def self.element(name,&block)
+    def self.element(name, &block)
       self.elements[name] = block
     end
 
@@ -50,10 +50,17 @@ module Taza
           #{element_name}.display_value
         end
       EOS
+      element_name
     end
 
     def self.input(name, suffix='element', &block)
-      self.field(name, suffix) &block
+      element_name = self.field(name, suffix, &block)
+      self.class_eval <<-EOS
+        def #{name}= value
+          #{element_name}.set value
+        end
+      EOS
+      element_name
     end
 
     # A filter for elemenet(s) on a page

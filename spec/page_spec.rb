@@ -126,9 +126,21 @@ describe Taza::Page do
     page.foo.should == 'tomorrow'
   end
 
-  it "should create elements for inputs" do 
+  it "should create elements for inputs just like fields" do 
     @page_class.input(:foo) {'input element'}
-    @page_class.new.foo_element.should == 'input element'
+    @page_class.input(:bar, 'selectbox') {'selectbox element'}
+    page = @page_class.new
+    page.foo_element.should == 'input element'
+    page.bar_selectbox.should == 'selectbox element'
+  end
+  
+  it "should return the display_value for inputs just like fields" do
+    element = stub
+    element.stubs(:display_value).with().returns('yesterday')
+    @page_class.input(:status) {element}
+    page = @page_class.new
+    page.status_element.display_value.should == 'yesterday'
+    page.status.should == 'yesterday'
   end
   
 end
