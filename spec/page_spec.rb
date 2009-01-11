@@ -142,5 +142,13 @@ describe Taza::Page do
     page.status_element.display_value.should == 'yesterday'
     page.status.should == 'yesterday'
   end
+
+  it "should call the set method of the element when the input= method is called" do
+    element = stub
+    element.stubs(:set).with('never').returns(nil)
+    @page_class.input(:end_date) {element}
+    page = @page_class.new
+    page.end_date = 'never'
+  end
   
 end
