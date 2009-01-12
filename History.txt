@@ -1,4 +1,4 @@
-=== 0.8.1 / 2008-12-20
+=== 0.8.2 / 2009-01-11
 
 * Added Partials
 * Added Preliminary Fixture Support
