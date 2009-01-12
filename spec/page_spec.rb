@@ -134,4 +134,19 @@ describe Taza::Page do
     page.end_date = 'never'
   end
   
+  it "should populate the fields corresponding to the keys in the hash" do
+    name_element = stub
+    name_element.stubs(:set).with('Zachary Taylor')
+    rank_element = stub
+    rank_element.stubs(:set).with('General')
+    serial_no_element = stub
+    @page_class.class_eval do
+      field(:name){name_element}
+      field(:rank){rank_element}
+      field(:serial_no){serial_no_element}
+    end
+    page = @page_class.new
+    page.populate :name => 'Zachary Taylor', :rank => 'General'
+  end
+  
 end

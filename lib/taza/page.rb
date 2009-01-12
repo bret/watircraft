@@ -131,6 +131,12 @@ module Taza
     def full_url
       File.join(@site.url, self.class.url)
     end
+    
+    def populate hash
+      hash.each_pair do |key, value|
+        send "#{key}=", value
+      end
+    end
   
   end
 
