@@ -31,17 +31,25 @@ module Taza
       end
     end
 
-    # A element on a page
+    # An element on a page
     #
     # Watir Example:
     #   class HomePage < Taza::Page
-    #     element(:foo) {browser.element_by_xpath('some xpath')}
+    #     element(:next_button) {browser.button(:value, 'Next'}
     #   end
-    # homepage.foo.click
+    # home_page.next_button.click
     def self.element(name, &block)
       self.elements[name] = block
     end
 
+    # A data field on a page
+    # Either an element containing data or an input field.
+    #
+    #   class HomePage < Taza::Page
+    #     field(:name) {browser.text_field(:name, 'user_name')}
+    #   end
+    # home_page.name = "Fred" # sets the field
+    # home_page.name          # returns the current value (display_value)
     def self.field(name, suffix='element', &block)
       element_name = "#{name}_#{suffix}"
       self.elements[element_name] = block
@@ -50,11 +58,6 @@ module Taza
           #{element_name}.display_value
         end
       EOS
-      element_name
-    end
-
-    def self.input(name, suffix='element', &block)
-      element_name = self.field(name, suffix, &block)
       self.class_eval <<-EOS
         def #{name}= value
           #{element_name}.set value

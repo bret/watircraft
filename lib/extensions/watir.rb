@@ -13,6 +13,7 @@ module Watir
     end
   end
   class CheckBox
+    # returns a boolean
     def display_value
       checked?
     end
