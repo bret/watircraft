@@ -109,7 +109,7 @@ describe Taza::Page do
     
   it "should create elements for fields" do    
     @page_class.field(:foo) {'element'}
-    @page_class.new.foo_element.should == 'element'
+    @page_class.new.foo_field.should == 'element'
   end
   
   it "should allow you to override the suffix for fields" do
@@ -122,7 +122,7 @@ describe Taza::Page do
     element.stubs(:display_value).with().returns('tomorrow')
     @page_class.field(:foo) {element}
     page = @page_class.new
-    page.foo_element.display_value.should == 'tomorrow'
+    page.foo_field.display_value.should == 'tomorrow'
     page.foo.should == 'tomorrow'
   end
   

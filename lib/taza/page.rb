@@ -50,11 +50,11 @@ module Taza
     #   end
     # home_page.name = "Fred" # sets the field
     # home_page.name          # returns the current value (display_value)
-    def self.field(name, suffix='element', &block)
+    def self.field(name, suffix='field', &block)
       element_name = "#{name}_#{suffix}"
       self.elements[element_name] = block
       self.class_eval <<-EOS
-        def #{name}
+        def #{name}()
           #{element_name}.display_value
         end
       EOS
