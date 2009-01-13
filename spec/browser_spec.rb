@@ -7,8 +7,16 @@ require 'watir'
 describe Taza::Browser do
 
   before :each do
+    reset_env_vars
     Taza::Settings.stubs(:config_file).returns({})
     ENV['ENVIRONMENT'] = 'test'
+  end
+
+  after :all do
+    reset_env_vars
+  end
+  def reset_env_vars
+    ENV['ENVIRONMENT'] = nil
     ENV['SERVER_PORT'] = nil
     ENV['SERVER_IP'] = nil
     ENV['BROWSER'] = nil
@@ -39,6 +47,7 @@ describe Taza::Browser do
     Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
     ENV['SERVER_PORT'] = 'server_port'
     ENV['SERVER_IP'] = 'server_ip'
+    ENV['DRIVER'] = 'selenium'
     Selenium::SeleniumDriver.expects(:new).with('server_ip','server_port',anything,anything)
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
@@ -46,6 +55,7 @@ describe Taza::Browser do
   it "should use environment settings for timeout" do
     Taza::Settings.stubs(:path).returns(File.join('spec','sandbox'))
     ENV['TIMEOUT'] = 'timeout'
+    ENV['DRIVER'] = 'selenium'
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end

@@ -24,7 +24,7 @@ describe Taza::Settings do
   
   it "should provide default values if no config file or environment settings provided" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    Taza::Settings.config('SiteName')[:driver].should eql(:selenium)
+    Taza::Settings.config('SiteName')[:driver].should eql(:watir)
     Taza::Settings.config('SiteName')[:browser].should eql(:firefox)
   end
   

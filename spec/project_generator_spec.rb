@@ -12,6 +12,7 @@ describe "Project Generator" do
   end
 
   before :each do
+    ENV['ENVIRONMENT'] = nil
     bare_setup
   end
 
@@ -25,7 +26,6 @@ describe "Project Generator" do
   end
 
   it "spec helper should set the ENVIRONMENT variable if it is not provided" do
-    ENV['ENVIRONMENT'] = nil
     run_generator('taza', [APP_ROOT], generator_sources)
     load @spec_helper
     ENV['ENVIRONMENT'].should eql("test")
@@ -36,6 +36,13 @@ describe "Project Generator" do
     run_generator('taza', [APP_ROOT], generator_sources)
     load @spec_helper
     ENV['ENVIRONMENT'].should eql('orange pie? is there such a thing?')
+  end
+  
+  it "should configure a project for watir, implicitly" do
+    run_generator('taza', [APP_ROOT], generator_sources)
+    Taza::Settings.stubs(:path).returns(APP_ROOT)
+    ENV['ENVIRONMENT'] = 'test'
+    Taza::Settings.config[:driver].should == :watir
   end
 
 end

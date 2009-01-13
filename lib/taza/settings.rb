@@ -7,14 +7,14 @@ module Taza
     #
     # Example:
     #   Taza::Settings.config('google')
-    def self.config(site_name)
+    def self.config(site_name=nil)
       env_settings = {}
       keys = %w(browser driver timeout server_ip server_port)
       keys.each do |key|
         env_settings[key.to_sym] = ENV[key.upcase] if ENV[key.upcase]
       end
       
-      default_settings = {:browser => :firefox, :driver => :selenium}
+      default_settings = {:browser => :firefox, :driver => :watir}
       
       # Because of the way #merge works, the settings at the bottom of the list
       # trump those at the top.
@@ -44,8 +44,12 @@ module Taza
     
     # Returns a hash for the currently specified test environment
     def self.environment_settings # :nodoc:
-      array_of_hashes = YAML.load_file(File.join(path, environment_file))
-      self.convert_string_keys_to_symbols array_of_hashes[ENV['ENVIRONMENT']]
+      file = File.join(path, environment_file)
+      hash_of_hashes = YAML.load_file(file)
+      unless hash_of_hashes.has_key? ENV['ENVIRONMENT']
+        raise "Environment #{ENV['ENVIRONMENT']} not found in #{file}"
+      end
+      self.convert_string_keys_to_symbols hash_of_hashes[ENV['ENVIRONMENT']]
     end
 
     def self.path # :nodoc:
