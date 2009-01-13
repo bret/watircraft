@@ -25,7 +25,7 @@ class TazaGenerator < RubiGen::Base
       m.template "rakefile.rb.erb", "rakefile"
       m.template "config.yml.erb", "config/config.yml"
       m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb"
-      m.template "steps.rb.erb", "test/features/steps.rb"
+      m.template "feature_helper.rb.erb", "test/features/feature_helper.rb"
       m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
         :shebang => options[:shebang], :collision => :force
       m.dependency "site", [@name], :destination => destination_root
