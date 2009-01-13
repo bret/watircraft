@@ -28,7 +28,7 @@ describe "Project Generator" do
     ENV['TAZA_ENV'] = nil
     run_generator('taza', [APP_ROOT], generator_sources)
     load @spec_helper
-    ENV['TAZA_ENV'].should eql("isolation")
+    ENV['TAZA_ENV'].should eql("test")
   end
   
   it "spec helper should not override the TAZA_ENV variable if was provided" do

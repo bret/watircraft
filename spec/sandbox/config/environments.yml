@@ -1,4 +1,4 @@
-isolation: 
+test: 
     :url: http://google.com
 clown_shoes:
     :url: http://clownshoes.com

@@ -5,7 +5,7 @@ require 'taza'
 describe Taza::Settings do
   
   before :each do
-    ENV['TAZA_ENV'] = 'isolation'
+    ENV['TAZA_ENV'] = 'test'
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
   end
