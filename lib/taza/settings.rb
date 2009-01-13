@@ -18,7 +18,7 @@ module Taza
       
       # Because of the way #merge works, the settings at the bottom of the list
       # trump those at the top.
-      settings = site_file(site_name).merge(
+      settings = environment_settings.merge(
                    default_settings.merge(
                      config_file.merge(
                        env_settings)))
@@ -43,8 +43,8 @@ module Taza
     end
     
     # Returns a hash for the currently specified test environment
-    def self.site_file(site_name) # :nodoc:
-      array_of_hashes = YAML.load_file(File.join(path, 'config', "#{site_name.underscore}.yml"))
+    def self.environment_settings # :nodoc:
+      array_of_hashes = YAML.load_file(File.join(path, environment_file))
       self.convert_string_keys_to_symbols array_of_hashes[ENV['TAZA_ENV']]
     end
 
@@ -56,6 +56,11 @@ module Taza
       returning Hash.new do |new_hash|
         hash.each_pair {|k, v| new_hash[k.to_sym] = v}
       end
+    end
+    
+    private
+    def self.environment_file
+      'config/environments.yml'
     end
   end
 end

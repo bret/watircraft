@@ -88,6 +88,7 @@ describe Taza::Settings do
   
   it "setting keys can be specified as strings (i.e. without a colon) in the config file" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
+    Taza::Settings.stubs(:environment_file).returns('config/simpler_site.yml')
     Taza::Settings.config('SimplerSite')[:url].should eql('http://makezine.com')
   end
 

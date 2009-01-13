@@ -27,7 +27,7 @@ describe "Site Generation" do
 
   it "should generate configuration file for a site" do
     run_generator('site', [@site_name], generator_sources)
-    File.exists?(File.join(PROJECT_FOLDER,'config','wikipedia_foo.yml')).should be_true
+    File.exists?(File.join(PROJECT_FOLDER,'config','environments.yml')).should be_true
   end
 
   it "should generate a site path for pages" do
