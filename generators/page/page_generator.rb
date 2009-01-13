@@ -17,6 +17,14 @@ class PageGenerator < RubiGen::Base
     extract_options
   end
   
+  def site_module
+    @site_name.camelize
+  end
+  
+  def page_class
+    "#{name.computerize.camelize}Page"
+  end
+  
   def manifest
     record do |m|
       m.template "page.rb.erb", File.join('lib', 'pages', "#{name.computerize}_page.rb")

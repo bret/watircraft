@@ -11,7 +11,7 @@ describe "Page Generation" do
   before :each do
     generate_project
     @site_class = generate_site('Gap')
-    @site_name = @site_class.to_s
+    @site_name = @site_class.to_s.underscore
   end
 
   after :each do
@@ -71,6 +71,23 @@ describe "Page Generation" do
   it "should be able to generate a page using the project default" do
     lambda{run_generator('page', ['simple'], generator_sources)}.
       should_not raise_error
+  end
+  
+  it "should provide the module name of the site" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
+    generator = PageGenerator.new(['sample'])
+    generator.site_module.should == @site_class.to_s
+  end
+  it "should provide the name of the page class" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
+    generator = PageGenerator.new(['sample'])
+    generator.page_class.should == 'SamplePage'
+  end
+  
+  it "should work when when the provided page name includes a space" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
+    generator = PageGenerator.new(['check out'])
+    generator.page_class.should == 'CheckOutPage'
   end
     
 end
