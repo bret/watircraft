@@ -133,8 +133,14 @@ module Taza
     end
     
     def populate hash
-      hash.each_pair do |key, value|
+      hash.each do |key, value|
         send "#{key}=", value
+      end
+    end
+
+    def validate hash
+      hash.each do |key, value|
+        send(key).should == value
       end
     end
   

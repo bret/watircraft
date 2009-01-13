@@ -148,5 +148,20 @@ describe Taza::Page do
     page = @page_class.new
     page.populate :name => 'Zachary Taylor', :rank => 'General'
   end
+
+  it "should validate a page" do
+    name_element = stub
+    name_element.stubs(:display_value).returns('Zachary Taylor')
+    rank_element = stub
+    rank_element.stubs(:display_value).returns('General')
+    serial_no_element = stub
+    @page_class.class_eval do
+      field(:name){name_element}
+      field(:rank){rank_element}
+      field(:serial_no){serial_no_element}
+    end
+    page = @page_class.new
+    page.validate :name => 'Zachary Taylor', :rank => 'General'
+  end
   
 end

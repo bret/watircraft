@@ -39,4 +39,8 @@ module Watir
       text
     end
   end
+
+  class B < NonControlElement
+    TAG = 'B'
+  end
 end
