@@ -15,7 +15,7 @@ describe Taza::Site do
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
     Taza::Settings.stubs(:config_file).returns({})
-    Taza::Settings.stubs(:site_file).returns({})
+    Taza::Settings.stubs(:environment_settings).returns({})
     Taza::Site.before_browser_closes {}
   end
 
@@ -213,13 +213,13 @@ describe Taza::Site do
     Zoro::Zoro.new
   end
   
-  it "should load settings based on the sites class name" do
-    Taza::Settings.expects(:site_file).with('Zoro').returns({})
-    Zoro::Zoro.settings
+  it "should load settings" do
+    Taza::Settings.expects(:environment_settings).returns({})
+    Zoro::Zoro.settings.should == {}
   end
 
   it "should return the configured site url" do
-    Taza::Settings.expects(:site_file).with('Zoro').returns({:url => 'http://www.zoro.com'}).at_least_once
+    Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
     Zoro::Zoro.new(:browser => stub_browser).url.should == 'http://www.zoro.com'
   end
   
