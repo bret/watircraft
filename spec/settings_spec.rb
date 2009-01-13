@@ -5,7 +5,7 @@ require 'taza'
 describe Taza::Settings do
   
   before :each do
-    ENV['TAZA_ENV'] = 'test'
+    ENV['ENVIRONMENT'] = 'test'
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
   end
@@ -34,7 +34,7 @@ describe Taza::Settings do
   end
 
   it "should be able to load a alternate site url" do
-    ENV['TAZA_ENV'] = 'clown_shoes'
+    ENV['ENVIRONMENT'] = 'clown_shoes'
     Taza::Settings.stubs(:path).returns("spec/sandbox")
     Taza::Settings.config("SiteName")[:url].should eql('http://clownshoes.com')
   end

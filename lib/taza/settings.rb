@@ -45,7 +45,7 @@ module Taza
     # Returns a hash for the currently specified test environment
     def self.environment_settings # :nodoc:
       array_of_hashes = YAML.load_file(File.join(path, environment_file))
-      self.convert_string_keys_to_symbols array_of_hashes[ENV['TAZA_ENV']]
+      self.convert_string_keys_to_symbols array_of_hashes[ENV['ENVIRONMENT']]
     end
 
     def self.path # :nodoc:

@@ -24,18 +24,18 @@ describe "Project Generator" do
     system("ruby -c #{@spec_helper} > #{null_device}").should be_true
   end
 
-  it "spec helper should set the TAZA_ENV variable if it is not provided" do
-    ENV['TAZA_ENV'] = nil
+  it "spec helper should set the ENVIRONMENT variable if it is not provided" do
+    ENV['ENVIRONMENT'] = nil
     run_generator('taza', [APP_ROOT], generator_sources)
     load @spec_helper
-    ENV['TAZA_ENV'].should eql("test")
+    ENV['ENVIRONMENT'].should eql("test")
   end
   
-  it "spec helper should not override the TAZA_ENV variable if was provided" do
-    ENV['TAZA_ENV'] = 'orange pie? is there such a thing?'
+  it "spec helper should not override the ENVIRONMENT variable if was provided" do
+    ENV['ENVIRONMENT'] = 'orange pie? is there such a thing?'
     run_generator('taza', [APP_ROOT], generator_sources)
     load @spec_helper
-    ENV['TAZA_ENV'].should eql('orange pie? is there such a thing?')
+    ENV['ENVIRONMENT'].should eql('orange pie? is there such a thing?')
   end
 
 end

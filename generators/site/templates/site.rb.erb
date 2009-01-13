@@ -1,4 +1,4 @@
-ENV['TAZA_ENV'] = "test" if ENV['TAZA_ENV'].nil?
+ENV['ENVIRONMENT'] ||= "test"
 require 'rubygems'
 require 'taza'
 

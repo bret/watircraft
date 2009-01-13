@@ -8,7 +8,7 @@ describe Taza::Browser do
 
   before :each do
     Taza::Settings.stubs(:config_file).returns({})
-    ENV['TAZA_ENV'] = 'test'
+    ENV['ENVIRONMENT'] = 'test'
     ENV['SERVER_PORT'] = nil
     ENV['SERVER_IP'] = nil
     ENV['BROWSER'] = nil
