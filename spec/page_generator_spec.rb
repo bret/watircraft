@@ -82,12 +82,14 @@ describe "Page Generation" do
     PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
     generator = PageGenerator.new(['sample'])
     generator.page_class.should == 'SamplePage'
+    generator.page_file.should == 'sample_page.rb'
   end
   
   it "should work when when the provided page name includes a space" do
     PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
     generator = PageGenerator.new(['check out'])
     generator.page_class.should == 'CheckOutPage'
+    generator.page_file.should == 'check_out_page.rb'
   end
     
 end

@@ -25,9 +25,13 @@ class PageGenerator < RubiGen::Base
     "#{name.computerize.camelize}Page"
   end
   
+  def page_file
+    "#{name.computerize}_page.rb"
+  end
+  
   def manifest
     record do |m|
-      m.template "page.rb.erb", File.join('lib', 'pages', "#{name.computerize}_page.rb")
+      m.template "page.rb.erb", File.join('lib', 'pages', page_file)
     end
   end
 
