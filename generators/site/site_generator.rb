@@ -17,6 +17,7 @@ class SiteGenerator < RubiGen::Base
     record do |m|
       m.template "site.rb.erb", "lib/#{name.underscore}.rb"
       m.template "environments.yml.erb", "config/environments.yml"
+      m.template "world.rb.erb", "lib/steps/world.rb"
     end
   end
 
