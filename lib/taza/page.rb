@@ -42,14 +42,31 @@ module Taza
       self.elements[name] = block
     end
 
-    # A data field on a page
-    # Either an element containing data or an input field.
+    # An element on a page that has a value.
+    # Use #field for input elements and data elements.
     #
     #   class HomePage < Taza::Page
     #     field(:name) {browser.text_field(:name, 'user_name')}
     #   end
-    # home_page.name = "Fred" # sets the field
-    # home_page.name          # returns the current value (display_value)
+    #
+    # home_page.name_field    # returns the text_field element
+    # home_page.name_field.exists?
+    # home_page.name = "Fred" # calls the #set method on the text_field
+    # home_page.name          # returns the current value (display_value) of the text_field
+    #
+    # The following Watir elements provide both #set and #display_value methods
+    #   text_field (both text boxes and text areas)
+    #   hidden
+    #   file_field
+    #   select_list
+    #   checkbox
+    #   (radios are the obvious item missing from this list -- we're working on it.)
+    #
+    # The following Watir elements provide #display_value methods (but not #set methods).
+    #   button
+    #   cell
+    #   hidden
+    #   all non-control elements, including divs, spans and most other elements.
     def self.field(name, suffix='field', &block)
       element_name = "#{name}_#{suffix}"
       self.elements[element_name] = block
@@ -66,7 +83,7 @@ module Taza
       element_name
     end
 
-    # A filter for elemenet(s) on a page
+    # A filter for element(s) on a page
     # Example:
     #   class HomePage < Taza::Page
     #     element(:foo) {browser.element_by_xpath('some xpath')}
