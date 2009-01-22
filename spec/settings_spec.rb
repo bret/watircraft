@@ -68,10 +68,6 @@ describe Taza::Settings do
     lambda {Taza::Settings.config}.should raise_error
   end
   
-  it "should base the path at the root directory" do
-    Taza::Settings.path.should eql('.')
-  end
-  
   class SiteName < Taza::Site
   end
 

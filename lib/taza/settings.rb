@@ -53,7 +53,7 @@ module Taza
     end
 
     def self.path # :nodoc:
-      '.'
+      APP_ROOT
     end
     
     def self.convert_string_keys_to_symbols hash
