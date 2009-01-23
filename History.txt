@@ -1,7 +1,9 @@
-=== 0.8.1 / 2008-12-20
+=== 0.8.2 / 2009-01-11
 
 * Added Partials
 * Added Preliminary Fixture Support
+* Fixed horrible infinite loop bug in Filters
+* Added Configurability to a Taza projects Rakefile
 
 === 0.8.0 / 2008-11-23
 

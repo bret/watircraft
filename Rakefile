@@ -32,7 +32,7 @@ begin
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
-    s.add_dependency(%q<rspec>, [">= 1.1.11"])
+    s.add_dependency(%q<rspec>, [">= 1.1.12"])
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
 
     s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
