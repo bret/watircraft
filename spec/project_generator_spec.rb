@@ -9,6 +9,7 @@ describe "Project Generator" do
 
   before :all do
     @spec_helper = File.join(TMP_ROOT,PROJECT_NAME,'spec','spec_helper.rb')
+    @rakefile = File.join(TMP_ROOT,PROJECT_NAME,'rakefile')
   end
 
   before :each do
@@ -20,6 +21,11 @@ describe "Project Generator" do
   end
 
   it "should generate a spec helper that can be required" do
+    run_generator('taza', [APP_ROOT], generator_sources)
+    system("ruby -c #{@spec_helper} > #{null_device}").should be_true
+  end
+
+  it "should generate a rakefile that can be required" do
     run_generator('taza', [APP_ROOT], generator_sources)
     system("ruby -c #{@spec_helper} > #{null_device}").should be_true
   end

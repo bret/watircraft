@@ -1,3 +1,10 @@
 <%= "#Generated at #{Time.now}" %>
 require 'rubygems'
 require 'taza/tasks'
+
+Taza::Rake::Tasks.new do |t|
+  file_hole = "artifacts/#{Time.now.to_i}"
+  t.spec_opts = ["--format html:#{file_hole}/index.html",
+                  "--format p",
+                  "--format failing_examples:#{file_hole}/failing_examples.txt"]
+end
