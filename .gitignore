@@ -3,3 +3,4 @@ TAGS
 artifacts
 pkg
 vendor
+.tmp*
