@@ -1,8 +1,9 @@
+CRAP
 History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/taza
+bin/watircraft
 generators/flow/flow_generator.rb
 generators/flow/templates/flow.rb.erb
 generators/page/page_generator.rb
@@ -25,6 +26,8 @@ lib/extensions/string.rb
 lib/extensions/hash.rb
 lib/extensions/array.rb
 lib/extensions/watir.rb
+lib/watircraft.rb
+lib/watircraft/version.rb
 lib/taza.rb
 lib/taza/fixture.rb
 lib/taza/entity.rb
