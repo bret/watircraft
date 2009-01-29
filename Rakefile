@@ -19,15 +19,15 @@ FLOG_LINE = /^(.*): \((\d+\.\d+)\)/
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = 'taza'
-    s.rubyforge_project = 'taza'
-    s.email = "adamandersonis@gmail.com"
-    s.homepage = "http://github.com/scudco/taza"
-    s.summary = "Taza is an opionated browser-based testing framework."
-    s.description = "Taza is an opionated browser-based testing framework."
-    s.authors = ["Adam Anderson"]
+    s.name = 'watircraft'
+    s.rubyforge_project = 'watir' 
+    s.email = "bret@pettichord.com"
+    s.homepage = nil # TODO
+    s.summary = "WatirCraft is a testing framework for web testing."
+    s.description = s.summary
+    s.authors = ["Bret Pettichord", "Jim Matthews", "Charley Baker", "Adam Anderson"]
 
-    s.executables = ["taza"]
+    s.executables = ["taza"] # TODO
     s.files = FileList["[A-Z]*.*", "{bin,generators,lib,spec}/**/*"]
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
