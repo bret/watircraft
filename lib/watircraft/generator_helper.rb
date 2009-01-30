@@ -1,6 +1,6 @@
 require 'taza/settings'
 
-module Taza
+module WatirCraft
   # Assumes #site_name and #destination_root and #usage methods are defined.
   module GeneratorHelper
     protected

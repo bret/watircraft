@@ -1,11 +1,11 @@
 require 'rubygems'
 require 'rubigen'
 require 'activesupport'
-require 'taza/generator_helper'
+require 'watircraft/generator_helper'
 require 'extensions/string'
 
 class PageGenerator < RubiGen::Base
-  include Taza::GeneratorHelper
+  include WatirCraft::GeneratorHelper
   default_options :author => nil
   attr_reader :name, :site_name
 
