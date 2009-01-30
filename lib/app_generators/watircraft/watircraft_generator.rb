@@ -9,7 +9,7 @@ class WatircraftGenerator < RubiGen::Base
   attr_reader :name
 
   component_generators_path = File.dirname(__FILE__) + '/../../../generators'
-  prepend_sources(RubiGen::PathSource.new(:taza, component_generators_path))    
+  prepend_sources(RubiGen::PathSource.new(:watircraft, component_generators_path))    
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -26,7 +26,7 @@ class WatircraftGenerator < RubiGen::Base
       m.template "config.yml.erb", "config/config.yml"
       m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb"
       m.template "feature_helper.rb.erb", "test/features/feature_helper.rb"
-      m.dependency "install_rubigen_scripts", [destination_root, 'taza'],
+      m.dependency "install_rubigen_scripts", [destination_root, 'watircraft'],
         :shebang => options[:shebang], :collision => :force
       m.dependency "site", [@name], :destination => destination_root
     end
