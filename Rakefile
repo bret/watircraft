@@ -29,14 +29,14 @@ begin
     s.authors = ["Bret Pettichord", "Jim Matthews", "Charley Baker", "Adam Anderson"]
 
     s.executables = ["watircraft"] 
-    s.files = $files = FileList["[A-Z]*.*", "{bin,generators,lib,spec}/**/*"]
+    s.files = $files = FileList["[A-Z]*.*", "{bin,watircraft_generators,lib,spec}/**/*"]
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
     s.add_dependency(%q<rspec>, [">= 1.1.12"])
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
 
-    s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README"]
+    s.extra_rdoc_files = ["History.txt", "README"]
     s.has_rdoc = true
     s.rdoc_options = ["--main", "README"]
   end
@@ -111,9 +111,9 @@ file "lib/watircraft/version.rb" => 'VERSION.yml' do
   end
 end
 
-task :gemspec => "lib/watircraft/version.rb"
+task :gemspec => ["lib/watircraft/version.rb", 'Manifest.txt']
 
-CLEAN << 'pkg' << FileList['*.gem']
+CLEAN << 'pkg' << FileList['*.gem'] << 'Manifest.txt'
 
 namespace :gem do
   desc "Uninstall all watircraft gems"
@@ -131,10 +131,13 @@ end
 desc "Install new gem after uninstalling previous"
 task :install => ['gem:uninstall', 'gem:install_win']
 
-file 'Manifest.txt' do
+file 'Manifest.txt' => :clean do
   File.open('Manifest.txt', 'w') do |f|
     f.puts $files
   end
 end
+
+desc "Build and install a gem from scratch"
+task "build" => ['gemspec', 'gem', 'install'] 
 
 # vim: syntax=ruby

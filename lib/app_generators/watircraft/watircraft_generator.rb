@@ -8,7 +8,7 @@ class WatircraftGenerator < RubiGen::Base
 
   attr_reader :name
 
-  component_generators_path = File.dirname(__FILE__) + '/../../../generators'
+  component_generators_path = File.dirname(__FILE__) + '/../../../watircraft_generators'
   prepend_sources(RubiGen::PathSource.new(:watircraft, component_generators_path))    
 
   def initialize(runtime_args, runtime_options = {})

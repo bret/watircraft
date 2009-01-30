@@ -1,0 +1,8 @@
+Description:
+  
+  A spec is one way to express a test. These tests are written in Ruby.
+  
+Examples:
+  
+  script\generate spec login
+  script\generate spec "purchase large order"

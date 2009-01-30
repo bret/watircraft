@@ -1,0 +1,13 @@
+Description:
+
+  Creates a file that you can use to store your defined steps.
+  These are the "Given", "When", "Then" commands that are used
+  with Cucumber features. 
+  
+  You can organize your step files as you wish. You can put them
+  all in one file or create multiple files for them.
+  
+Examples:
+  
+  script\generate steps login
+  script\generate steps "policy use case"

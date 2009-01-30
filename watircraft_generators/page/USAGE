@@ -1,0 +1,10 @@
+Description:
+  
+  A page class collects elements that grouped together. They might all
+  be on the same page. You can also use page classes for parts of a 
+  page, or for items which appear on many pages. 
+
+Examples:
+
+  script\generate page "check out"
+  script\generate page header

@@ -35,9 +35,9 @@ class StepsGenerator < RubiGen::Base
 
   def banner
     <<-EOS
-    Creates a taza page for the current site.
+    Creates a file for steps.
 
-    USAGE: #{$0} #{spec.name} page_name
+    USAGE: #{$0} #{spec.name} steps_description
     EOS
   end
 

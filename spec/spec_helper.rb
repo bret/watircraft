@@ -25,7 +25,7 @@ APP_ROOT = File.join(TMP_ROOT, PROJECT_NAME)
 
 def generator_sources
   [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__), "..", "lib", "app_generators")),
-  RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__), "..", "generators"))]
+  RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__), "..", "watircraft_generators"))]
 end
 
 module Helpers

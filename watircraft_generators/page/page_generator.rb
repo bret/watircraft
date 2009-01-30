@@ -39,7 +39,7 @@ class PageGenerator < RubiGen::Base
 
   def banner
     <<-EOS
-    Creates a taza page for the current site.
+    Creates a page class.
 
     USAGE: #{$0} #{spec.name} page_name
     EOS
