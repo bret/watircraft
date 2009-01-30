@@ -14,4 +14,4 @@ source = RubiGen::PathSource.new(:application,
   File.join(File.dirname(__FILE__), "../lib/app_generators"))
 RubiGen::Base.reset_sources
 RubiGen::Base.append_sources source
-RubiGen::Scripts::Generate.new.run(ARGV, :generator => 'taza')
+RubiGen::Scripts::Generate.new.run(ARGV, :generator => 'watircraft')

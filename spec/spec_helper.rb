@@ -39,7 +39,7 @@ module Helpers
       site_name.camelize.constantize
     end
     def generate_project
-      run_generator('taza', [APP_ROOT], generator_sources)
+      run_generator('watircraft', [APP_ROOT], generator_sources)
       ::Taza::Settings.stubs(:path).returns(APP_ROOT)       
     end
   end

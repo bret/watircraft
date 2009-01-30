@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rubigen'
-class TazaGenerator < RubiGen::Base
+class WatircraftGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
                               Config::CONFIG['ruby_install_name'])
 
@@ -49,7 +49,7 @@ class TazaGenerator < RubiGen::Base
   protected
     def banner
       <<-EOS
-USAGE: #{spec.name} path/for/your/test/project [options]
+USAGE: #{spec.name} project_name [options]
 EOS
     end
 

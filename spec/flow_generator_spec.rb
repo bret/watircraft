@@ -28,7 +28,7 @@ describe "Flow Generation" do
   end
 
   before :each do
-    run_generator('taza', [APP_ROOT], generator_sources)
+    run_generator('watircraft', [APP_ROOT], generator_sources)
     @site_class = generate_site(@site_name)
   end
 

@@ -18,7 +18,7 @@ describe "Site Generation" do
 
   before :each do
     bare_setup
-    run_generator('taza', [APP_ROOT], generator_sources)
+    run_generator('watircraft', [APP_ROOT], generator_sources)
   end
 
   after :each do
