@@ -24,7 +24,7 @@ class SiteGenerator < RubiGen::Base
   protected
   def banner
     <<-EOS
-    Creates a taza site.
+    Creates the site for a watircraft project. Not intended to be called separately
 
     USAGE: #{$0} #{spec.name} name
     EOS

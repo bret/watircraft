@@ -36,11 +36,6 @@ describe "Site Generation" do
     File.directory?(@page_folder).should be_true
   end
 
-  it "should generate a partials folder" do
-    run_generator('site', [@site_name], generator_sources)
-    File.directory?(File.join(@site_folder,"partials")).should be_true
-  end
-
   it "generated site that uses the block given in new" do
     @site_class = generate_site(@site_name)
     stub_settings
