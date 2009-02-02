@@ -4,6 +4,7 @@
 
 require 'spec'
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/..')
+require 'initialize'
 require '<%= name %>'
 
 SITE = <%= name.camelize %>::<%= name.camelize %>.new
