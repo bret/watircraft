@@ -6,11 +6,16 @@ require 'taza'
 
 describe "Project Generator" do
   include RubiGen::GeneratorTestHelper
+  
+  def project_file relative_path
+    File.join(TMP_ROOT, PROJECT_NAME, relative_path)
+  end
 
   before :all do
-    @spec_helper = File.join(TMP_ROOT, PROJECT_NAME, 'test/specs/spec_helper.rb')
-    @feature_helper = File.join(TMP_ROOT, PROJECT_NAME, 'test/features/feature_helper.rb')
-    @rakefile = File.join(TMP_ROOT,PROJECT_NAME, 'rakefile')
+    @spec_helper = project_file 'test/specs/spec_helper.rb'
+    @feature_helper = project_file 'test/features/feature_helper.rb'
+    @rakefile = project_file 'rakefile'
+    @initializer = project_file 'lib/initialize.rb'
   end
 
   before :each do
@@ -27,7 +32,7 @@ describe "Project Generator" do
     system("ruby -c #{@spec_helper} > #{null_device}").should be_true
   end
 
-  it "should generate a spec helper that can be required" do
+  it "should generate a feature helper that can be required" do
     run_generator('watircraft', [APP_ROOT], generator_sources)
     system("ruby -c #{@feature_helper} > #{null_device}").should be_true
   end
@@ -36,6 +41,13 @@ describe "Project Generator" do
     run_generator('watircraft', [APP_ROOT], generator_sources)
     system("ruby -c #{@rakefile} > #{null_device}").should be_true
   end
+  
+  it "should generate an initializer that can be required" do
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    system("ruby -c #{@initializer} > #{null_device}").should be_true
+  end
+
+  # TODO: the following specs are actually testing the initializer
 
   it "spec helper should set the ENVIRONMENT variable if it is not provided" do
     run_generator('watircraft', [APP_ROOT], generator_sources)

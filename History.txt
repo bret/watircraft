@@ -9,12 +9,28 @@ Features
   are *page*, *spec* and *steps*. However, additional generators will be made 
   available in future versions of this framework, as well as other plug-ins.
 
+Installation Instructions
+
+  gem install watircraft
+
+Update Instructions
+
+If you have a project created with a prior version of watircraft (aka taza), you
+will need to do the following.
+
+# Open a command shell to the directory containing your watircraft project (i.e. the parent of the root).
+# Type "watircraft <dirname>". This will ask whether you want to replace several
+  files. Replace all but the lib/<site>.rb file. (This has the same name as
+  your project, unless you renamed one of them.)
+
 User Visible Changes
 
-* Renamed Gem from "taza" to "watircraft".
+* Renamed gem from "taza" to "watircraft".
 * Rename "taza" command to "watircraft".
 * Removed flow generator. Plan is to use Watirloo's use case class instead.
 * Now uses rspec version 1.1.12.
+* Added Readme and History files.
+* Added initialize.rb file to test projects. This will simplify future updates.
 
 Technical Changes
 
