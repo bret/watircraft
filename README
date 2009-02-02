@@ -2,9 +2,12 @@
 
 == DESCRIPTION
 
-WatirCraft is a testing framework builds on Watir. 
+WatirCraft is a testing framework that builds on Watir. 
 It allows tests to be expressed as Rspec or Cucumber tests and provides 
-a library structure to support maintainable testing. 
+a library structure to support maintainable testing. It gives you
+a place to put things.
+
+* http://testobsessed.com/2008/05/31/a-place-to-put-things/
 
 == FEATURES
 
