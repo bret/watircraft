@@ -18,10 +18,15 @@ Update Instructions
 If you have a project created with a prior version of watircraft (aka taza), you
 will need to do the following.
 
-# Open a command shell to the directory containing your watircraft project (i.e. the parent of the root).
-# Type "watircraft <dirname>". This will ask whether you want to replace several
-  files. Replace all but the lib/<site>.rb file. (This has the same name as
-  your project, unless you renamed one of them.)
+# Open a command shell to the root of your project (i.e. where you type
+  rake commands).
+# Type "watircraft . --site=<your_site_name>". This will add some files and
+  ask whether you want 
+  to replace several files. Say yes ('y') and replace the following files (only):
+  * script/destroy
+  * script/generate
+  * feature_helper.rb
+  * spec_helper.rb
 
 User Visible Changes
 
