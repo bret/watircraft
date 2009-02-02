@@ -1,46 +1,85 @@
-=== 0.8.2 / 2009-01-11
+=== 0.3.0 / 2009-02-02
 
-* Added Partials
-* Added Preliminary Fixture Support
-* Fixed horrible infinite loop bug in Filters
-* Added Configurability to a Taza projects Rakefile
+Repackaged as watircraft gem version 0.3.0.
 
-=== 0.8.0 / 2008-11-23
+Features
 
-Taza is a web application testing framework meant to be used with browsed-based testing libraries like WATIR or Selenium
+* You can now get a list of the script/generate commands that are available to
+  you by typing "script/generate" from the root of your project. Currently these
+  are *page*, *spec* and *steps*. However, additional generators will be made 
+  available in future versions of this framework, as well as other plug-ins.
 
-Not all web applications can be written in Ruby, unfortunately. When you aren't testing an application that was written with testing in mind Taza can provide a structured and opionated way to do browser-based testing.
+User Visible Changes
 
-* Sites have Pages
-* Sites have Flows that move through Pages
-* Pages have elements and filters to define simple ways of interacting with them
-* Pages have tests/specs that help chip away at the dreaded 0% Coverage Beast™
+* Renamed Gem from "taza" to "watircraft".
+* Rename "taza" command to "watircraft".
+* Removed flow generator. Plan is to use Watirloo's use case class instead.
+* Now uses rspec version 1.1.12.
 
-* Features
-  * Generate a Taza project easily
-  * Generate Sites, Pages, and Flows using a familiar format(./script/generate)
-  * Automatically generate specs when generating a site to push you
-  * Easily switch browser and/or driver
-  * Automatic opening and cleanup of browser
-  * Included rake spec commands generated for sites and pages
-  * Rake spec commands will create an RSpec HTML report by default
-  * Easily tie-in special functionality like getting a DOM dump of each browser before it closes
+Technical Changes
 
-* Todo
-  0.8.x
-    * Add a taza_example to easily generate a fully-functional example of how a taza project might look
-    * Provide more documentation
-  0.9
-    * Add more thorough Selenium support
-    * Easily allow overwriting of spec options for included rake tasks
-    * Provide better conventions around cross-site testing
-  1.0
-    * Using Selenium with WATIR syntax(Easily switch between Selenium and WATIR without having to change any Page code)
-    * Provide more advanced documentation
+* Merged in changes from Taza 0.8.2., including
+  * Fix a bug in filters leading to infinite regress.
+* Added rake task for Manifest.txt.
+* Renamed generator_helper from taza to watircraft.
+* Removed partials. Need to review how to provide this functionality in 
+  watircraft.
+* Taza generators are now WatirCraft generators.
+* Executable version number is now automatically built from VERSION.yml.
+  (With taza, you had to maintain this by hand)
+  
 
-=== 0.5.0 / 2008-10-03
+=== Beta 2 / 2009-01-23
 
-* 1 major enhancement
+Fixes
 
-  * Birthday!
+* Updated documentation for Taza::Page. It includes details on the element and
+  field commands.
+* Fix bug preventing the cucumber command from working. 
+
+Known Bugs
+
+* Cucumber command will only work when run from the root of the project. 
+
+Update Notes
+
+Like Beta 1, this is delivered as a gem called taza version 0.8.1. You should
+delete that one before installing this one.
+
+If you already have a project created with Beta 1, you will need to add the
+following code to the top of your lib/<project_name>.rb file:
+
+  APP_ROOT = File.expand_path(File.join(File.dirname(FILE), '..')) unless defined?(APP_ROOT)
+
+=== Beta 1 / 2009-01-14
+
+Forked from Taza 0.8.1.
+
+Summary of Features
+
+* Tests can be configured to work with different environments.
+* Rich page classes simplify tests, and make theme easier to read and maintain.
+* Support for both rspec and cucumber style tests.
+* Defined pages can be used with both rspec and cucumber tests.
+* Generate scripts create templates for pages, specs (rspec tests) and steps (for cucumber tests).
+
+Known Bugs
+
+* Support for FireWatir is incomplete (specifically: Page fields)
+* Flows are not supported.
+* Need to merge with latest version of taza/master.
+* Need to update to latest version of rspec (1.1.12)
+* Page fields do not support Radio lists.
+
+Differences from Taza/Master
+
+* Only supports a single site per project
+* Simplified directory structure
+* Added support for cucumber
+* Added spec generator (rspec).
+* Addition of Page fields.
+* Simplified config files.
+
+This version is delivered as a gem purporting to be taza version 0.8.1. This
+will be fixed in a future release.
 

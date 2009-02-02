@@ -1,63 +1,51 @@
-= taza
+= WatirCraft
 
-* http://github.com/scudco/taza/tree/master 
+== DESCRIPTION
 
-== DESCRIPTION:
+WatirCraft is a testing framework builds on Watir. 
+It allows tests to be expressed as Rspec or Cucumber tests and provides 
+a library structure to support maintainable testing. 
 
-Taza is meant to make acceptance testing more sane for developers(or QA where applicable) and customers.
+== FEATURES
 
-== FEATURES:
+* Generate a directory structure for your test suite with one command.
+* Provides page adapters you can customize for your application.
+* Configure application URL and browser type (IE, Firefox) in one location.
+* Framework automatically initializes browser for testing.
 
-* Generate a project for browser-based testing
-* Generate pages and sites for different applications
-* Create flows that move through a site
-* Use filters to control which elements are accessible on a page depending on its state
-* Taza automatically creates and cleans up the browser for each site just like a File block
-* Manage tests by tags
-* Cross-site testing
+== APPROACH
 
-== ISSUES:
+WatirCraft is an object-oriented testing framework that helps you create
+class libraries to support the tests for your application. On their own,
+many testers have created procedural libraries for testing because they
+understand these and find them easier to create and understand.
 
-* Taza has only been used in the wild with WATIR(Safari/Firefox/IE), but Selenium support is built-in
-* Taza's generators currently generate RSpec specs, Test::Unit and other test framework support is planned
+Although object-oriented frameworks like WatirCraft are somewhat more difficult
+to understand at first, they are easier to customize and upgrade. As we add
+more features to the WatirCraft framework, your test suite will automatically
+get the benefit.
 
-== SYNOPSIS:
+== INSTALL
 
-Taza is meant to be a refreshing way to look at browser testing. Taza provides a few ways to abstract browser-based testing into three simple ideas.
-  * Sites
-  * Pages
-  * Flows
+* gem install watircraft
 
-Sites have Pages.
-Pages have elements and filters.
-Flows are common actions on a site such as logging in or performing a search.
+== EXAMPLE
 
-Here's an example for starting a project around the Google sites
+An example test suite for this framework can be found in the framework 
+examples project on github. Look in the taza (sic) directory.
+* http://github.com/bret/framework-examples/
 
-  $ taza google
-  $ cd google/
-  $ ./script/generate site google
-  $ ./script/generate page home_page google
-  $ ./script/generate flow search google
-  $ rake spec:functional:google
+== ORIGIN
 
-That will generate an RSpec HTML report at artifacts/functional/google/index.html
+WatirCraft is based on the Taza framework. 
+* http://github.com/scudco/taza/wikis
 
-
-== REQUIREMENTS:
-
-* taglob 
-
-== INSTALL:
-
-* sudo gem install taza 
-* gem install taza
-
-== LICENSE:
+== LICENSE
 
 (The MIT License)
 
 Copyright (c) 2008 Charley Baker
+Copyright (c) 2009 Charley Baker, Bret Pettichord
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -77,3 +65,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+WatirCraft is a trademark of WatirCraft LLC.
