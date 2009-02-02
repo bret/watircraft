@@ -43,7 +43,10 @@ Technical Changes
 * Taza generators are now WatirCraft generators.
 * Executable version number is now automatically built from VERSION.yml.
   (With taza, you had to maintain this by hand)
-  
+
+Known Bugs
+
+* Need to provide homepage for project.  
 
 === Beta 2 / 2009-01-23
 

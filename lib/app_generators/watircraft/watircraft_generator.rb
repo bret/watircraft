@@ -6,7 +6,7 @@ class WatircraftGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_reader :name
+  attr_reader :name, :site
 
   component_generators_path = File.dirname(__FILE__) + '/../../../watircraft_generators'
   prepend_sources(RubiGen::PathSource.new(:watircraft, component_generators_path))    
@@ -17,6 +17,7 @@ class WatircraftGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     @name = base_name
     extract_options
+    @site ||= @name
   end
 
   def manifest
@@ -29,7 +30,7 @@ class WatircraftGenerator < RubiGen::Base
       m.template "initialize.rb.erb", "lib/initialize.rb"
       m.dependency "install_rubigen_scripts", [destination_root, 'watircraft'],
         :shebang => options[:shebang], :collision => :force
-      m.dependency "site", [@name], :destination => destination_root
+      m.dependency "site", [@site], :destination => destination_root
     end
   end
 
@@ -61,6 +62,10 @@ EOS
       #         "Some comment about this option",
       #         "Default: none") { |options[:author]| }
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
+      opts.on("--site=SITE", String, 
+        "Name of the Site for the project.",
+        "Default: same as project_name."
+        ) { |v| options[:site] = v }
     end
 
     def extract_options
@@ -68,6 +73,7 @@ EOS
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
       # @author = options[:author]
+      @site = options[:site]
     end
 
 end

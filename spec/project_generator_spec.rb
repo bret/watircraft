@@ -32,6 +32,10 @@ describe "Project Generator" do
     system("ruby -c #{@spec_helper} > #{null_device}").should be_true
   end
 
+  it "should generate a spec helper that can be required even when site name is different" do
+    run_generator('watircraft', [APP_ROOT, '--site=another_name'], generator_sources)
+    system("ruby -c #{@spec_helper} > #{null_device}").should be_true
+  end
   it "should generate a feature helper that can be required" do
     run_generator('watircraft', [APP_ROOT], generator_sources)
     system("ruby -c #{@feature_helper} > #{null_device}").should be_true
@@ -67,6 +71,13 @@ describe "Project Generator" do
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:driver].should == :watir
+  end
+
+  it "should allow a site name to be specified" do
+    run_generator('watircraft', [APP_ROOT, '--site=site_name'], generator_sources)
+    Taza::Settings.stubs(:path).returns(APP_ROOT)
+    ENV['ENVIRONMENT'] = 'test'
+    Taza::Settings.config[:site].should == 'site_name'
   end
 
 end
