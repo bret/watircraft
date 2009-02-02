@@ -23,6 +23,7 @@ will need to do the following.
 # Type "watircraft . --site=<your_site_name>". This will add some files and
   ask whether you want 
   to replace several files. Say yes ('y') and replace the following files (only):
+  
   * script/destroy
   * script/generate
   * feature_helper.rb
