@@ -36,6 +36,7 @@ User Visible Changes
 * Now uses rspec version 1.1.12.
 * Added Readme and History files.
 * Added initialize.rb file to test projects. This will simplify future updates.
+* The "watircraft" command now takes an option to specify a site.
 
 Technical Changes
 
