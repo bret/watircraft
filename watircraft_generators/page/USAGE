@@ -8,3 +8,4 @@ Examples:
 
   script\generate page "check out"
   script\generate page header
+  script\generate page CheckOut

@@ -41,6 +41,7 @@ class PageGenerator < RubiGen::Base
     Creates a page class.
 
     USAGE: #{$0} #{spec.name} page_name
+
     EOS
   end
 
