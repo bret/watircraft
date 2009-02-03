@@ -1,12 +1,15 @@
 === 0.3.1 / 2009-02-03
 
-This is a patch update to 0.3.0. It can be installed on top of 0.3.0 without
+This is a patch update. It can be installed on top of 0.3.0 without
 further updates. If you are updating from beta2 or previous, please see 
-Update Notes in 0.3.0.
+Update Notes for 0.3.0, below.
 
 Fixes
 
 * Automatically install cucumber when installing watircraft.
+* Allow pages to be specified in camel case (or not) in the page generator.
+* Changed method of declaring dependencies in an attempt to fix reported
+  "could not find site generator" error which i cannot reproduce.
 
 === 0.3.0 / 2009-02-02
 

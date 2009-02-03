@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'rubigen'
+require 'extensions/string'
+
 class WatircraftGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
                               Config::CONFIG['ruby_install_name'])
@@ -8,8 +10,8 @@ class WatircraftGenerator < RubiGen::Base
 
   attr_reader :name, :site
 
-  component_generators_path = File.dirname(__FILE__) + '/../../../watircraft_generators'
-  prepend_sources(RubiGen::PathSource.new(:watircraft, component_generators_path))    
+  # so we can use the site generator
+  prepend_sources(RubiGen::GemPathSource.new([:watircraft]))
 
   def initialize(runtime_args, runtime_options = {})
     super

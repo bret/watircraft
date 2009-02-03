@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rubigen'
-require 'activesupport'
+require 'extensions/string'
 
 class SiteGenerator < RubiGen::Base
   default_options :author => nil

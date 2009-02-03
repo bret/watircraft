@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'rubigen'
-require 'activesupport'
 require 'watircraft/generator_helper'
 require 'extensions/string'
 
