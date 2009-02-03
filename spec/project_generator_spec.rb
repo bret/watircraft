@@ -50,6 +50,12 @@ describe "Project Generator" do
     run_generator('watircraft', [APP_ROOT], generator_sources)
     system("ruby -c #{@initializer} > #{null_device}").should be_true
   end
+  
+  it "should be able to update an existing project and figure out the site name" do
+    run_generator('watircraft', [APP_ROOT, '--site=crazy'], generator_sources)
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    Taza::Settings.config[:site].should == 'crazy'
+  end
 
   # TODO: the following specs are actually testing the initializer
 
