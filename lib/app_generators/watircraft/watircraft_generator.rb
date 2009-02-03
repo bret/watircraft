@@ -26,11 +26,11 @@ class WatircraftGenerator < RubiGen::Base
   def manifest
     record do |m|    
       @@new_directories.each { |path| m.directory path }
-      m.template "rakefile.rb.erb", "rakefile"
-      m.template "config.yml.erb", "config/config.yml"
-      m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb"
-      m.template "feature_helper.rb.erb", "test/features/feature_helper.rb"
-      m.template "initialize.rb.erb", "lib/initialize.rb"
+      m.template "rakefile.rb.erb", "rakefile", :collision => :force
+      m.template "config.yml.erb", "config/config.yml", :collision => :skip
+      m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb", :collision => :force
+      m.template "feature_helper.rb.erb", "test/features/feature_helper.rb", :collision => :force
+      m.template "initialize.rb.erb", "lib/initialize.rb", :collision => :force
       m.dependency "install_rubigen_scripts", [destination_root, 'watircraft'],
         :shebang => options[:shebang], :collision => :force
       m.dependency "site", [@site], :destination => destination_root
