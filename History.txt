@@ -1,3 +1,13 @@
+=== 0.3.1 / 2009-02-03
+
+This is a patch update to 0.3.0. It can be installed on top of 0.3.0 without
+further updates. If you are updating from beta2 or previous, please see 
+Update Notes in 0.3.0.
+
+Fixes
+
+* Automatically install cucumber when installing watircraft.
+
 === 0.3.0 / 2009-02-02
 
 Repackaged as watircraft gem version 0.3.0.
@@ -20,7 +30,7 @@ will need to do the following.
 
 # Open a command shell to the root of your project (i.e. where you type
   rake commands).
-# Type "watircraft . --site=<your_site_name>". This will add some files and
+# Type "watircraft . --site=your_site_name". This will add some files and
   ask whether you want 
   to replace several files. Say yes ('y') and replace the following files (only):
   
@@ -28,6 +38,7 @@ will need to do the following.
   * script/generate
   * feature_helper.rb
   * spec_helper.rb
+  * world.rb
 
 User Visible Changes
 
