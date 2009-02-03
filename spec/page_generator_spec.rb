@@ -91,5 +91,20 @@ describe "Page Generation" do
     generator.page_class.should == 'CheckOutPage'
     generator.page_file.should == 'check_out_page.rb'
   end
+
+  it "should work when when the provided page name includes an underscore" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
+    generator = PageGenerator.new(['check_out'])
+    generator.page_class.should == 'CheckOutPage'
+    generator.page_file.should == 'check_out_page.rb'
+  end
+
+  it "should work when when the provided page is in camel case" do
+    PageGenerator.any_instance.stubs(:configured_site).returns(@site_name)
+    generator = PageGenerator.new(['CheckOut'])
+    generator.page_class.should == 'CheckOutPage'
+    generator.page_file.should == 'check_out_page.rb'
+  end
+    
     
 end

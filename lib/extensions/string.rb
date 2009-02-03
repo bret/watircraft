@@ -12,6 +12,6 @@ class String
   # Example:
   #   "Add Book".computerize # => "add_book"
   def computerize
-    self.downcase.gsub ' ', '_'
+    self.underscore.downcase.gsub ' ', '_'
   end
 end
