@@ -29,7 +29,8 @@ Fixes
   "could not find site generator" error which I cannot reproduce.
 * Improved documentation for generators. (Type "watircraft" or 
   "script\generate page" to see this.)
-
+* You can now use the cucumber command from inside the tests/features 
+  directory (previously it would only work from project root).
 
 === 0.3.0 / 2009-02-02
 
