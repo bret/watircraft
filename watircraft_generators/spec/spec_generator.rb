@@ -29,6 +29,7 @@ class SpecGenerator < RubiGen::Base
     Creates a spec.
 
     USAGE: #{$0} #{spec.name} name
+    
     EOS
   end
 

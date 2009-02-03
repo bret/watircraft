@@ -24,9 +24,10 @@ class SiteGenerator < RubiGen::Base
   protected
   def banner
     <<-EOS
-    Creates the site for a watircraft project. Not intended to be called separately
+    Creates the site for a watircraft project.
 
     USAGE: #{$0} #{spec.name} name
+    
     EOS
   end
 

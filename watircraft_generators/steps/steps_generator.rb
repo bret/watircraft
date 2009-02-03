@@ -38,6 +38,7 @@ class StepsGenerator < RubiGen::Base
     Creates a file for steps.
 
     USAGE: #{$0} #{spec.name} steps_description
+    
     EOS
   end
 
