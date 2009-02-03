@@ -46,14 +46,24 @@ module Taza
     def self.environment_settings # :nodoc:
       file = File.join(path, environment_file)
       hash_of_hashes = YAML.load_file(file)
-      unless hash_of_hashes.has_key? ENV['ENVIRONMENT']
-        raise "Environment #{ENV['ENVIRONMENT']} not found in #{file}"
+      unless hash_of_hashes.has_key? environment
+        raise "Environment #{environment} not found in #{file}"
       end
-      self.convert_string_keys_to_symbols hash_of_hashes[ENV['ENVIRONMENT']]
+      convert_string_keys_to_symbols hash_of_hashes[environment]
     end
+    
+    @@root = nil
 
     def self.path # :nodoc:
-      APP_ROOT
+      @@root || APP_ROOT
+    end
+    
+    def self.path= path
+      @@root = path
+    end
+    
+    def self.environment
+      ENV['ENVIRONMENT'] || 'test'
     end
     
     def self.convert_string_keys_to_symbols hash

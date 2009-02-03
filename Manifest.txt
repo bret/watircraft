@@ -33,6 +33,7 @@ lib/app_generators/watircraft/templates/feature_helper.rb.erb
 lib/app_generators/watircraft/templates/initialize.rb.erb
 lib/app_generators/watircraft/templates/rakefile.rb.erb
 lib/app_generators/watircraft/templates/spec_helper.rb.erb
+lib/app_generators/watircraft/USAGE
 lib/app_generators/watircraft/watircraft_generator.rb
 lib/extensions
 lib/extensions/array.rb

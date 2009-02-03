@@ -19,8 +19,16 @@ class WatircraftGenerator < RubiGen::Base
     @destination_root = File.expand_path(args.shift)
     @name = base_name
     extract_options
-    @site ||= @name
+    @site ||= installed_site || @name
     @site = @site.computerize
+  end
+  
+  # return the site name if we are upgrading an existing project
+  def installed_site
+    return nil unless File.exists? @destination_root + "/config/config.yml"
+    require 'taza/settings'
+    Taza::Settings.path = @destination_root
+    Taza::Settings.config[:site]
   end
 
   def manifest
@@ -67,7 +75,7 @@ EOS
       opts.on("-v", "--version", "Show the #{File.basename($0)} version number and quit.")
       opts.on("--site=SITE", String, 
         "Name of the Site for the project.",
-        "Default: same as project_name."
+        "Default: existing site (if updating) or project_name."
         ) { |v| options[:site] = v }
     end
 
