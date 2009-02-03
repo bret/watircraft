@@ -23,7 +23,7 @@ describe Taza::Site do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql("./lib/pages/**/*.rb")
+    Bax.new.pages_path.should eql(APP_ROOT + "/lib/pages/**/*.rb")
   end
 
   it "should have flows defined as instance methods" do

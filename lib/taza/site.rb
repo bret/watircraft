@@ -151,7 +151,7 @@ module Taza
     end
 
     def base_path # :nodoc:
-      '.'
+      APP_ROOT
     end
   end
 end

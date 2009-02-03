@@ -1,15 +1,35 @@
 === 0.3.1 / 2009-02-03
 
-This is a patch update. It can be installed on top of 0.3.0 without
-further updates. If you are updating from beta2 or previous, please see 
-Update Notes for 0.3.0, below.
+This patch release includes some fixes and an improved updater.
+
+Update Notes
+
+You can update an existing project created with a previous release 
+by typing "watircraft ." in root of your project. 
+(That is _watircraft space period_.)
+
+If your project was created with or already updated to 0.3.0, you do not 
+need to update (although it won't hurt if you do).
+
+If your project was created with beta2 or previous, you will need to update
+to use this version.
+
+Improvements to Updater
+
+* When using "watircraft" to update an existing project, you no longer
+  have to specify the site name.
+* When updating the "correct" files will automatically be replaced.
+* The initialize.rb file is now stamped with the time and version.
 
 Fixes
 
 * Automatically install cucumber when installing watircraft.
 * Allow pages to be specified in camel case (or not) in the page generator.
 * Changed method of declaring dependencies in an attempt to fix reported
-  "could not find site generator" error which i cannot reproduce.
+  "could not find site generator" error which I cannot reproduce.
+* Improved documentation for generators. (Type "watircraft" or 
+  "script\generate page" to see this.)
+
 
 === 0.3.0 / 2009-02-02
 
