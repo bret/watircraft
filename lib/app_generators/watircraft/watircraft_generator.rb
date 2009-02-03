@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rubigen'
 require 'extensions/string'
+require 'watircraft/version'
 
 class WatircraftGenerator < RubiGen::Base
   DEFAULT_SHEBANG = File.join(Config::CONFIG['bindir'],
@@ -27,6 +28,8 @@ class WatircraftGenerator < RubiGen::Base
   def installed_site
     return nil unless File.exists? @destination_root + "/config/config.yml"
     require 'taza/settings'
+    initializer = @destination_root + "/lib/initialize.rb"
+    load initializer if File.exists? initializer
     Taza::Settings.path = @destination_root
     Taza::Settings.config[:site]
   end

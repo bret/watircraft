@@ -1,0 +1,11 @@
+Description:
+  
+  Creates a watircraft test project. 
+  
+  To update an existing project to this version, run this command on the project.
+
+Examples:
+
+  watircraft google    # to create a new project (or update a project called google)
+  watircraft .         # to update an existing project
+  
