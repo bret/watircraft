@@ -18,6 +18,7 @@ class WatircraftGenerator < RubiGen::Base
     @name = base_name
     extract_options
     @site ||= @name
+    @site = @site.computerize
   end
 
   def manifest

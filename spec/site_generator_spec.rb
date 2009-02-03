@@ -35,6 +35,18 @@ describe "Site Generation" do
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
   end
+  
+  it "should generate a site path even if the site name is given with spaces" do
+    run_generator('site', ["Wikipedia Foo"], generator_sources)
+    File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
+  end
+  
+  it "should generate a site path even if the site name is given with underscores" do
+    run_generator('site', ["wikipedia_foo"], generator_sources)
+    File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
+  end
 
   it "generated site that uses the block given in new" do
     @site_class = generate_site(@site_name)

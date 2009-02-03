@@ -9,18 +9,18 @@ class SiteGenerator < RubiGen::Base
   def initialize(runtime_args, runtime_options = {})
     super
     usage if args.empty?
-    @name = args.shift
+    @name = args.shift.computerize
     extract_options
   end
 
   def manifest
     record do |m|
-      m.template "site.rb.erb", "lib/#{name.underscore}.rb"
+      m.template "site.rb.erb", "lib/#{name}.rb"
       m.template "environments.yml.erb", "config/environments.yml"
       m.template "world.rb.erb", "lib/steps/world.rb"
     end
   end
-
+  
   protected
   def banner
     <<-EOS
