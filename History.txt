@@ -1,3 +1,11 @@
+=== 0.3.2 / 2009-02-04
+
+Another patch release. Like 0.3.1, no need to update if your project is 
+already at 0.3.x
+
+* Fix "undefined method display_value" error that appeared when creating
+  page fields with links or parents.
+
 === 0.3.1 / 2009-02-03
 
 This patch release includes some fixes and an improved updater.
