@@ -1,0 +1,5 @@
+Known Bugs
+
+* Support for FireWatir is incomplete (specifically: Page fields)
+* Page fields do not support Radio lists.
+* Need to provide homepage for project.
