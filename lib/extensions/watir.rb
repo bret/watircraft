@@ -29,12 +29,7 @@ module Watir
       value
     end
   end
-  class NonControlElement
-    def display_value
-      text
-    end
-  end
-  class TableCell
+  class Element
     def display_value
       text
     end

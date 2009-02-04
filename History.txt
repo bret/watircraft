@@ -18,7 +18,7 @@ Improvements to Updater
 
 * When using "watircraft" to update an existing project, you no longer
   have to specify the site name.
-* When updating the "correct" files will automatically be replaced.
+* When updating, the "correct" files will automatically be replaced.
 * The initialize.rb file is now stamped with the time and version.
 
 Fixes
