@@ -37,9 +37,9 @@ begin
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
     s.add_dependency(%q<cucumber>, [">= 0.1.13"])
 
-    s.extra_rdoc_files = ["History.txt", "README"]
+    s.extra_rdoc_files = ["History.txt", "README.rdoc"]
     s.has_rdoc = true
-    s.rdoc_options = ["--main", "README"]
+    s.rdoc_options = ["--main", "README.rdoc"]
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"

@@ -1,9 +1,8 @@
 BUGS.txt
 History.txt
 Manifest.txt
-README.textile
+README.rdoc
 VERSION.yml
-watircraft.gemspec
 bin/watircraft
 watircraft_generators/page
 watircraft_generators/page/page_generator.rb
