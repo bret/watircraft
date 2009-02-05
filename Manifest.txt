@@ -1,3 +1,4 @@
+BUGS.txt
 History.txt
 Manifest.txt
 README.textile
