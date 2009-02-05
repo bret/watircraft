@@ -48,6 +48,7 @@ WatirCraft is based on the Taza framework.
 (The MIT License)
 
 Copyright (c) 2008 Charley Baker
+
 Copyright (c) 2009 Charley Baker, Bret Pettichord
 
 Permission is hereby granted, free of charge, to any person obtaining
