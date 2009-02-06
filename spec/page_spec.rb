@@ -177,5 +177,10 @@ describe Taza::Page do
     page = @page_class.new
     page.validate :name => 'Zachary Taylor', :rank => 'General'
   end
+
+  it "should allow you to define elements using human-form names" do
+    @page_class.element('User Name'){'Tertulian'}
+    @page_class.new.user_name.should == 'Tertulian'
+  end
   
 end

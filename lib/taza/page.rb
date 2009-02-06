@@ -1,3 +1,5 @@
+require 'extensions/string'
+
 module Taza
   # An abstraction of a web page, place the elements you care about accessing in here as well as specify the filters that apply when trying to access the element.
   #
@@ -39,6 +41,7 @@ module Taza
     #   end
     # home_page.next_button.click
     def self.element(name, &block)
+      name = name.to_s.computerize.to_sym
       self.elements[name] = block
     end
 
