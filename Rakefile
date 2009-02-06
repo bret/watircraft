@@ -17,6 +17,8 @@ FLOG_THRESHOLD = 40.0
 FLOG_REPORT = File.join(ARTIFACTS_DIR,"flog_report.txt")
 FLOG_LINE = /^(.*): \((\d+\.\d+)\)/
 
+files_in_gem = FileList["[A-Z]*.*", "{bin,lib,spec,app_generators,watircraft_generators}/**/*"]
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
@@ -29,7 +31,7 @@ begin
     s.authors = ["Bret Pettichord", "Jim Matthews", "Charley Baker", "Adam Anderson"]
 
     s.executables = ["watircraft"] 
-    s.files = $files = FileList["[A-Z]*.*", "{bin,watircraft_generators,lib,spec}/**/*"]
+    s.files = files_in_gem
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
@@ -134,7 +136,7 @@ task :install => ['gem:uninstall', 'gem:install_win']
 
 file 'Manifest.txt' => :clean do
   File.open('Manifest.txt', 'w') do |f|
-    f.puts $files
+    f.puts files_in_gem
   end
 end
 
