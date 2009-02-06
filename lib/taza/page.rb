@@ -71,6 +71,7 @@ module Taza
     #   hidden
     #   all non-control elements, including divs, spans and most other elements.
     def self.field(name, suffix='field', &block)
+      name = name.to_s.computerize.to_sym
       element_name = "#{name}_#{suffix}"
       self.elements[element_name] = block
       self.class_eval <<-EOS

@@ -183,4 +183,9 @@ describe Taza::Page do
     @page_class.new.user_name.should == 'Tertulian'
   end
   
+  it "should allow you to define fields using human-form names" do
+    @page_class.field('User Name'){'Tertulian'}
+    @page_class.new.user_name_field.should == 'Tertulian'
+  end  
+  
 end
