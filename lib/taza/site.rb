@@ -114,6 +114,14 @@ module Taza
         EOS
       end
     end
+    
+    # Return an instance of the specified page. The name
+    # Given should be the human-form of the page, without the
+    # "page" suffix.
+    def page(page_name)
+      method_name = page_name.computerize + '_page'
+      send method_name
+    end
 
     def define_flows # :nodoc:
       Dir.glob(flows_path) do |file|

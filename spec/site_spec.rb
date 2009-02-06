@@ -46,17 +46,29 @@ describe Taza::Site do
   it "should yield an instance of a page class" do
     f = Foo.new(:browser => stub_browser)
     barzor = nil
-    f.bar do |bar|
+    f.bar_page do |bar|
       barzor = bar
     end
-    barzor.should be_an_instance_of(Bar)
+    barzor.should be_an_instance_of(BarPage)
+  end
+  
+  it "should return a page by name" do
+    # Foo is a site, Bar is a page on the site
+    site = Foo.new(:browser => stub_browser)
+    site.bar_page.should be_an_instance_of(BarPage)
+  end
+
+  it "should return a page by method" do
+    # Foo is a site, Bar is a page on the site
+    site = Foo.new(:browser => stub_browser)
+    site.page('bar').should be_an_instance_of(BarPage)
+    site.page('Bar').should be_an_instance_of(BarPage)
   end
 
   it "should accept a browser instance" do
     browser = stub_browser
     foo = Foo.new(:browser => browser)
     foo.browser.should eql(browser)
-
   end
 
   it "should create a browser instance if one is not provided" do
@@ -125,7 +137,7 @@ describe Taza::Site do
     klass = Class::new(Taza::Site)
     klass.any_instance.stubs(:pages_path).returns(@pages_path)
     klass.new do |site|
-      site.should respond_to(:bar)
+      site.should respond_to(:bar_page)
     end
   end
 
@@ -142,7 +154,7 @@ describe Taza::Site do
     browser = stub_browser
     Taza::Browser.stubs(:create).returns(browser)
     foo = Foo.new
-    foo.bar.browser.should eql(browser)
+    foo.bar_page.browser.should eql(browser)
   end
 
   it "should add partials defined under the pages directory" do
@@ -230,7 +242,7 @@ describe Taza::Site do
     Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
     Foo.new.goto 'page.html'
   end
-  
+    
   def stub_browser
     browser = stub()
     browser.stubs(:close)
