@@ -118,9 +118,10 @@ module Taza
     # Return an instance of the specified page. The name
     # Given should be the human-form of the page, without the
     # "page" suffix.
-    def page(page_name)
+    # If a block is given, it yields to the page.
+    def page(page_name, &block)
       method_name = page_name.computerize + '_page'
-      send method_name
+      send method_name, &block
     end
 
     def define_flows # :nodoc:

@@ -64,6 +64,13 @@ describe Taza::Site do
     site.page('bar').should be_an_instance_of(BarPage)
     site.page('Bar').should be_an_instance_of(BarPage)
   end
+  
+  it "should yield to a page" do
+    site = Foo.new(:browser => stub_browser)
+    the_page = nil
+    site.page('Bar') {|page| the_page = page }
+    the_page.should be_an_instance_of(BarPage)
+  end
 
   it "should accept a browser instance" do
     browser = stub_browser
