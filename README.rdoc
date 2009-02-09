@@ -30,6 +30,7 @@ get the benefit.
 
 == INSTALL
 
+* gem update --system
 * gem install watircraft
 
 == EXAMPLE
