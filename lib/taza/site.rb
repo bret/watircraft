@@ -56,7 +56,7 @@ module Taza
         @browser = Browser.create(config)
         @i_created_browser = true
       end
-      @browser.goto(url)
+      goto
       execute_block_and_close_browser(browser,&block) if block_given?
     end
     
@@ -68,8 +68,9 @@ module Taza
       config[:url]
     end
     
-    def goto relative_url
-      @browser.goto(File.join(url, relative_url))
+    def goto relative_url=nil
+      destination = relative_url ? File.join(url, relative_url) : url
+      @browser.goto destination
     end
 
     def execute_block_and_close_browser(browser)

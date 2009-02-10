@@ -242,12 +242,20 @@ describe Taza::Site do
     Zoro::Zoro.new(:browser => stub_browser).url.should == 'http://www.zoro.com'
   end
   
-  it "should allow you to 'goto' a relative url" do
+  it "should go to a relative url" do
     browser = stub_browser
     browser.expects(:goto).with('http://www.foo.com/page.html')
     Taza::Browser.stubs(:create).returns(browser)
     Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
     Foo.new.goto 'page.html'
+  end
+  
+  it "should go to the default url" do
+    browser = stub_browser
+    browser.expects(:goto).with('http://www.foo.com')
+    Taza::Browser.stubs(:create).returns(browser)
+    Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
+    Foo.new.goto
   end
     
   def stub_browser
