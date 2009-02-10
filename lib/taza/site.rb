@@ -59,7 +59,7 @@ module Taza
       goto
       execute_block_and_close_browser(browser,&block) if block_given?
     end
-    
+
     def config
       Settings.config(@class_name)
     end
@@ -85,10 +85,6 @@ module Taza
         end
         close_browser_and_raise_if site_block_exception || before_browser_closes_block_exception
       end
-    end
-
-    def self.settings # :nodoc:
-      Taza::Settings.environment_settings
     end
 
     def close_browser_and_raise_if original_error # :nodoc:

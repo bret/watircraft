@@ -231,11 +231,6 @@ describe Taza::Site do
     Taza::Settings.expects(:config).with('Zoro').returns({}).at_least_once
     Zoro::Zoro.new
   end
-  
-  it "should load settings" do
-    Taza::Settings.expects(:environment_settings).returns({})
-    Zoro::Zoro.settings.should == {}
-  end
 
   it "should return the configured site url" do
     Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once

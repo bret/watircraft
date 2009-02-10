@@ -73,7 +73,9 @@ describe Taza::Settings do
 
   it "a site should be able to load its settings" do
     Taza::Settings.stubs(:path).returns("spec/sandbox")
-    SiteName.settings[:url].should eql('http://google.com')
+    browser = stub()
+    browser.stubs(:goto)
+    SiteName.new(:browser => browser).config[:url].should eql('http://google.com')
   end
 
   it "setting keys can be specified as strings (i.e. without a colon) in the config file" do
