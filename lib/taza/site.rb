@@ -79,16 +79,25 @@ module Taza
       rescue => site_block_exception
       ensure
         begin
-          @@before_browser_closes.call(@browser)
-        rescue => before_browser_closes_block_exception
-          "" # so basically rcov has a bug where it would insist this block is uncovered when empty
+          close
+        rescue => close_exception
+          ""
         end
-        original_error = site_block_exception || before_browser_closes_block_exception
-        begin
-          @browser.close if @i_created_browser
-        ensure
-          raise original_error if original_error
-        end
+        exception = site_block_exception || close_exception
+        raise exception if exception
+      end
+    end
+
+    def close
+      begin
+        @@before_browser_closes.call(@browser)
+      rescue => before_browser_closes_block_exception
+        "" # so basically rcov has a bug where it would insist this block is uncovered when empty
+      end
+      begin
+        @browser.close if @i_created_browser
+      ensure
+        raise before_browser_closes_block_exception if before_browser_closes_block_exception
       end
     end
 
