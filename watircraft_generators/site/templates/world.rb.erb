@@ -8,7 +8,7 @@ require 'initialize'
 require '<%= name %>'
 
 SITE = <%= name.camelize %>::<%= name.camelize %>.new
-at_exit {SITE.close_browser_and_raise_if nil}
+at_exit {SITE.close}
 
 World do
   SITE

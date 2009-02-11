@@ -13,9 +13,6 @@ describe "Project Generator" do
 
   before :all do
     @spec_helper = project_file 'test/specs/spec_helper.rb'
-    @feature_helper = project_file 'test/features/feature_helper.rb'
-    @rakefile = project_file 'rakefile'
-    @initializer = project_file 'lib/initialize.rb'
   end
 
   before :each do
@@ -27,28 +24,46 @@ describe "Project Generator" do
     bare_teardown
   end
 
-  it "should generate a spec helper that can be required" do
+  def should_be_loadable file, generator_options=nil
+    generator_args = [APP_ROOT]
+    generator_args << generator_options if generator_options
+    run_generator('watircraft', generator_args, generator_sources)
+    load_path = File.dirname(__FILE__) + '/../lib'
+    system("ruby -I#{load_path} #{file} > #{null_device}").should be_true
+  end
+
+  def should_be_loadable_with_cucumber file
     run_generator('watircraft', [APP_ROOT], generator_sources)
-    system("ruby -c #{@spec_helper} > #{null_device}").should be_true
+    load_path = File.dirname(__FILE__) + '/../lib'
+    argv = "[\"#{file}\"]"
+    system("ruby -c -I#{load_path} -e 'require \"cucumber/cli\"; Cucumber::CLI.execute(#{argv})' > #{null_device}").should be_true
+  end
+
+  it "should generate a spec helper that can be required" do
+    should_be_loadable @spec_helper
   end
 
   it "should generate a spec helper that can be required even when site name is different" do
-    run_generator('watircraft', [APP_ROOT, '--site=another_name'], generator_sources)
-    system("ruby -c #{@spec_helper} > #{null_device}").should be_true
+    should_be_loadable @spec_helper, '--site=another_name'
   end
   it "should generate a feature helper that can be required" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
-    system("ruby -c #{@feature_helper} > #{null_device}").should be_true
+    feature_helper = project_file 'test/features/feature_helper.rb'
+    should_be_loadable_with_cucumber feature_helper
   end
 
   it "should generate a rakefile that can be required" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
-    system("ruby -c #{@rakefile} > #{null_device}").should be_true
+    rakefile = project_file 'rakefile'
+    should_be_loadable rakefile
   end
   
   it "should generate an initializer that can be required" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
-    system("ruby -c #{@initializer} > #{null_device}").should be_true
+    initializer = project_file 'lib/initialize.rb'
+    should_be_loadable initializer
+  end
+  
+  it "should generate a world file that can be required" do
+    world = project_file 'lib/steps/world.rb'
+    should_be_loadable_with_cucumber world
   end
   
   it "should be able to update an existing project and figure out the site name" do
