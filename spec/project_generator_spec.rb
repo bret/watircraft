@@ -39,10 +39,6 @@ describe "Project Generator" do
     system("ruby -I#{load_path} -e 'require \"cucumber/cli\"; Cucumber::CLI.execute(#{argv})' > #{null_device}").should be_true
   end
 
-  it "should generate a spec helper that can be required" do
-    should_be_loadable @spec_helper
-  end
-
   it "should generate a spec helper that can be required even when site name is different" do
     should_be_loadable @spec_helper, '--site=another_name'
   end
@@ -59,11 +55,6 @@ describe "Project Generator" do
   it "should generate an initializer that can be required" do
     initializer = project_file 'lib/initialize.rb'
     should_be_loadable initializer
-  end
-  
-  it "should generate a world file that can be required" do
-    world = project_file 'lib/steps/world.rb'
-    should_be_loadable_with_cucumber world
   end
   
   it "should be able to update an existing project and figure out the site name" do
