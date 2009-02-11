@@ -100,5 +100,12 @@ describe "Project Generator" do
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:site].should == 'site_name'
   end
+  
+  it "should allow a browser driver to be specified" do
+    run_generator('watircraft', [APP_ROOT, '--driver=nine_iron'], generator_sources)
+    Taza::Settings.stubs(:path).returns(APP_ROOT)
+    ENV['ENVIRONMENT'] = 'test'
+    Taza::Settings.config[:driver].should == :nine_iron
+  end
 
 end

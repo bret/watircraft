@@ -9,7 +9,7 @@ class WatircraftGenerator < RubiGen::Base
 
   default_options :author => nil
 
-  attr_reader :name, :site
+  attr_reader :name, :site, :driver
 
   # so we can use the site generator
   prepend_sources(RubiGen::GemPathSource.new([:watircraft]))
@@ -80,6 +80,10 @@ EOS
         "Name of the Site for the project.",
         "Default: existing site (if updating) or project_name."
         ) { |v| options[:site] = v }
+      opts.on("--driver=DRIVER", String,
+        "Name of the browser driver for the project.",
+        "Default: watir."
+        ) { |v| options[:driver] = v }
     end
 
     def extract_options
@@ -88,6 +92,7 @@ EOS
       # raw instance variable value.
       # @author = options[:author]
       @site = options[:site]
+      @driver = options[:driver] || :watir
     end
 
 end
