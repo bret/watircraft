@@ -34,6 +34,10 @@ module Taza
   end
 
   class FakeBrowser
+    def goto(*args)
+    end
+    def close
+    end
     
   end
   

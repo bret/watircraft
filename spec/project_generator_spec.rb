@@ -33,10 +33,10 @@ describe "Project Generator" do
   end
 
   def should_be_loadable_with_cucumber file
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    run_generator('watircraft', [APP_ROOT, '--driver=fake'], generator_sources)
     load_path = File.dirname(__FILE__) + '/../lib'
     argv = "[\"#{file}\"]"
-    system("ruby -c -I#{load_path} -e 'require \"cucumber/cli\"; Cucumber::CLI.execute(#{argv})' > #{null_device}").should be_true
+    system("ruby -I#{load_path} -e 'require \"cucumber/cli\"; Cucumber::CLI.execute(#{argv})' > #{null_device}").should be_true
   end
 
   it "should generate a spec helper that can be required" do
