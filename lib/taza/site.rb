@@ -45,7 +45,7 @@ module Taza
     #
     # Sites can take a couple of parameters in the constructor:
     #   :browser => a browser object to act on instead of creating one automatically (mainly for unit-testing purposes)
-    def initialize(params={},&block)
+    def initialize(params={}, &block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
       define_site_pages
@@ -57,7 +57,7 @@ module Taza
         @i_created_browser = true
       end
       goto
-      execute_block_and_close_browser(browser,&block) if block_given?
+      execute_block_and_close_browser(&block) if block_given?
     end
 
     def config
@@ -73,25 +73,22 @@ module Taza
       @browser.goto destination
     end
 
-    def execute_block_and_close_browser(browser)
+    def execute_block_and_close_browser
       begin
         yield self
       rescue => site_block_exception
       ensure
         begin
-          @@before_browser_closes.call(browser)
+          @@before_browser_closes.call(@browser)
         rescue => before_browser_closes_block_exception
           "" # so basically rcov has a bug where it would insist this block is uncovered when empty
         end
-        close_browser_and_raise_if site_block_exception || before_browser_closes_block_exception
-      end
-    end
-
-    def close_browser_and_raise_if original_error # :nodoc:
-      begin
-        @browser.close if @i_created_browser
-      ensure
-        raise original_error if original_error
+        original_error = site_block_exception || before_browser_closes_block_exception
+        begin
+          @browser.close if @i_created_browser
+        ensure
+          raise original_error if original_error
+        end
       end
     end
 
