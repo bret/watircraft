@@ -32,18 +32,18 @@ describe "Project Generator" do
     system("ruby -I#{load_path} #{file} > #{null_device}").should be_true
   end
 
-  def should_be_loadable_with_cucumber directory
-    run_generator('watircraft', [APP_ROOT, '--driver=fake'], generator_sources)
-    load_path = File.dirname(__FILE__) + '/../lib'
-    system("ruby -I#{load_path} -C#{directory} -e 'require \"cucumber/cli\"; Cucumber::CLI.execute([\".\"])' > #{null_device}").should be_true
-  end
-
   it "should generate a spec helper that can be required even when site name is different" do
     should_be_loadable @spec_helper, '--site=another_name'
   end
+
   it "should generate a feature helper that can be required" do
-    feature_dir = project_file 'test/features/'
-    should_be_loadable_with_cucumber feature_dir
+    feature_helper = project_file 'test/features/feature_helper.rb'
+    should_be_loadable feature_helper, '--driver=fake'
+  end
+
+  it "should generate a world file that can be required" do
+    world = project_file 'lib/steps/world.rb'
+    should_be_loadable world, '--driver=fake'
   end
 
   it "should generate a rakefile that can be required" do
