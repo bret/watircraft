@@ -126,16 +126,13 @@ describe Taza::Site do
     browser = stub_browser
     browser.expects(:close)
     Taza::Browser.stubs(:create).returns(browser)
-    Foo.new do |site|
-    end
+    Foo.new {}
   end
 
   it "should yield itself upon initialization" do
     Taza::Browser.stubs(:create).returns(stub_browser)
     foo = nil
-    f = Foo.new do |site|
-      foo = site
-    end
+    f = Foo.new { |site| foo = site }
     foo.should eql(f)
   end
 
