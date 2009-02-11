@@ -26,7 +26,15 @@ module Taza
       require 'selenium'
       Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
     end
+    
+    def self.create_fake(params)
+      FakeBrowser.new
+    end
 
+  end
+
+  class FakeBrowser
+    
   end
   
 end

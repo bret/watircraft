@@ -59,5 +59,10 @@ describe Taza::Browser do
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,anything,'timeout')
     Taza::Browser.create(Taza::Settings.config("SiteName"))
   end
+
+  # a test of a stub for testing the test harness of our tests
+  it "should provide a fake browser, so we can test our test harness" do
+    Taza::Browser.create(:driver => :fake).should be_a(Taza::FakeBrowser)
+  end
   
 end
