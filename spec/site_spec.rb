@@ -215,6 +215,14 @@ describe Taza::Site do
     browser.expects(:close)
     Foo.new() {}
   end
+
+  it "should close when a block is not given" do
+    browser = stub()
+    Taza::Browser.stubs(:create).returns(browser)
+    browser.stubs(:goto)
+    browser.expects(:close)
+    Foo.new.close
+  end
     
   module Zoro
     class Zoro < ::Taza::Site
