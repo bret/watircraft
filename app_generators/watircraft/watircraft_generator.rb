@@ -40,7 +40,7 @@ class WatircraftGenerator < RubiGen::Base
       m.template "rakefile.rb.erb", "rakefile", :collision => :force
       m.template "config.yml.erb", "config/config.yml", :collision => :skip
       m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb", :collision => :force
-      m.template "feature_helper.rb.erb", "test/features/feature_helper.rb", :collision => :force
+      m.file "feature_helper.rb", "test/features/feature_helper.rb", :collision => :force
       m.template "initialize.rb.erb", "lib/initialize.rb", :collision => :force
       m.dependency "install_rubigen_scripts", [destination_root, 'watircraft'],
         :shebang => options[:shebang], :collision => :force
