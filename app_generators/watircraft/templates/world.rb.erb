@@ -6,9 +6,9 @@ require 'spec'
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/..')
 require 'cucumber'
 require 'initialize'
-require '<%= name %>'
+require '<%= site %>'
 
-SITE = <%= name.camelize %>::<%= name.camelize %>.new
+SITE = <%= site.camelize %>::<%= site.camelize %>.new
 at_exit {SITE.close}
 
 World do

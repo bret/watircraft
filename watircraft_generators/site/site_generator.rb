@@ -17,7 +17,6 @@ class SiteGenerator < RubiGen::Base
     record do |m|
       m.template "site.rb.erb", "lib/#{name}.rb", :collision => :skip
       m.template "environments.yml.erb", "config/environments.yml", :collision => :skip
-      m.template "world.rb.erb", "lib/steps/world.rb", :collision => :force
     end
   end
   
