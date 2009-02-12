@@ -1,4 +1,3 @@
-<%= "#Generated at #{Time.now}" %>
 require 'rubygems'
 require 'taza/tasks'
 

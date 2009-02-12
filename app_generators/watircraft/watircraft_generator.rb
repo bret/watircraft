@@ -37,7 +37,7 @@ class WatircraftGenerator < RubiGen::Base
   def manifest
     record do |m|    
       @@new_directories.each { |path| m.directory path }
-      m.template "rakefile.rb.erb", "rakefile", :collision => :force
+      m.file "rakefile.rb", "rakefile", :collision => :force
       m.template "config.yml.erb", "config/config.yml", :collision => :skip
       m.template "spec_helper.rb.erb", "test/specs/spec_helper.rb", :collision => :force
       m.file "feature_helper.rb", "test/features/feature_helper.rb", :collision => :force
