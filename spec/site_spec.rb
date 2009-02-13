@@ -209,8 +209,26 @@ describe Taza::Site do
 end
 
 describe "Spec Context" do
+  def stub_browser
+    browser = stub()
+    browser.stubs(:close)
+    browser.stubs(:goto)
+    browser
+  end  
   it "should provide page methods" do
+
+    @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
+    Foo = Class.new(Taza::Site)
+    Foo.any_instance.stubs(:pages_path).returns(@pages_path)
+
+    @browser = stub_browser
+    Taza::Browser.stubs(:create).returns(@browser)
+
+    Taza::Settings.stubs(:config_file).returns({})
+    Taza::Settings.stubs(:environment_settings).returns({})
+        
     context = Spec::Example::ExampleGroup.new "sample"
+    context.extend Foo.new.page_methods
     context.bar_page.should be_an_instance_of(BarPage)
   end
 end

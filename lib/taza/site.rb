@@ -18,25 +18,6 @@ module Taza
   #
   #   end
   class Site
-
-    # methods that neither depend on or modify state
-    module Functions 
-
-      private
-      def flows_path # :nodoc:
-        File.join(path,'flows','*.rb')
-      end
-  
-      def path # :nodoc:
-        File.join(base_path,'lib')
-      end
-  
-      def base_path # :nodoc:
-        APP_ROOT
-      end
-
-    end
-    include Functions
     
     @@before_browser_closes = Proc.new() {}
     # Use this to do something with the browser before it closes, but note that it is a class method which
@@ -50,7 +31,7 @@ module Taza
     def self.before_browser_closes(&block)
       @@before_browser_closes = block
     end
-    attr_accessor :browser
+    attr_accessor :browser, :page_methods
 
     # A site can be called a few different ways
     #
@@ -69,7 +50,8 @@ module Taza
     def initialize(params={}, &block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
-      self.extend(PageLoader.new(@module_name, pages_path).page_methods)
+      @page_methods = PageLoader.new(@module_name, pages_path).page_methods
+      self.extend(@page_methods)
       define_flows
       if params[:browser]
         @browser = params[:browser]
@@ -161,6 +143,22 @@ module Taza
     #    end
     #  end
 
+    #
+    # methods that neither depend on or modify state
+    #
+
+    private
+    def flows_path # :nodoc:
+      File.join(path,'flows','*.rb')
+    end
+
+    def path # :nodoc:
+      File.join(base_path,'lib')
+    end
+
+    def base_path # :nodoc:
+      APP_ROOT
+    end
     
     class PageLoader
       attr_reader :page_methods
