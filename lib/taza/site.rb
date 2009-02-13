@@ -163,7 +163,6 @@ module Taza
 
     
     class PageLoader
-      include Functions
       attr_reader :page_methods
       def initialize site_module, pages_path
         @site_module = site_module
