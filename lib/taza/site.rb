@@ -44,7 +44,8 @@ module Taza
     #  Google.new.search.set "taza"
     #
     # Sites can take a couple of parameters in the constructor:
-    #   :browser => a browser object to act on instead of creating one automatically (mainly for unit-testing purposes)
+    #   :browser => a browser object to act on instead of creating one automatically
+    # (not sure if this is a useful feature or not)
     def initialize(params={}, &block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
@@ -63,6 +64,7 @@ module Taza
     def config
       Settings.config(@class_name)
     end
+    private :config
     
     def url
       config[:url]
@@ -87,6 +89,7 @@ module Taza
         raise exception if exception
       end
     end
+    private :execute_block_and_close_browser
 
     def close
       begin
@@ -117,6 +120,7 @@ module Taza
         EOS
       end
     end
+    private :define_site_pages
     
     # Return an instance of the specified page. The name
     # Given should be the human-form of the page, without the
@@ -132,6 +136,7 @@ module Taza
         require file
       end
     end
+    private :define_site_pages
 
     # This is used to call a flow belonging to the site
     #
@@ -150,6 +155,7 @@ module Taza
     #    end
     #  end
 
+    private
     def pages_path # :nodoc:
       File.join(path,'pages','**','*.rb') # does this need to include partials?
     end

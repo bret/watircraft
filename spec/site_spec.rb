@@ -19,12 +19,11 @@ describe Taza::Site do
     Taza::Site.before_browser_closes {}
     @browser = stub_browser
     Taza::Browser.stubs(:create).returns(@browser)
-    @browser
   end
 
   it "pages_path should not contain the site class name" do
     Bax = Class.new(Taza::Site)
-    Bax.new.pages_path.should eql(APP_ROOT + "/lib/pages/**/*.rb")
+    Bax.new.send(:pages_path).should eql(APP_ROOT + "/lib/pages/**/*.rb")
   end
 
   it "should have flows defined as instance methods" do
@@ -207,4 +206,11 @@ describe Taza::Site do
     browser
   end
   
+end
+
+describe "Spec Context" do
+  it "should provide page methods" do
+    context = Spec::Example::ExampleGroup.new "sample"
+    context.bar_page.should be_an_instance_of(BarPage)
+  end
 end
