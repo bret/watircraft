@@ -18,6 +18,26 @@ module Taza
   #
   #   end
   class Site
+
+    # methods that neither depend on or modify state
+    module Functions 
+
+      private
+      def flows_path # :nodoc:
+        File.join(path,'flows','*.rb')
+      end
+  
+      def path # :nodoc:
+        File.join(base_path,'lib')
+      end
+  
+      def base_path # :nodoc:
+        APP_ROOT
+      end
+
+    end
+    include Functions
+    
     @@before_browser_closes = Proc.new() {}
     # Use this to do something with the browser before it closes, but note that it is a class method which
     # means that this will get called for any instance of a site.
@@ -49,7 +69,7 @@ module Taza
     def initialize(params={}, &block)
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
-      define_site_pages
+      self.extend(PageLoader.new(@module_name, pages_path).page_methods)
       define_flows
       if params[:browser]
         @browser = params[:browser]
@@ -103,24 +123,6 @@ module Taza
         raise before_browser_closes_block_exception if before_browser_closes_block_exception
       end
     end
-
-    def define_site_pages # :nodoc:
-      Dir.glob(pages_path) do |file|
-        require file
-        page_name = File.basename(file,'.rb')
-        page_class = "#{@module_name}::#{page_name.camelize}"
-        self.class.class_eval <<-EOS
-        def #{page_name}
-          page = #{page_class}.new
-          page.browser = @browser
-          page.site = self
-          yield page if block_given?
-          page
-        end
-        EOS
-      end
-    end
-    private :define_site_pages
     
     # Return an instance of the specified page. The name
     # Given should be the human-form of the page, without the
@@ -131,12 +133,16 @@ module Taza
       send method_name, &block
     end
 
+    private
+    def pages_path # :nodoc:
+      File.join(path,'pages','**','*.rb') # does this need to include partials?
+    end
+
     def define_flows # :nodoc:
       Dir.glob(flows_path) do |file|
         require file
       end
     end
-    private :define_site_pages
 
     # This is used to call a flow belonging to the site
     #
@@ -155,21 +161,33 @@ module Taza
     #    end
     #  end
 
-    private
-    def pages_path # :nodoc:
-      File.join(path,'pages','**','*.rb') # does this need to include partials?
-    end
-
-    def flows_path # :nodoc:
-      File.join(path,'flows','*.rb')
-    end
-
-    def path # :nodoc:
-      File.join(base_path,'lib')
-    end
-
-    def base_path # :nodoc:
-      APP_ROOT
+    
+    class PageLoader
+      include Functions
+      attr_reader :page_methods
+      def initialize site_module, pages_path
+        @site_module = site_module
+        @pages_path = pages_path
+        @page_methods = Module.new
+        define_site_pages
+      end
+      private
+      def define_site_pages # :nodoc:
+        Dir.glob(@pages_path) do |file|
+          require file
+          page_name = File.basename(file,'.rb')
+          page_class = "#{@site_module}::#{page_name.camelize}"
+          @page_methods.module_eval <<-EOS
+          def #{page_name}
+            page = #{page_class}.new
+            page.browser = @browser
+            page.site = self
+            yield page if block_given?
+            page
+          end
+          EOS
+        end
+      end
     end
   end
 end
