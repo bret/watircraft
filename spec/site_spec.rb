@@ -67,6 +67,18 @@ describe do
       @context.site.origin.should == 'http://www.zoro.com'
     end
     
+    
+    it "should go to a relative url" do
+      @browser.expects(:goto).with('http://www.foo.com/page.html')
+      Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
+      @context.goto 'page.html'
+    end
+    
+    it "should go to the site origin" do
+      @browser.expects(:goto).with('http://www.foo.com/')
+      Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
+      @context.goto ''
+    end
   end
     
   describe Taza::Site do
@@ -206,18 +218,6 @@ describe do
     it "should return the configured site url" do
       Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
       @site.origin.should == 'http://www.zoro.com'
-    end
-    
-    it "should go to a relative url" do
-      @browser.expects(:goto).with('http://www.foo.com/page.html')
-      Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
-      @context.goto 'page.html'
-    end
-    
-    it "should go to the site origin" do
-      @browser.expects(:goto).with('http://www.foo.com')
-      Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
-      @foo_class.new.goto ''
     end
         
   end

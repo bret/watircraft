@@ -32,6 +32,12 @@ module Taza
         send method_name, &block
       end
 
+      # Send the browser to a url, relative to the site origin.
+      def goto relative_url
+        destination = File.join(@site.origin, relative_url) 
+        @browser.goto destination
+      end
+
     end
     
     @@before_browser_closes = Proc.new() {}
@@ -93,12 +99,6 @@ module Taza
     def origin
       config[:url]
     end
-
-    def goto relative_url
-      destination = relative_url ? File.join(@site.origin, relative_url) : @site.origin
-      @browser.goto destination
-    end
-
 
     def execute_block_and_close_browser
       begin
