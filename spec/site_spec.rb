@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'taza'
 
-describe "Sites and Execution Contexts" do
+describe do
   
   before :all do
     @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
@@ -30,7 +30,6 @@ describe "Sites and Execution Contexts" do
   end
 
   shared_examples_for "an execution context" do
-    # any context
     it "should yield an instance of a page class" do
       barzor = nil
       @context.bar_page do |bar|
@@ -40,12 +39,11 @@ describe "Sites and Execution Contexts" do
     end
     
     it "should return a page by name" do
-      # @foo_class is a site, Bar is a page on the site
+      # Bar is a page on the site
       @context.bar_page.should be_an_instance_of(BarPage)
     end
     
     it "should return a page by method" do
-      # @foo_class is a site, Bar is a page on the site
       @context.page('bar').should be_an_instance_of(BarPage)
       @context.page('Bar').should be_an_instance_of(BarPage)
     end
@@ -56,6 +54,10 @@ describe "Sites and Execution Contexts" do
       the_page.should be_an_instance_of(BarPage)
     end
   
+    it "should pass the site browser instance to its pages " do
+      @context.bar_page.browser.should eql(@browser)
+    end
+    
   end
     
   describe Taza::Site do
@@ -85,13 +87,13 @@ describe "Sites and Execution Contexts" do
         
     it "should accept a browser instance" do
       provided_browser = stub_browser
-      foo = @foo_class.new(:browser => provided_browser)
-      foo.browser.should eql(provided_browser)
+      site = @foo_class.new(:browser => provided_browser)
+      site.browser.should eql(provided_browser)
     end
     
     it "should create a browser instance if one is not provided" do
-      foo = @foo_class.new
-      foo.browser.should eql(@browser)
+      site = @foo_class.new
+      site.browser.should eql(@browser)
     end
     
     it "should still close browser if an error is raised" do
@@ -147,11 +149,6 @@ describe "Sites and Execution Contexts" do
       end
     end
     
-    it "should pass its browser instance to its pages " do
-      foo = @foo_class.new
-      foo.bar_page.browser.should eql(@browser)
-    end
-    
     it "should add partials defined under the pages directory" do
       klass = Class::new(Taza::Site)
       klass.any_instance.stubs(:pages_path).returns(@pages_path)
@@ -205,7 +202,7 @@ describe "Sites and Execution Contexts" do
     it "should go to a relative url" do
       @browser.expects(:goto).with('http://www.foo.com/page.html')
       Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
-      @foo_class.new.goto 'page.html'
+      @context.goto 'page.html'
     end
     
     it "should go to the default url" do
@@ -220,7 +217,8 @@ describe "Sites and Execution Contexts" do
     it_should_behave_like "an execution context"
     before do
       @context = Spec::Example::ExampleGroup.new "sample"
-      @context.extend @foo_class.new.methods
+      @context.extend @site.methods
+      @context.browser = @site.browser
     end
     
   end

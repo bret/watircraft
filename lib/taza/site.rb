@@ -21,6 +21,7 @@ module Taza
     
     # These methods are available for user contexts, including Site itself
     module Methods
+      attr_accessor :browser
       
       # Return an instance of the specified page. The name
       # Given should be the human-form of the page, without the
@@ -66,10 +67,6 @@ module Taza
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
 
-      @methods = PageLoader.new(@module_name, pages_path).page_methods
-      @methods.send(:include, Methods)
-      self.extend(@methods)
-
       define_flows
 
       if params[:browser]
@@ -78,6 +75,11 @@ module Taza
         @browser = Browser.create(config)
         @i_created_browser = true
       end
+
+      @methods = PageLoader.new(@module_name, pages_path).page_methods
+      @methods.send(:include, Methods)
+      self.extend(@methods)
+      
       goto
 
       execute_block_and_close_browser(&block) if block_given?
