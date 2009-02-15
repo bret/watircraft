@@ -214,10 +214,10 @@ describe do
       @context.goto 'page.html'
     end
     
-    it "should go to the default url" do
+    it "should go to the site origin" do
       @browser.expects(:goto).with('http://www.foo.com')
       Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
-      @foo_class.new.goto
+      @foo_class.new.goto ''
     end
         
   end

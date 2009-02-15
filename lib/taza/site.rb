@@ -80,7 +80,7 @@ module Taza
       @methods.send(:include, Methods)
       self.extend(@methods)
       
-      goto
+      @browser.goto origin
 
       execute_block_and_close_browser(&block) if block_given?
     end
@@ -94,9 +94,7 @@ module Taza
       config[:url]
     end
 
-
-    
-    def goto relative_url=nil
+    def goto relative_url
       destination = relative_url ? File.join(@site.origin, relative_url) : @site.origin
       @browser.goto destination
     end
