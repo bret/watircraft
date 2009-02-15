@@ -155,7 +155,7 @@ module Taza
     # Return the full url expected for the page, taking into account the Site 
     # and settings.
     def full_url
-      File.join(@site.url, self.class.url)
+      File.join(@site.origin, self.class.url)
     end
     
     def populate hash

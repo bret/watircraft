@@ -184,7 +184,7 @@ describe Taza::Site do
 
   it "should return the configured site url" do
     Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
-    Zoro::Zoro.new.url.should == 'http://www.zoro.com'
+    Zoro::Zoro.new.origin.should == 'http://www.zoro.com'
   end
   
   it "should go to a relative url" do
@@ -218,8 +218,8 @@ describe "Spec Context" do
   it "should provide page methods" do
 
     @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
-    Foo = Class.new(Taza::Site)
-    Foo.any_instance.stubs(:pages_path).returns(@pages_path)
+    foo_site = Class.new(Taza::Site)
+    foo_site.any_instance.stubs(:pages_path).returns(@pages_path)
 
     @browser = stub_browser
     Taza::Browser.stubs(:create).returns(@browser)
@@ -228,7 +228,7 @@ describe "Spec Context" do
     Taza::Settings.stubs(:environment_settings).returns({})
         
     context = Spec::Example::ExampleGroup.new "sample"
-    context.extend Foo.new.page_methods
+    context.extend foo_site.new.methods
     context.bar_page.should be_an_instance_of(BarPage)
   end
 end

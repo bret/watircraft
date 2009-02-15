@@ -19,6 +19,20 @@ module Taza
   #   end
   class Site
     
+    # These methods are available for user contexts, including Site itself
+    module Methods
+      
+      # Return an instance of the specified page. The name
+      # Given should be the human-form of the page, without the
+      # "page" suffix.
+      # If a block is given, it yields to the page.
+      def page(page_name, &block)
+        method_name = page_name.computerize + '_page'
+        send method_name, &block
+      end
+
+    end
+    
     @@before_browser_closes = Proc.new() {}
     # Use this to do something with the browser before it closes, but note that it is a class method which
     # means that this will get called for any instance of a site.
@@ -31,7 +45,7 @@ module Taza
     def self.before_browser_closes(&block)
       @@before_browser_closes = block
     end
-    attr_accessor :browser, :page_methods
+    attr_accessor :browser, :methods
 
     # A site can be called a few different ways
     #
@@ -48,11 +62,16 @@ module Taza
     #   :browser => a browser object to act on instead of creating one automatically
     # (not sure if this is a useful feature or not)
     def initialize(params={}, &block)
+      @site = self
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
-      @page_methods = PageLoader.new(@module_name, pages_path).page_methods
-      self.extend(@page_methods)
+
+      @methods = PageLoader.new(@module_name, pages_path).page_methods
+      @methods.send(:include, Methods)
+      self.extend(@methods)
+
       define_flows
+
       if params[:browser]
         @browser = params[:browser]
       else
@@ -60,22 +79,26 @@ module Taza
         @i_created_browser = true
       end
       goto
+
       execute_block_and_close_browser(&block) if block_given?
     end
 
     def config
       Settings.config(@class_name)
     end
-    private :config
     
-    def url
+    # The base url of the site. This is configured in environments.yml.
+    def origin
       config[:url]
     end
+
+
     
     def goto relative_url=nil
-      destination = relative_url ? File.join(url, relative_url) : url
+      destination = relative_url ? File.join(@site.origin, relative_url) : @site.origin
       @browser.goto destination
     end
+
 
     def execute_block_and_close_browser
       begin
@@ -106,15 +129,6 @@ module Taza
       end
     end
     
-    # Return an instance of the specified page. The name
-    # Given should be the human-form of the page, without the
-    # "page" suffix.
-    # If a block is given, it yields to the page.
-    def page(page_name, &block)
-      method_name = page_name.computerize + '_page'
-      send method_name, &block
-    end
-
     private
     def pages_path # :nodoc:
       File.join(path,'pages','**','*.rb') # does this need to include partials?
