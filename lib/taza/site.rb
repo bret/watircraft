@@ -21,7 +21,7 @@ module Taza
     
     # These methods are available for user contexts, including Site itself
     module Methods
-      attr_accessor :browser
+      attr_accessor :browser, :site
       
       # Return an instance of the specified page. The name
       # Given should be the human-form of the page, without the
@@ -46,7 +46,7 @@ module Taza
     def self.before_browser_closes(&block)
       @@before_browser_closes = block
     end
-    attr_accessor :browser, :methods
+    attr_accessor :methods
 
     # A site can be called a few different ways
     #

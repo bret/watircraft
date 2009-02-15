@@ -58,6 +58,15 @@ describe do
       @context.bar_page.browser.should eql(@browser)
     end
     
+    it "should provide direct access to the site" do
+      @context.site.should == @site
+    end
+    
+    it "should all access to the site origin" do
+      Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
+      @context.site.origin.should == 'http://www.zoro.com'
+    end
+    
   end
     
   describe Taza::Site do
@@ -196,7 +205,7 @@ describe do
     
     it "should return the configured site url" do
       Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
-      Zoro::Zoro.new.origin.should == 'http://www.zoro.com'
+      @site.origin.should == 'http://www.zoro.com'
     end
     
     it "should go to a relative url" do
@@ -219,6 +228,7 @@ describe do
       @context = Spec::Example::ExampleGroup.new "sample"
       @context.extend @site.methods
       @context.browser = @site.browser
+      @context.site = @site
     end
     
   end
