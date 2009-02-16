@@ -6,6 +6,14 @@ require '<%= site %>'
 require 'spec'
 require 'mocha'
 
+SITE = <%= site.camelize %>::<%= site.camelize %>.new
+at_exit {SITE.close}
+
 Spec::Runner.configure do |config|
   config.mock_with :mocha
+  config.include SITE.methods
+  config.before do
+    @site = SITE
+    @browser = @site.browser
+  end
 end
