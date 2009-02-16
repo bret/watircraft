@@ -11,11 +11,9 @@ describe "Project Generator" do
     File.join(TMP_ROOT, PROJECT_NAME, relative_path)
   end
 
-  before :all do
-    @spec_helper = project_file 'test/specs/spec_helper.rb'
-  end
-
   before :each do
+    @spec_helper = project_file 'test/specs/spec_helper.rb'
+    @initializer = project_file 'lib/initialize.rb'
     ENV['ENVIRONMENT'] = nil
     bare_setup
   end
@@ -24,16 +22,16 @@ describe "Project Generator" do
     bare_teardown
   end
 
-  def should_be_loadable file, generator_options=nil
-    generator_args = [APP_ROOT]
-    generator_args << generator_options if generator_options
+  def should_be_loadable file, options=[]
+    options = [options] unless options.is_a? Array
+    generator_args = [APP_ROOT] + options
     run_generator('watircraft', generator_args, generator_sources)
     load_path = File.dirname(__FILE__) + '/../lib'
     system("ruby -I#{load_path} #{file} > #{null_device}").should be_true
   end
 
   it "should generate a spec helper that can be required even when site name is different" do
-    should_be_loadable @spec_helper, '--site=another_name'
+    should_be_loadable @spec_helper, ['--site=another_name', '--driver=fake']
   end
 
   it "should generate a feature helper that can be required" do
@@ -52,8 +50,7 @@ describe "Project Generator" do
   end
   
   it "should generate an initializer that can be required" do
-    initializer = project_file 'lib/initialize.rb'
-    should_be_loadable initializer
+    should_be_loadable @initializer
   end
   
   it "should be able to update an existing project and figure out the site name" do
@@ -62,18 +59,16 @@ describe "Project Generator" do
     Taza::Settings.config[:site].should == 'crazy'
   end
 
-  # TODO: the following specs are actually testing the initializer
-
-  it "spec helper should set the ENVIRONMENT variable if it is not provided" do
+  it "initializer should set the ENVIRONMENT variable if it is not provided" do
     run_generator('watircraft', [APP_ROOT], generator_sources)
-    load @spec_helper
+    load @initializer
     ENV['ENVIRONMENT'].should eql("test")
   end
   
-  it "spec helper should not override the ENVIRONMENT variable if was provided" do
+  it "initializer should not override the ENVIRONMENT variable if was provided" do
     ENV['ENVIRONMENT'] = 'orange pie? is there such a thing?'
     run_generator('watircraft', [APP_ROOT], generator_sources)
-    load @spec_helper
+    load @initializer
     ENV['ENVIRONMENT'].should eql('orange pie? is there such a thing?')
   end
   
