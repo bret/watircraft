@@ -79,6 +79,10 @@ describe do
       Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')
       @context.goto ''
     end
+
+    it "should allow pages to access the site" do
+      @context.bar_page.site.should == @site
+    end
   end
     
   describe Taza::Site do

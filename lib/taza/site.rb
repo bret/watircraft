@@ -192,7 +192,7 @@ module Taza
           def #{page_name}
             page = #{page_class}.new
             page.browser = @browser
-            page.site = self
+            page.site = @site
             yield page if block_given?
             page
           end
