@@ -1,3 +1,27 @@
+=== 0.4.0 in development 
+
+You will need to run "watircraft ." at the root of your project in order to 
+update your test suite to work with this version of the WatirCraft Framework.
+
+* Added script/console. This provides an interactive Ruby shell (irb) that 
+  executes in the context of your site. Hopefully a useful learning and
+  debugging tool.
+
+* Rspec tests (describe/it) now execute in the context of a site, or at least
+  something very similar. This makes it easier to share libraries between
+  rspec and cucumber tests. Also easier to translate learning from one to the
+  other.
+
+* Site#origin now returns the base url of the site. (Was: Site#url).
+
+* Added Site#page method. Now, site.page("check out") is the same as 
+  site.check_out_page
+
+* You can now use strings as arguments to Page.element and Page.field. These
+  strings can even be in "human-form" with spaces and capitolization. They will
+  automatically be "computerized".
+
+
 === 0.3.2 / 2009-02-04
 
 Another patch release. Like 0.3.1, no need to update if your project is 
