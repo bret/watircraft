@@ -8,5 +8,5 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/..')
 require 'site_start'
 
 World do
-  START
+  SITE
 end
