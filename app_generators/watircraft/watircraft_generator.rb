@@ -45,9 +45,9 @@ class WatircraftGenerator < RubiGen::Base
       m.file "feature_helper.rb", "test/features/feature_helper.rb", :collision => :force
 
       m.template "initialize.rb.erb", "lib/initialize.rb", :collision => :ask
-      m.file "spec_initialize.rb", "lib/spec_initialize.rb", :collision => :force
+      m.file "spec_initialize.rb", "lib/init/spec_initialize.rb", :collision => :force
       m.file "world.rb", "lib/steps/world.rb", :collision => :force
-      m.template "site_start.rb.erb", "lib/site_start.rb", :collision => :force
+      m.template "site_start.rb.erb", "lib/init/site_start.rb", :collision => :force
       
       m.file_copy_each ["console", "console.cmd"], "script", :collision => :force 
 
@@ -59,12 +59,13 @@ class WatircraftGenerator < RubiGen::Base
 
   @@new_directories =
     %w(
-      lib
       config
       script
-      test
+      lib
+      lib/init
       lib/pages
       lib/steps
+      test
       test/specs
       test/features
     )  

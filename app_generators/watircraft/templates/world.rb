@@ -5,7 +5,7 @@ require 'spec'
 require 'cucumber'
 
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/..')
-require 'site_start'
+require 'init/site_start'
 
 World do
   SITE
