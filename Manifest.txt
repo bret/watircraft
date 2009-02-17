@@ -50,7 +50,7 @@ spec/sandbox/flows/batman.rb
 spec/sandbox/flows/robin.rb
 spec/sandbox/pages
 spec/sandbox/pages/foo
-spec/sandbox/pages/foo/bar.rb
+spec/sandbox/pages/foo/bar_page.rb
 spec/sandbox/pages/foo/partials
 spec/sandbox/pages/foo/partials/partial_the_reckoning.rb
 spec/settings_spec.rb
@@ -65,10 +65,16 @@ spec/watircraft_bin_spec.rb
 app_generators/watircraft
 app_generators/watircraft/templates
 app_generators/watircraft/templates/config.yml.erb
-app_generators/watircraft/templates/feature_helper.rb.erb
+app_generators/watircraft/templates/feature_helper.rb
 app_generators/watircraft/templates/initialize.rb.erb
-app_generators/watircraft/templates/rakefile.rb.erb
-app_generators/watircraft/templates/spec_helper.rb.erb
+app_generators/watircraft/templates/rakefile.rb
+app_generators/watircraft/templates/script
+app_generators/watircraft/templates/script/console
+app_generators/watircraft/templates/script/console.cmd
+app_generators/watircraft/templates/site_start.rb.erb
+app_generators/watircraft/templates/spec_helper.rb
+app_generators/watircraft/templates/spec_initialize.rb
+app_generators/watircraft/templates/world.rb
 app_generators/watircraft/USAGE
 app_generators/watircraft/watircraft_generator.rb
 watircraft_generators/page
@@ -81,7 +87,6 @@ watircraft_generators/site/site_generator.rb
 watircraft_generators/site/templates
 watircraft_generators/site/templates/environments.yml.erb
 watircraft_generators/site/templates/site.rb.erb
-watircraft_generators/site/templates/world.rb.erb
 watircraft_generators/spec
 watircraft_generators/spec/spec_generator.rb
 watircraft_generators/spec/templates
