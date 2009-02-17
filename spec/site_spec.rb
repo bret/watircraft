@@ -229,11 +229,19 @@ describe do
   describe "Rspec Context" do
     it_should_behave_like "an execution context"
     before do
+      # this code replicates what is in spec_initialize.rb
       @context = Spec::Example::ExampleGroup.new "sample"
-      @context.extend @site.methods
+      @context.extend @site.methods_module
       @context.browser = @site.browser
       @context.site = @site
     end
     
+  end
+  
+  describe "Site#execution_context" do
+    it_should_behave_like "an execution context"
+    before do
+      @context = @site.execution_context
+    end
   end
 end

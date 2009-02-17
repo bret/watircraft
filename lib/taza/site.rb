@@ -52,7 +52,9 @@ module Taza
     def self.before_browser_closes(&block)
       @@before_browser_closes = block
     end
-    attr_accessor :methods
+
+    # Site
+    attr_accessor :methods_module
 
     # A site can be called a few different ways
     #
@@ -82,9 +84,9 @@ module Taza
         @i_created_browser = true
       end
 
-      @methods = PageLoader.new(@module_name, pages_path).page_methods
-      @methods.send(:include, Methods)
-      self.extend(@methods)
+      @methods_module = PageLoader.new(@module_name, pages_path).page_methods
+      @methods_module.send(:include, Methods)
+      self.extend(@methods_module)
       
       @browser.goto origin
 
@@ -127,6 +129,16 @@ module Taza
       ensure
         raise before_browser_closes_block_exception if before_browser_closes_block_exception
       end
+    end
+
+    # Return a context that supports the "watircraft" commands. 
+    # Currently used by the script\console
+    def execution_context
+      context = Object.new
+      context.extend @methods_module
+      context.site = @site
+      context.browser = @site.browser
+      context
     end
     
     private
