@@ -92,5 +92,11 @@ describe "Project Generator" do
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:driver].should == :nine_iron
   end
+  
+  it "should generate a script/console" do
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    File.exist?(project_file('script/console')).should be_true
+    File.exist?(project_file('script/console.cmd')).should be_true
+  end
 
 end
