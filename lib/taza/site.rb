@@ -134,7 +134,10 @@ module Taza
     # Return a context that supports the "watircraft" commands. 
     # Currently used by the script\console
     def execution_context
-      context = Object.new
+      initialize_context!(Object.new)
+    end
+    
+    def initialize_context!(context)
       context.extend @methods_module
       context.site = @site
       context.browser = @site.browser

@@ -11,7 +11,7 @@ at_exit {SITE.close}
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
-  config.include SITE.methods
+  config.include SITE.methods_module
   config.before do
     @site = SITE
     @browser = @site.browser

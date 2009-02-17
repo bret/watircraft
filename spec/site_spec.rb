@@ -231,14 +231,12 @@ describe do
     before do
       # this code replicates what is in spec_initialize.rb
       @context = Spec::Example::ExampleGroup.new "sample"
-      @context.extend @site.methods_module
-      @context.browser = @site.browser
-      @context.site = @site
+      @site.initialize_context!(@context)
     end
     
   end
   
-  describe "Site#execution_context" do
+  describe "Site#execution_context (aka irb START)" do
     it_should_behave_like "an execution context"
     before do
       @context = @site.execution_context
