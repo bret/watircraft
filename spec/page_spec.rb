@@ -148,34 +148,30 @@ describe Taza::Page do
     page.end_date = 'never'
   end
   
-  it "should populate the fields corresponding to the keys in the hash" do
+  def uses_soldier_page
     name_element = stub
-    name_element.stubs(:set).with('Zachary Taylor')
     rank_element = stub
-    rank_element.stubs(:set).with('General')
     serial_no_element = stub
     @page_class.class_eval do
       field(:name){name_element}
       field(:rank){rank_element}
       field(:serial_no){serial_no_element}
     end
-    page = @page_class.new
-    page.populate :name => 'Zachary Taylor', :rank => 'General'
+    @soldier_page = @page_class.new
+  end
+  
+  it "should populate the fields corresponding to the keys in the hash" do
+    uses_soldier_page
+    @soldier_page.name_field.expects(:set).with('Zachary Taylor')
+    @soldier_page.rank_field.expects(:set).with('General')
+    @soldier_page.populate :name => 'Zachary Taylor', :rank => 'General'
   end
 
   it "should validate a page" do
-    name_element = stub
-    name_element.stubs(:display_value).returns('Zachary Taylor')
-    rank_element = stub
-    rank_element.stubs(:display_value).returns('General')
-    serial_no_element = stub
-    @page_class.class_eval do
-      field(:name){name_element}
-      field(:rank){rank_element}
-      field(:serial_no){serial_no_element}
-    end
-    page = @page_class.new
-    page.validate :name => 'Zachary Taylor', :rank => 'General'
+    uses_soldier_page
+    @soldier_page.name_field.stubs(:display_value).returns('Zachary Taylor')
+    @soldier_page.rank_field.stubs(:display_value).returns('General')
+    @soldier_page.validate :name => 'Zachary Taylor', :rank => 'General'
   end
 
   it "should allow you to define elements using human-form names" do
