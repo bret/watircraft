@@ -28,6 +28,10 @@ module Taza
         @filters ||= Hash.new { [] }
       end
 
+      def fields # :nodoc:
+        @fields ||= []
+      end
+
       def url string=nil
         if string.nil?
           @url
@@ -45,7 +49,7 @@ module Taza
       # home_page.next_button.click
       def element(name, &block)
         name = name.to_s.computerize.to_sym
-        self.elements[name] = block
+        elements[name] = block
       end
 
       # An element on a page that has a value.
@@ -75,8 +79,9 @@ module Taza
       #   all non-control elements, including divs, spans and most other elements.
       def field(name, suffix='field', &block)
         name = name.to_s.computerize.to_sym
+        fields << name
         element_name = "#{name}_#{suffix}"
-        self.elements[element_name] = block
+        elements[element_name] = block
         self.class_eval <<-EOS
           def #{name}()
             #{element_name}.display_value
@@ -156,6 +161,7 @@ module Taza
     def goto
       @site.goto self.class.url
     end
+
     # Return the full url expected for the page, taking into account the Site 
     # and settings.
     def full_url
@@ -180,7 +186,12 @@ module Taza
     
     # Return the names of the elements defined for the page.    
     def elements
-      self.class.elements.keys.map{|x| x.to_s}
+      self.class.elements.keys.map &:to_s
+    end
+    
+    # Return the names of the fields defined for the page.
+    def fields
+      self.class.fields.map &:to_s
     end
   
   end
