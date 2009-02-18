@@ -190,8 +190,9 @@ describe Taza::Page do
 
   it "should list the page's elements" do
     @page_class.class_eval do
-      element(:link){'link'}
+      element(:link){}
+      field(:name){}
     end
-    @page_class.new.elements.should == ['link']
+    @page_class.new.elements.should == ['link', 'name_field']
   end
 end
