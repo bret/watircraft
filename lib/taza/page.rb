@@ -207,6 +207,12 @@ module Taza
     end
     alias :element_exists? :element_exist?
   
+    def elements_exist?
+      result = {}
+      elements.each {|element| result[element.to_sym] = element_exist?(element)}
+      result
+    end
+  
   end
 
   class FilterError < StandardError; end
