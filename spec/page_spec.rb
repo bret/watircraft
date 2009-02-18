@@ -187,5 +187,11 @@ describe Taza::Page do
     @page_class.field('User Name'){'Tertulian'}
     @page_class.new.user_name_field.should == 'Tertulian'
   end  
-  
+
+  it "should list the page's elements" do
+    @page_class.class_eval do
+      element(:link){'link'}
+    end
+    @page_class.new.elements.should == ['link']
+  end
 end

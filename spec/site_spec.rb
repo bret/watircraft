@@ -84,7 +84,7 @@ describe do
       @context.bar_page.site.should == @site
     end
     
-    it "should list the sites pages" do
+    it "should list the site's pages" do
       @context.pages.should == ["bar_page", "partial_the_reckoning"]
     end
   end

@@ -162,16 +162,25 @@ module Taza
       File.join(@site.origin, self.class.url)
     end
     
+    # Enter values into fields on the page using a hash, using the key of
+    # each pair to name the field.
     def populate hash
       hash.each do |key, value|
         send "#{key}=", value
       end
     end
 
+    # Verify that the fields specified by the keys in the hash correspond to the
+    # provided values.
     def validate hash
       hash.each do |key, value|
         send(key).should == value
       end
+    end
+    
+    # Return the names of the elements defined for the page.    
+    def elements
+      self.class.elements.keys.map{|x| x.to_s}
     end
   
   end
