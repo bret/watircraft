@@ -212,5 +212,19 @@ describe Taza::Page do
       {:name => 'Zachary Taylor', :rank => 'General'}
   end
   
-  
+  it "should determine whether an element exists" do
+    link1_element = stub
+    link1_element.stubs(:exist?).returns(true)
+    link2_element = stub
+    link2_element.stubs(:exist?).returns(false)
+    @page_class.class_eval do
+      element(:link1){link1_element}
+      element(:link2){link2_element}
+    end
+    page = @page_class.new    
+    page.element_exists?(:link1).should be_true
+    page.element_exist?(:link1).should be_true
+    page.element_exists?(:link2).should be_false
+  end
+    
 end

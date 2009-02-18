@@ -201,6 +201,11 @@ module Taza
       field_names.each { |name| result[name.to_sym] = send(name)}
       result
     end
+    
+    def element_exist? name
+      send(name).exist?
+    end
+    alias :element_exists? :element_exist?
   
   end
 
