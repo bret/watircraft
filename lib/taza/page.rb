@@ -193,6 +193,14 @@ module Taza
     def fields
       self.class.fields.map &:to_s
     end
+    
+    # Returns a hash with the names and values of the specified fields.
+    # If no fields are specifieds, all fields on the page are used.
+    def values field_names=fields
+      result = {}
+      field_names.each { |name| result[name.to_sym] = send(name)}
+      result
+    end
   
   end
 

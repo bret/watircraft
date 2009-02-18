@@ -158,6 +158,9 @@ describe Taza::Page do
       field(:serial_no){serial_no_element}
     end
     @soldier_page = @page_class.new
+    @soldier_page.name_field.stubs(:display_value).returns('Zachary Taylor')
+    @soldier_page.rank_field.stubs(:display_value).returns('General')
+    @soldier_page.serial_no_field.stubs(:display_value).returns('unknown')
   end
   
   it "should populate the fields corresponding to the keys in the hash" do
@@ -169,8 +172,6 @@ describe Taza::Page do
 
   it "should validate a page" do
     uses_soldier_page
-    @soldier_page.name_field.stubs(:display_value).returns('Zachary Taylor')
-    @soldier_page.rank_field.stubs(:display_value).returns('General')
     @soldier_page.validate :name => 'Zachary Taylor', :rank => 'General'
   end
 
@@ -199,5 +200,17 @@ describe Taza::Page do
   it "should list the page's fields" do
     simple_page.fields.should == ['name']
   end
+  
+  it "should list the values of all the fields" do
+    uses_soldier_page
+    @soldier_page.values.should == {:name => 'Zachary Taylor', :rank => 'General', :serial_no => 'unknown'}
+  end
+  
+  it "should list the values of the specified fields" do
+    uses_soldier_page
+    @soldier_page.values(['name', 'rank']).should ==
+      {:name => 'Zachary Taylor', :rank => 'General'}
+  end
+  
   
 end
