@@ -83,6 +83,10 @@ describe do
     it "should allow pages to access the site" do
       @context.bar_page.site.should == @site
     end
+    
+    it "should list the sites pages" do
+      @context.pages.should == ["bar_page", "partial_the_reckoning"]
+    end
   end
     
   describe Taza::Site do

@@ -37,6 +37,10 @@ module Taza
         destination = File.join(@site.origin, relative_url) 
         @browser.goto destination
       end
+      
+      def pages
+        @pages || @site.pages
+      end
 
     end
     
@@ -84,7 +88,9 @@ module Taza
         @i_created_browser = true
       end
 
-      @methods_module = PageLoader.new(@module_name, pages_path).page_methods
+      page_loader = PageLoader.new(@module_name, pages_path)
+      @pages = page_loader.page_names
+      @methods_module = page_loader.page_methods
       @methods_module.send(:include, Methods)
       self.extend(@methods_module)
       
@@ -190,11 +196,12 @@ module Taza
     end
     
     class PageLoader
-      attr_reader :page_methods
+      attr_reader :page_methods, :page_names
       def initialize site_module, pages_path
         @site_module = site_module
         @pages_path = pages_path
         @page_methods = Module.new
+        @page_names = []
         define_site_pages
       end
       private
@@ -202,6 +209,7 @@ module Taza
         Dir.glob(@pages_path) do |file|
           require file
           page_name = File.basename(file,'.rb')
+          @page_names << page_name
           page_class = "#{@site_module}::#{page_name.camelize}"
           @page_methods.module_eval <<-EOS
           def #{page_name}
