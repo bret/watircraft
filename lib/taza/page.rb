@@ -17,13 +17,17 @@ module Taza
   # homepage.foo will return the element specified in the block if the filter returned true
   class Page
     attr_accessor :browser, :site
+
     class << self
+
       def elements # :nodoc:
         @elements ||= {}
       end
+
       def filters # :nodoc:
         @filters ||= Hash.new { [] }
       end
+
       def url string=nil
         if string.nil?
           @url
@@ -31,88 +35,88 @@ module Taza
           @url = string
         end
       end
-    end
 
-    # An element on a page
-    #
-    # Watir Example:
-    #   class HomePage < Taza::Page
-    #     element(:next_button) {browser.button(:value, 'Next'}
-    #   end
-    # home_page.next_button.click
-    def self.element(name, &block)
-      name = name.to_s.computerize.to_sym
-      self.elements[name] = block
-    end
+      # An element on a page
+      #
+      # Watir Example:
+      #   class HomePage < Taza::Page
+      #     element(:next_button) {browser.button(:value, 'Next'}
+      #   end
+      # home_page.next_button.click
+      def element(name, &block)
+        name = name.to_s.computerize.to_sym
+        self.elements[name] = block
+      end
 
-    # An element on a page that has a value.
-    # Use #field for input elements and data elements.
-    #
-    #   class HomePage < Taza::Page
-    #     field(:name) {browser.text_field(:name, 'user_name')}
-    #   end
-    #
-    # home_page.name_field    # returns the text_field element
-    # home_page.name_field.exists?
-    # home_page.name = "Fred" # calls the #set method on the text_field
-    # home_page.name          # returns the current value (display_value) of the text_field
-    #
-    # The following Watir elements provide both #set and #display_value methods
-    #   text_field (both text boxes and text areas)
-    #   hidden
-    #   file_field
-    #   select_list
-    #   checkbox
-    #   (radios are the obvious item missing from this list -- we're working on it.)
-    #
-    # The following Watir elements provide #display_value methods (but not #set methods).
-    #   button
-    #   cell
-    #   hidden
-    #   all non-control elements, including divs, spans and most other elements.
-    def self.field(name, suffix='field', &block)
-      name = name.to_s.computerize.to_sym
-      element_name = "#{name}_#{suffix}"
-      self.elements[element_name] = block
-      self.class_eval <<-EOS
-        def #{name}()
-          #{element_name}.display_value
+      # An element on a page that has a value.
+      # Use #field for input elements and data elements.
+      #
+      #   class HomePage < Taza::Page
+      #     field(:name) {browser.text_field(:name, 'user_name')}
+      #   end
+      #
+      # home_page.name_field    # returns the text_field element
+      # home_page.name_field.exists?
+      # home_page.name = "Fred" # calls the #set method on the text_field
+      # home_page.name          # returns the current value (display_value) of the text_field
+      #
+      # The following Watir elements provide both #set and #display_value methods
+      #   text_field (both text boxes and text areas)
+      #   hidden
+      #   file_field
+      #   select_list
+      #   checkbox
+      #   (radios are the obvious item missing from this list -- we're working on it.)
+      #
+      # The following Watir elements provide #display_value methods (but not #set methods).
+      #   button
+      #   cell
+      #   hidden
+      #   all non-control elements, including divs, spans and most other elements.
+      def field(name, suffix='field', &block)
+        name = name.to_s.computerize.to_sym
+        element_name = "#{name}_#{suffix}"
+        self.elements[element_name] = block
+        self.class_eval <<-EOS
+          def #{name}()
+            #{element_name}.display_value
+          end
+        EOS
+        self.class_eval <<-EOS
+          def #{name}= value
+            #{element_name}.set value
+          end
+        EOS
+        element_name
+      end
+  
+      # A filter for element(s) on a page
+      # Example:
+      #   class HomePage < Taza::Page
+      #     element(:foo) {browser.element_by_xpath('some xpath')}
+      #     filter :title_given, :foo
+      #     #a filter will apply to all elements if none are specified
+      #     filter :some_filter
+      #     #a filter will also apply to all elements if the symbol :all is given
+      #     filter :another_filter, :all
+      #
+      #     def some_filter
+      #       true
+      #     end
+      #
+      #     def some_filter
+      #       true
+      #     end
+      #
+      #     def title_given
+      #       browser.title.nil?
+      #     end
+      #   end
+      def filter(method_name, *elements)
+        elements = [:all] if elements.empty?
+        elements.each do |element|
+          self.filters[element] = self.filters[element] << method_name
         end
-      EOS
-      self.class_eval <<-EOS
-        def #{name}= value
-          #{element_name}.set value
-        end
-      EOS
-      element_name
-    end
-
-    # A filter for element(s) on a page
-    # Example:
-    #   class HomePage < Taza::Page
-    #     element(:foo) {browser.element_by_xpath('some xpath')}
-    #     filter :title_given, :foo
-    #     #a filter will apply to all elements if none are specified
-    #     filter :some_filter
-    #     #a filter will also apply to all elements if the symbol :all is given
-    #     filter :another_filter, :all
-    #
-    #     def some_filter
-    #       true
-    #     end
-    #
-    #     def some_filter
-    #       true
-    #     end
-    #
-    #     def title_given
-    #       browser.title.nil?
-    #     end
-    #   end
-    def self.filter(method_name, *elements)
-      elements = [:all] if elements.empty?
-      elements.each do |element|
-        self.filters[element] = self.filters[element] << method_name
       end
     end
 
