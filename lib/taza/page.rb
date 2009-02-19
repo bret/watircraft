@@ -207,11 +207,12 @@ module Taza
     end
     alias :element_exists? :element_exist?
   
-    def elements_exist?
+    def elements_exist? element_names=elements
       result = {}
-      elements.each {|element| result[element.to_sym] = element_exist?(element)}
+      element_names.each {|element| result[element.to_sym] = element_exist?(element)}
       result
     end
+    alias :elements_exists? :elements_exist?
   
   end
 

@@ -233,8 +233,14 @@ describe Taza::Page do
 
   it "should report which defined elements exist" do
    page = exists_page
-   page.elements_exist?.should == 
-     {:link1 => true, :link2 => false}
+   expectation = {:link1 => true, :link2 => false}
+   page.elements_exist?.should == expectation
+   page.elements_exists?.should == expectation
   end
-    
+  
+  it "should report whether selected elements exist" do
+   page = exists_page
+   expectation = {:link1 => true}
+   page.elements_exist?([:link1]).should == expectation
+  end
 end
