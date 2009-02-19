@@ -1,4 +1,5 @@
 require 'extensions/string'
+require 'watir/exceptions' # so we can trap them
 
 module Taza
   # An abstraction of a web page, place the elements you care about accessing in here as well as specify the filters that apply when trying to access the element.
@@ -202,14 +203,22 @@ module Taza
       result
     end
     
+    include Watir::Exception
     def element_exist? name
-      send(name).exist?
+      begin
+        send(name).exist?
+      rescue UnknownFrameException, UnknownObjectException, 
+          UnknownFormException, UnknownCellException
+        false
+      end
     end
     alias :element_exists? :element_exist?
   
     def elements_exist? element_names=elements
       result = {}
-      element_names.each {|element| result[element.to_sym] = element_exist?(element)}
+      element_names.each do |element| 
+        result[element.to_sym] = element_exist?(element)
+      end
       result
     end
     alias :elements_exists? :elements_exist?

@@ -203,7 +203,8 @@ describe Taza::Page do
   
   it "should list the values of all the fields" do
     uses_soldier_page
-    @soldier_page.values.should == {:name => 'Zachary Taylor', :rank => 'General', :serial_no => 'unknown'}
+    @soldier_page.values.should == 
+      {:name => 'Zachary Taylor', :rank => 'General', :serial_no => 'unknown'}
   end
   
   it "should list the values of the specified fields" do
@@ -232,15 +233,29 @@ describe Taza::Page do
   end
 
   it "should report which defined elements exist" do
-   page = exists_page
-   expectation = {:link1 => true, :link2 => false}
-   page.elements_exist?.should == expectation
-   page.elements_exists?.should == expectation
+    page = exists_page
+    expectation = {:link1 => true, :link2 => false}
+    page.elements_exist?.should == expectation
+    page.elements_exists?.should == expectation
   end
   
   it "should report whether selected elements exist" do
-   page = exists_page
-   expectation = {:link1 => true}
-   page.elements_exist?([:link1]).should == expectation
+    page = exists_page
+    expectation = {:link1 => true}
+    page.elements_exist?([:link1]).should == expectation
+  end
+  
+  it "should report that elements don't exist when not found errors are thrown" do
+    link3_element = stub
+    link3_element.stubs(:exist?).raises(Watir::Exception::UnknownFrameException)
+    link4_element = stub
+    link4_element.stubs(:exist?).raises(Watir::Exception::UnknownObjectException)
+    @page_class.class_eval do
+      element(:link3){link3_element}
+      element(:link4){link4_element}
+    end
+    page = @page_class.new    
+    page.element_exists?(:link3).should == false
+    page.element_exists?(:link4).should == false
   end
 end
