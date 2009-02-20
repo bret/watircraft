@@ -1,4 +1,5 @@
 require 'spec/spec_helper'
+require 'spec/spec_generator_helper'
 require 'rubygems'
 require 'fileutils'
 require 'taza'

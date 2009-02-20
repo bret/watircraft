@@ -1,5 +1,6 @@
 require 'extensions/string'
 require 'watir/exceptions' # so we can trap them
+require 'watircraft/table'
 
 module Taza
   # An abstraction of a web page, place the elements you care about accessing in here as well as specify the filters that apply when trying to access the element.
@@ -122,6 +123,12 @@ module Taza
         elements = [:all] if elements.empty?
         elements.each do |element|
           self.filters[element] = self.filters[element] << method_name
+        end
+      end
+      
+      def table(name, &block)
+        define_method(name) do
+          WatirCraft::Table.new &block
         end
       end
     end

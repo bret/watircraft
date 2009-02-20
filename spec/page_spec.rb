@@ -258,4 +258,12 @@ describe Taza::Page do
     page.element_exists?(:link3).should == false
     page.element_exists?(:link4).should == false
   end
+  
+  it "should allow you to create and reference a WatirCraft table" do
+    @page_class.class_eval do
+      table(:results) {}
+    end
+    @page_class.new.results.should be_a(WatirCraft::Table)
+  end
+  
 end
