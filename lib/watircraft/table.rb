@@ -7,6 +7,9 @@ module WatirCraft
       def field(name, &block)
         row_class.field(name, &block)
       end
+      def element(name, &block)
+        row_class.element(name, &block)
+      end
     end
     def initialize watir_table, &block
       @watir_table = watir_table
@@ -25,13 +28,16 @@ module WatirCraft
   
   class Row
     class << self
-      def field name, &block
-        element = "#{name}_element"
-        define_method(element) do
+      def element name, &block
+        define_method(name) do
           instance_eval &block
         end
+      end
+      def field name, &block
+        element_name = "#{name}_element"
+        element element_name, &block
         define_method(name) do
-          send(element).display_value
+          send(element_name).display_value
         end
       end
     end

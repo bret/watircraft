@@ -259,50 +259,69 @@ describe Taza::Page do
     page.element_exists?(:link4).should == false
   end
   
-  it "should allow you to create and reference a WatirCraft table" do
-    @page_class.class_eval do
-      element(:results_table){}
-      table(:results) {}
-    end
-    @page_class.new.results.should be_a(WatirCraft::Table)
-  end
-  
-  require 'spec/fake_table'
-  it "should report whether a table has a specified row" do
-    @page_class.class_eval do
-      element(:results_table){FakeTable.new [:name => 'x']}
-      table(:results) do
-        field(:name){@row.element(:name)}
+  describe "tables" do
+    
+    it "you should be able to create and reference" do
+      @page_class.class_eval do
+        element(:results_table){}
+        table(:results) {}
       end
+      @page_class.new.results.should be_a(WatirCraft::Table)
     end
     
-    @page_class.new.results.row(:name => 'x').should_not be_nil
-  end
-  
-  def uses_table_page
-    @page_class.class_eval do
-      element(:results_table) do FakeTable.new [
-        {:letter => 'x', :number => 1}, 
-        {:letter => 'y', :number => 2}
-        ]
+    require 'spec/fake_table'
+    it "should report whether a table has a specified row" do
+      @page_class.class_eval do
+        element(:results_table){FakeTable.new [:name => 'x']}
+        table(:results) do
+          field(:name){@row.element(:name)}
+        end
       end
-      table(:results) do
-        field(:name){@row.element(:letter)}
-        field(:phone){@row.element(:number)}
-      end
+      
+      @page_class.new.results.row(:name => 'x').should_not be_nil
     end
-    @table_page = @page_class.new
-  end
-  
-  it "should allow you to reference another field in a selected row" do
-    uses_table_page
-    @table_page.results.row(:name => 'x').phone.should == 1
-    @table_page.results.row(:phone => 2).name.should == 'y'
-  end
-  
-  it "table fields should have elements" do
-    uses_table_page
-    @table_page.results.row(:name => 'x').phone_element.should exist
+    
+    def uses_table_page
+      @page_class.class_eval do
+        element(:results_table) do FakeTable.new [
+          {:letter => 'x', :number => 1}, 
+          {:letter => 'y', :number => 2}
+          ]
+        end
+        table(:results) do
+          field(:name){@row.element(:letter)}
+          field(:phone){@row.element(:number)}
+        end
+      end
+      @table_page = @page_class.new
+    end
+    
+    it "should allow you to reference another field in a selected row" do
+      uses_table_page
+      @table_page.results.row(:name => 'x').phone.should == 1
+      @table_page.results.row(:phone => 2).name.should == 'y'
+    end
+    
+    it "fields should have elements" do
+      uses_table_page
+      @table_page.results.row(:name => 'x').phone_element.should exist
+    end
+    
+    it "should have elements" do
+      @page_class.class_eval do
+        element(:results_table) do FakeTable.new [
+          {:letter => 'x', :number => 1}, 
+          {:letter => 'y', :number => 2}
+          ]
+        end
+        table(:results) do
+          field(:name){@row.element(:letter)}
+          element(:phone){@row.element(:number)}
+        end
+      end
+      @table_page = @page_class.new
+      @table_page.results.row(:name => 'x').phone.should be_a(FakeElement)
+    end
   end
   
 end
