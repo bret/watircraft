@@ -261,9 +261,40 @@ describe Taza::Page do
   
   it "should allow you to create and reference a WatirCraft table" do
     @page_class.class_eval do
+      element(:results_table){}
       table(:results) {}
     end
     @page_class.new.results.should be_a(WatirCraft::Table)
+  end
+  
+  require 'spec/fake_table'
+  it "should report whether a table has a specified row" do
+    @page_class.class_eval do
+      element(:results_table){FakeTable.new [:name => 'x']}
+      table(:results) do
+        field(:name){@row.element(:name)}
+      end
+    end
+    
+    @page_class.new.results.row(:name => 'x').should_not be_nil
+  end
+  
+  it "should allow you to reference another field in a selected row" do
+    @page_class.class_eval do
+      element(:results_table) do FakeTable.new [
+        {:letter => 'x', :number => 1}, 
+        {:letter => 'y', :number => 2}
+        ]
+      end
+      table(:results) do
+        field(:name){@row.element(:letter)}
+        field(:phone){@row.element(:number)}
+      end
+    end
+    
+    @page_class.new.results.row(:name => 'x').phone.should == 1
+    @page_class.new.results.row(:phone => 2).name.should == 'y'
+    
   end
   
 end

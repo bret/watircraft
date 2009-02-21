@@ -84,16 +84,12 @@ module Taza
         fields << name
         element_name = "#{name}_#{suffix}"
         elements[element_name] = block
-        self.class_eval <<-EOS
-          def #{name}()
-            #{element_name}.display_value
-          end
-        EOS
-        self.class_eval <<-EOS
-          def #{name}= value
-            #{element_name}.set value
-          end
-        EOS
+        define_method(name) do
+          send(element_name).display_value
+        end
+        define_method("#{name}=") do |value|
+          send(element_name).set value
+        end
         element_name
       end
   
@@ -127,8 +123,12 @@ module Taza
       end
       
       def table(name, &block)
+        # create subclass for the table
+        sub_class = Class.new(WatirCraft::Table)
+        sub_class.class_eval &block
+        # add method to the page, it returns an instance of the table subclass
         define_method(name) do
-          WatirCraft::Table.new &block
+          sub_class.new send("#{name}_table")
         end
       end
     end
