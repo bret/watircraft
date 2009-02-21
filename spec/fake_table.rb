@@ -24,4 +24,7 @@ class FakeElement
   def display_value
     @value
   end
+  def exist?
+    true
+  end
 end

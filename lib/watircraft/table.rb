@@ -12,8 +12,9 @@ module WatirCraft
       @watir_table = watir_table
     end
     def row selector
-      @watir_table.rows.select do | row |
+      @watir_table.rows.each do | row |
         wrapped = self.class.row_class.new row
+        # note: we are only looking at the first key/value
         method = selector.keys[0]
         value = selector[method]
         return wrapped if wrapped.send(method) == value
