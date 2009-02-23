@@ -1,9 +1,5 @@
 Known Bugs
 
-* Context for cucumber steps (SITE) is not quite the same as that for
-  rspec tests or the console (START). Namely, you have direct access to site
-  methods in cucumber, but not elsewhere. It would be easy to make cucumber
-  more like the others but this could break existing test suites.
 * Support for FireWatir is incomplete (specifically: Page fields)
 * Page fields do not support Radio lists.
 * Need to provide homepage for project.
