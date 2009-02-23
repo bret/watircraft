@@ -22,5 +22,11 @@ describe FakeTable do
     @fake_table.rows[0].element(:name).display_value.should == 'apple'
   end
   
+  it "has rows with elements that can be set" do
+    @fake_table = FakeTable.new [{:name => 'apple', :color => 'blue'}]
+    @fake_table.rows[0].element(:color).set 'red'
+    @fake_table.rows[0].element(:color).display_value.should == 'red'
+  end
+  
 end
 

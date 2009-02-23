@@ -39,6 +39,9 @@ module WatirCraft
         define_method(name) do
           send(element_name).display_value
         end
+        define_method("#{name}=") do | value |
+          send(element_name).set value
+        end
       end
     end
     def initialize watir_row

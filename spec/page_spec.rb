@@ -282,18 +282,19 @@ describe Taza::Page do
     end
     
     def uses_table_page
-      @page_class.class_eval do
-        element(:results_table) do FakeTable.new [
+      fake_table = FakeTable.new [
           {:letter => 'x', :number => 1}, 
           {:letter => 'y', :number => 2}
           ]
-        end
+      @page_class.class_eval do
+        element(:results_table) {fake_table}
         table(:results) do
           field(:name){@row.element(:letter)}
           field(:phone){@row.element(:number)}
         end
       end
       @table_page = @page_class.new
+      @fake_table = fake_table
     end
     
     it "should allow you to reference another field in a selected row" do
@@ -302,11 +303,11 @@ describe Taza::Page do
       @table_page.results.row(:phone => 2).name.should == 'y'
     end
     
-    it "fields should have elements" do
+    it "fields should have underlying elements" do
       uses_table_page
       @table_page.results.row(:name => 'x').phone_element.should exist
     end
-    
+        
     it "should have elements" do
       @page_class.class_eval do
         element(:results_table) do FakeTable.new [
@@ -321,6 +322,12 @@ describe Taza::Page do
       end
       @table_page = @page_class.new
       @table_page.results.row(:name => 'x').phone.should be_a(FakeElement)
+    end
+    
+    it "should allow you to set a field in a row" do
+      uses_table_page
+      @table_page.results.row(:name => 'x').phone = '22'
+      @fake_table.rows[0].element(:number).display_value.should == '22'
     end
   end
   
