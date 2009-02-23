@@ -122,13 +122,28 @@ module Taza
         end
       end
       
-      # Provides access to a WatirCraft::Table. Specifically it creates a 
-      # subclass and then uses its class methods to define fields and 
-      # elements on the table.
+      # Provides access to a WatirCraft::Table. 
       #
       # Requires that an element also be declared on the page that directly
       # wraps the table element itself.
       #      
+      # Example definition
+      #
+      #  class YourCartPage < ::Taza::Page
+      #    element(:items_table) {@browser.table(:index, 1)}
+      #    table(:items) do
+      #      field(:quantity) {@row.cell(:index, 1)}
+      #      field(:description) {@row.cell(:index, 2)}
+      #    end
+      #    field(:total) {@browser.cell(:id, 'totalcell')}
+      #
+      # Example usage
+      #
+      #   your_cart_page.items.row(:description => 'Pragmatic Project Automation').quantity.should == '1'
+      #
+      # Technical details: this method creates a 
+      # subclass and then allows its class methods to define fields and 
+      # elements on the table.
       def table(name, &block)
         # create subclass for the table
         sub_class = Class.new(WatirCraft::Table)
