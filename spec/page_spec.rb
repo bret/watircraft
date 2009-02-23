@@ -307,7 +307,7 @@ describe Taza::Page do
       uses_table_page
       @table_page.results.row(:name => 'x').phone_element.should exist
     end
-        
+    
     it "should have elements" do
       @page_class.class_eval do
         element(:results_table) do FakeTable.new [
@@ -329,6 +329,14 @@ describe Taza::Page do
       @table_page.results.row(:name => 'x').phone = '22'
       @fake_table.rows[0].element(:number).display_value.should == '22'
     end
+
+    it "rows should exist" do
+      uses_table_page
+      @table_page.results.row(:name => 'x').should exist
+    end
+        
+
+  
   end
   
 end

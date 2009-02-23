@@ -47,5 +47,10 @@ module WatirCraft
     def initialize watir_row
       @row = watir_row
     end
+    # Returns true. If the row doesn't exist, you'll get nil as the return
+    # value of Table#row.
+    def exist?
+      true
+    end
   end
 end
