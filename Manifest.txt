@@ -23,11 +23,13 @@ lib/taza/tasks.rb
 lib/taza.rb
 lib/watircraft
 lib/watircraft/generator_helper.rb
+lib/watircraft/table.rb
 lib/watircraft/version.rb
 lib/watircraft.rb
 spec/array_spec.rb
 spec/browser_spec.rb
 spec/entity_spec.rb
+spec/fake_table.rb
 spec/fixtures_spec.rb
 spec/fixture_spec.rb
 spec/hash_spec.rb
@@ -56,10 +58,12 @@ spec/sandbox/pages/foo/partials/partial_the_reckoning.rb
 spec/settings_spec.rb
 spec/site_generator_spec.rb
 spec/site_spec.rb
+spec/spec_generator_helper.rb
 spec/spec_generator_spec.rb
 spec/spec_helper.rb
 spec/steps_generator_spec.rb
 spec/string_spec.rb
+spec/table_spec.rb
 spec/taza_spec.rb
 spec/watircraft_bin_spec.rb
 app_generators/watircraft

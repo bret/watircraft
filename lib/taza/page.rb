@@ -122,6 +122,13 @@ module Taza
         end
       end
       
+      # Provides access to a WatirCraft::Table. Specifically it creates a 
+      # subclass and then uses its class methods to define fields and 
+      # elements on the table.
+      #
+      # Requires that an element also be declared on the page that directly
+      # wraps the table element itself.
+      #      
       def table(name, &block)
         # create subclass for the table
         sub_class = Class.new(WatirCraft::Table)

@@ -7,7 +7,10 @@ require 'mocha'
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
-  config.before do
+  config.before(:all) do
+    SITE.initialize_context!(self)
+  end
+  config.before(:each) do
     SITE.initialize_context!(self)
   end
 end
