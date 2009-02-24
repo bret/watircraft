@@ -4,6 +4,5 @@ artifacts
 pkg
 vendor
 .tmp*
-*.gemspec
 *.orig
 .externalToolBuilders
