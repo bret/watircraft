@@ -1,25 +1,56 @@
-=== 0.4.0 in development 
+=== 0.4.0 / 2009-02-23
 
 You will need to run "watircraft ." at the root of your project in order to 
 update your test suite to work with this version of the WatirCraft Framework.
 
+Summary
+
+* Code for cucumber or rspec now runs in the same context. There is also a new
+  console that allows you to run code in the same context. This should vastly
+  simplify learnability and debugging options. Please try out the new script
+  console.
+  
+* Added support for tables. Please see the rdoc for Page#table for details on
+  how to use this.
+
+Details on New Features
+
 * Added script/console. This provides an interactive Ruby shell (irb) that 
   executes in the context of your site. Hopefully a useful learning and
-  debugging tool.
+  debugging tool. 
+  
+* Added new methods primarily intended to be used from within the script/console.
+  In the default context (site), there is "pages" which returns a list of the 
+  pages defined for the site. In the context of a page, there are "elements" and
+  "fields". And also "elements_exist?" and "values". To get better formatted
+  results, type "y" before these commands.
 
-* Rspec tests (describe/it) now execute in the context of a site, or at least
+* Rspec tests ("describe" & "it") now execute in the context of a site, or at least
   something very similar. This makes it easier to share libraries between
   rspec and cucumber tests. Also easier to translate learning from one to the
   other.
-
-* Site#origin now returns the base url of the site. (Was: Site#url).
-
+  
 * Added Site#page method. Now, site.page("check out") is the same as 
   site.check_out_page
 
 * You can now use strings as arguments to Page.element and Page.field. These
   strings can even be in "human-form" with spaces and capitolization. They will
   automatically be "computerized".
+
+Other Changes
+
+* Site#origin now returns the base url of the site. (Was: Site#url).
+
+* Hard-coded dependencies on Cucumber 0.1.16 and Rspec 1.1.12. Previously, 
+  watircraft would install the latest versions of these gems, which could
+  create inconsistencies if installed over time on different machines. Now
+  this won't happen. However, if newer versions are installed on your machine,
+  they will be used.
+
+* Updated to use Cucumber 0.1.16 instead of 0.1.13.
+
+* Explicitly declare dependency on Watir 1.6.2 (or newer). Previously this
+  was assumed.
 
 
 === 0.3.2 / 2009-02-04
