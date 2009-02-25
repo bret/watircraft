@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{watircraft}
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bret Pettichord", "Jim Matthews", "Charley Baker", "Adam Anderson"]
-  s.date = %q{2009-02-24}
+  s.date = %q{2009-02-25}
   s.default_executable = %q{watircraft}
   s.description = %q{WatirCraft is a framework for web testing.}
   s.email = %q{bret@pettichord.com}
