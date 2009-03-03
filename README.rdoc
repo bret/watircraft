@@ -7,11 +7,11 @@ It allows tests to be expressed as Rspec or Cucumber tests and provides
 a library structure to support maintainable testing. It gives you
 a place to put things.
 
-* http://testobsessed.com/2008/05/31/a-place-to-put-things/
+* http://testobsessed.com/2008/05/31/a-place-to-put-things
 
 == FEATURES
 
-* Generate a directory structure for your test suite with one command.
+* Generates a directory structure for your test suite with one command.
 * Provides page adapters you can customize for your application.
 * Configure application URL and browser type (IE, Firefox) in one location.
 * Framework automatically initializes browser for testing.
@@ -30,8 +30,8 @@ get the benefit.
 
 == INSTALL
 
-* gem update --system
-* gem install watircraft
+  gem update --system
+  gem install watircraft
 
 == EXAMPLE
 

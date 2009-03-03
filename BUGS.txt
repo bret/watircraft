@@ -1,7 +1,10 @@
 Known Bugs
 
-* Support for FireWatir is incomplete (specifically: Page fields)
-* Page fields do not support Radio lists.
+* The name of the element underlying each field is not consistent. In pages,
+  it is called foo_field; in tables, foo_element. (Should probably be
+  foo_element in both places.)
+* Page fields are not supported for Firefox.
+* Page fields do not support Radio lists. Workaround: use elements.
 * Need to provide homepage for project.
 
 Reported Bugs which we can't reproduce
