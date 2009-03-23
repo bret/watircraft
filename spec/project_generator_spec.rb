@@ -11,12 +11,20 @@ describe "Project Generator" do
   def project_file relative_path
     File.join(TMP_ROOT, PROJECT_NAME, relative_path)
   end
-
+  def project_folder project_name=PROJECT_NAME
+    File.join(TMP_ROOT, project_name)
+  end
+  
   before :each do
     @spec_helper = project_file 'test/specs/spec_helper.rb'
     @initializer = project_file 'lib/initialize.rb'
     ENV['ENVIRONMENT'] = nil
     bare_setup
+
+    @site_name = PROJECT_NAME
+    @site_folder = File.join(project_folder, 'lib')
+    @site_file = File.join(@site_folder, "#{@site_name}.rb")
+    @page_folder = File.join(@site_folder, 'pages')
   end
 
   after :each do
@@ -56,7 +64,7 @@ describe "Project Generator" do
   
   it "should be able to update an existing project and figure out the site name" do
     run_generator('watircraft', [APP_ROOT, '--site=crazy'], generator_sources)
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    run_generator('watircraft', [APP_ROOT, '--force'], generator_sources)
     Taza::Settings.config[:site].should == 'crazy'
   end
 
@@ -99,5 +107,42 @@ describe "Project Generator" do
     File.exist?(project_file('script/console')).should be_true
     File.exist?(project_file('script/console.cmd')).should be_true
   end
+
+  it "should generate configuration file for a site" do
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    File.exists?(File.join(PROJECT_FOLDER,'config','environments.yml')).should be_true
+  end
+
+  it "should generate a site path for pages" do
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
+  end
+
+  it "should generate a site path even if the site name is given with spaces" do
+    run_generator('watircraft', [APP_ROOT, "--site=example foo"], generator_sources)
+    File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
+  end
+
+  it "should generate a site path even if the site name is given with underscores" do
+    run_generator('watircraft', [APP_ROOT, "--site=example_foo"], generator_sources)
+    File.directory?(@site_folder).should be_true
+    File.directory?(@page_folder).should be_true
+  end
+  
+  include Helpers::Generator
+  include Helpers::Taza
+  it "generated site that uses the block given in new" do
+    run_generator('watircraft', [APP_ROOT], generator_sources)
+    @site_class = generate_site(@site_name)
+    stub_settings
+    stub_browser
+    foo = nil
+    @site_class.new {|site| foo = site}
+    foo.should_not be_nil
+    foo.should be_a_kind_of(Taza::Site)
+  end
+  
 
 end
