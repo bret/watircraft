@@ -1,3 +1,7 @@
+=== TRUNK
+
+* Page field and table fields now support Firefox.
+
 === 0.4.1 / 2009-02-24
 
 * Fix bug with script\console:  no such file to load -- site_start
