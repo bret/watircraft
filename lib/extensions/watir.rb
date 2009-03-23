@@ -1,7 +1,9 @@
 # TODO: support radiogroup
 # TODO: migrate this code into Watir
-[Watir, FireWatir].each do |mod|
-  mod.module_eval <<END
+  
+def Watir.add_display_value_methods_to mod
+    mod.module_eval <<-CLASS_END
+
   class TextField # includes Hidden
     def display_value
       value
@@ -43,5 +45,6 @@
   class B < NonControlElement
     TAG = 'B'
   end
-END
+
+    CLASS_END
 end

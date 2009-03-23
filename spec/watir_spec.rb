@@ -20,6 +20,7 @@ describe 'Watir Extensions' do
 
   describe "IE Watir" do
     it_should_behave_like 'extended watir'
+    Watir.add_display_value_methods_to Watir
     before do
       @module = Watir
     end
@@ -27,6 +28,7 @@ describe 'Watir Extensions' do
   
   describe "Fire Watir" do
     it_should_behave_like 'extended watir'
+    Watir.add_display_value_methods_to FireWatir
     before do
       @module = FireWatir
     end
