@@ -7,6 +7,7 @@ require 'taza'
 
 describe "Project Generator" do
   include RubiGen::GeneratorTestHelper
+  include Helpers::Generator
   
   def project_file relative_path
     File.join(TMP_ROOT, PROJECT_NAME, relative_path)
@@ -28,10 +29,6 @@ describe "Project Generator" do
     bare_teardown
   end
 
-  def generate_project options=[]
-    generator_args = [APP_ROOT] + options
-    run_generator('watircraft', generator_args, generator_sources)
-  end
   def should_be_loadable file
     load_path = File.dirname(__FILE__) + '/../lib'
     system("ruby -I#{load_path} #{file} > #{null_device}").should be_true
@@ -138,7 +135,6 @@ describe "Project Generator" do
     File.exists?("#{@site_folder}/example_foo.rb").should be_true
   end
   
-  include Helpers::Generator
   include Helpers::Taza
   it "generated site that uses the block given in new" do
     generate_project

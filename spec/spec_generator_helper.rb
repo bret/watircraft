@@ -18,8 +18,9 @@ module Helpers
       "::#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
       site_name.camelize.constantize
     end
-    def generate_project
-      run_generator('watircraft', [APP_ROOT], generator_sources)
+    def generate_project options=[]
+      generator_args = [APP_ROOT] + options
+      run_generator('watircraft', generator_args, generator_sources)
       ::Taza::Settings.stubs(:path).returns(APP_ROOT)       
     end
   end
