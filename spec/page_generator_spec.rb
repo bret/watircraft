@@ -10,8 +10,13 @@ describe "Page Generation" do
   include Helpers::Taza
 
   before :each do
-    generate_project
-    @site_class = generate_site('Gap')
+    site_name = "Gap#{Time.now.to_i}"
+    generate_project ["--site=#{site_name}"]
+    site_file_path = File.join(PROJECT_FOLDER,'lib',"#{site_name.underscore}.rb")
+    require site_file_path
+    "::#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
+    @site_class = site_name.camelize.constantize
+    
     @site_name = @site_class.to_s.underscore
   end
 

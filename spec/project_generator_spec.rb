@@ -140,7 +140,7 @@ describe "Project Generator" do
     site_name = "example#{Time.now.to_i}"
     generate_project ["--site=#{site_name}"]
 
-    site_file_path = File.join(PROJECT_FOLDER,'lib',"#{site_name.underscore}.rb")
+    site_file_path = project_file "lib/#{site_name.underscore}.rb"
     require site_file_path
     "::#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
     site_class = site_name.camelize.constantize
