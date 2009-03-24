@@ -19,13 +19,9 @@ describe "Project Generator" do
     ENV['ENVIRONMENT'] = nil
     bare_setup
     
-    @spec_helper = project_file 'test/specs/spec_helper.rb'
+    @site_folder = project_file 'lib'
+    @page_folder = project_file 'lib/pages'
     @initializer = project_file 'lib/initialize.rb'
-
-    @site_name = PROJECT_NAME
-    @site_folder = File.join(project_folder, 'lib')
-    @site_file = File.join(@site_folder, "#{@site_name}.rb")
-    @page_folder = File.join(@site_folder, 'pages')
   end
 
   after :each do
@@ -43,7 +39,8 @@ describe "Project Generator" do
 
   it "should generate a spec helper that can be required even when site name is different" do
     generate_project ['--site=another_name', '--driver=fake']
-    should_be_loadable @spec_helper
+    spec_helper = project_file 'test/specs/spec_helper.rb'
+    should_be_loadable spec_helper
   end 
 
   it "should generate a feature helper that can be required" do
@@ -145,11 +142,11 @@ describe "Project Generator" do
   include Helpers::Taza
   it "generated site that uses the block given in new" do
     generate_project
-    @site_class = generate_site(@site_name)
+    site_class = generate_site('example')
     stub_settings
     stub_browser
     foo = nil
-    @site_class.new {|site| foo = site}
+    site_class.new {|site| foo = site}
     foo.should_not be_nil
     foo.should be_a_kind_of(Taza::Site)
   end
