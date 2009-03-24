@@ -53,7 +53,9 @@ class WatircraftGenerator < RubiGen::Base
 
       m.dependency "install_rubigen_scripts", [destination_root, 'watircraft'],
         :shebang => options[:shebang], :collision => :ask
-      m.dependency "site", [@site], :destination => destination_root
+
+      m.template "site.rb.erb", "lib/#{@site}.rb", :collision => :skip
+      m.template "environments.yml.erb", "config/environments.yml", :collision => :skip
     end
   end
 

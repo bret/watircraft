@@ -6,9 +6,4 @@ Known Bugs
   foo_element in both places.)
 * Page fields do not support Radio lists. Workaround: use elements.
 * Need to provide homepage for project.
-
-Reported Bugs which we can't reproduce
-
-* "Couldn't find 'site' generator" when running watircraft command.
-  (using 0.3.1, neither taza nor watircraft-beta is also installed)
   
