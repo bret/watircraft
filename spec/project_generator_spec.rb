@@ -124,18 +124,21 @@ describe "Project Generator" do
     generate_project
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
+    File.exists?("#{@site_folder}/example.rb").should be_true
   end
 
   it "should generate a site path even if the site name is given with spaces" do
     generate_project ["--site=example foo"]
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
+    File.exists?("#{@site_folder}/example_foo.rb").should be_true
   end
 
   it "should generate a site path even if the site name is given with underscores" do
     generate_project ["--site=example_foo"]
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
+    File.exists?("#{@site_folder}/example_foo.rb").should be_true
   end
   
   include Helpers::Generator
