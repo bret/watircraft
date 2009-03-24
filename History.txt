@@ -1,10 +1,11 @@
-=== TRUNK
+=== 0.4.2 / 2009-03-24
 
+* Fixed "can't find site generator" bug that occured when creating a new project.
 * Page field and table fields now support Firefox.
 
 === 0.4.1 / 2009-02-24
 
-* Fix bug with script\console:  no such file to load -- site_start
+* Fixed bug with script\console:  no such file to load -- site_start
 
 === 0.4.0 / 2009-02-23
 
@@ -63,7 +64,6 @@ Other Changes
 
 * Explicitly declare dependency on Watir 1.6.2 (or newer). Previously this
   was assumed.
-
 
 === 0.3.2 / 2009-02-04
 
