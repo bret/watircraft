@@ -16,10 +16,11 @@ describe "Project Generator" do
   end
   
   before :each do
-    @spec_helper = project_file 'test/specs/spec_helper.rb'
-    @initializer = project_file 'lib/initialize.rb'
     ENV['ENVIRONMENT'] = nil
     bare_setup
+    
+    @spec_helper = project_file 'test/specs/spec_helper.rb'
+    @initializer = project_file 'lib/initialize.rb'
 
     @site_name = PROJECT_NAME
     @site_folder = File.join(project_folder, 'lib')
@@ -31,102 +32,108 @@ describe "Project Generator" do
     bare_teardown
   end
 
-  def should_be_loadable file, options=[]
-    options = [options] unless options.is_a? Array
+  def generate_project options=[]
     generator_args = [APP_ROOT] + options
     run_generator('watircraft', generator_args, generator_sources)
+  end
+  def should_be_loadable file
     load_path = File.dirname(__FILE__) + '/../lib'
     system("ruby -I#{load_path} #{file} > #{null_device}").should be_true
   end
 
   it "should generate a spec helper that can be required even when site name is different" do
-    should_be_loadable @spec_helper, ['--site=another_name', '--driver=fake']
-  end
+    generate_project ['--site=another_name', '--driver=fake']
+    should_be_loadable @spec_helper
+  end 
 
   it "should generate a feature helper that can be required" do
+    generate_project ['--driver=fake']
     feature_helper = project_file 'test/features/feature_helper.rb'
-    should_be_loadable feature_helper, '--driver=fake'
+    should_be_loadable feature_helper
   end
 
   it "should generate a world file that can be required" do
+    generate_project ['--driver=fake']
     world = project_file 'lib/steps/world.rb'
-    should_be_loadable world, '--driver=fake'
+    should_be_loadable world
   end
 
   it "should generate a rakefile that can be required" do
+    generate_project
     rakefile = project_file 'rakefile'
     should_be_loadable rakefile
   end
   
   it "should generate an initializer that can be required" do
+    generate_project
     should_be_loadable @initializer
   end
   
   it "should be able to update an existing project and figure out the site name" do
-    run_generator('watircraft', [APP_ROOT, '--site=crazy'], generator_sources)
-    run_generator('watircraft', [APP_ROOT, '--force'], generator_sources)
+    generate_project ['--site=crazy']
+    generate_project
     Taza::Settings.config[:site].should == 'crazy'
   end
 
   it "initializer should set the ENVIRONMENT variable if it is not provided" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     load @initializer
     ENV['ENVIRONMENT'].should eql("test")
   end
   
   it "initializer should not override the ENVIRONMENT variable if was provided" do
     ENV['ENVIRONMENT'] = 'orange pie? is there such a thing?'
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     load @initializer
     ENV['ENVIRONMENT'].should eql('orange pie? is there such a thing?')
   end
   
   it "should configure a project for watir, implicitly" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:driver].should == :watir
   end
 
   it "should allow a site name to be specified" do
-    run_generator('watircraft', [APP_ROOT, '--site=site_name'], generator_sources)
+    generate_project ['--site=site_name']
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:site].should == 'site_name'
   end
   
   it "should allow a browser driver to be specified" do
-    run_generator('watircraft', [APP_ROOT, '--driver=nine_iron'], generator_sources)
+    generate_project ['--driver=nine_iron']
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
     Taza::Settings.config[:driver].should == :nine_iron
   end
   
   it "should generate a script/console" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     File.exist?(project_file('script/console')).should be_true
     File.exist?(project_file('script/console.cmd')).should be_true
   end
 
   it "should generate configuration file for a site" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     File.exists?(File.join(PROJECT_FOLDER,'config','environments.yml')).should be_true
   end
 
-  it "should generate a site path for pages" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+  it "should generate site files and folders" do
+    generate_project
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
   end
 
   it "should generate a site path even if the site name is given with spaces" do
-    run_generator('watircraft', [APP_ROOT, "--site=example foo"], generator_sources)
+    generate_project ["--site=example foo"]
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
   end
 
   it "should generate a site path even if the site name is given with underscores" do
-    run_generator('watircraft', [APP_ROOT, "--site=example_foo"], generator_sources)
+    generate_project ["--site=example_foo"]
     File.directory?(@site_folder).should be_true
     File.directory?(@page_folder).should be_true
   end
@@ -134,7 +141,7 @@ describe "Project Generator" do
   include Helpers::Generator
   include Helpers::Taza
   it "generated site that uses the block given in new" do
-    run_generator('watircraft', [APP_ROOT], generator_sources)
+    generate_project
     @site_class = generate_site(@site_name)
     stub_settings
     stub_browser

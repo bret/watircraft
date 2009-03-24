@@ -44,7 +44,7 @@ class WatircraftGenerator < RubiGen::Base
       m.file "spec_helper.rb", "test/specs/spec_helper.rb", :collision => :force
       m.file "feature_helper.rb", "test/features/feature_helper.rb", :collision => :force
 
-      m.template "initialize.rb.erb", "lib/initialize.rb", :collision => :ask
+      m.template "initialize.rb.erb", "lib/initialize.rb", :collision => :skip # not sure what's right
       m.file "spec_initialize.rb", "lib/init/spec_initialize.rb", :collision => :force
       m.file "world.rb", "lib/steps/world.rb", :collision => :force
       m.template "site_start.rb.erb", "lib/init/site_start.rb", :collision => :force
