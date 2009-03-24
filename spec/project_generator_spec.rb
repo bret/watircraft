@@ -137,8 +137,14 @@ describe "Project Generator" do
   
   include Helpers::Taza
   it "generated site that uses the block given in new" do
-    generate_project
-    site_class = generate_site('example')
+    site_name = "example#{Time.now.to_i}"
+    generate_project ["--site=#{site_name}"]
+
+    site_file_path = File.join(PROJECT_FOLDER,'lib',"#{site_name.underscore}.rb")
+    require site_file_path
+    "::#{site_name.camelize}::#{site_name.camelize}".constantize.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
+    site_class = site_name.camelize.constantize
+    
     stub_settings
     stub_browser
     foo = nil
