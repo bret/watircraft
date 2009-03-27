@@ -51,7 +51,7 @@ testing Google.
 This will create a directory called "google" and populate it with a bunch of
 directories and files.
 
-You'll need to edit the +config\environments.yml+ file to point to you base
+You'll need to edit the <tt>config\environments.yml</tt> file to point to you base
 url of your project.
 
   test:
@@ -61,7 +61,7 @@ By default, your tests will run in the "test" environment, but you can specify
 additional environments later. When you run your tests, you can specify which environment
 to use on the command line.
 
-Use the +script\generate+ command to populate your project with project files.
+Use the <tt>script\generate</tt> command to populate your project with project files.
 This command must be run from the top of your project.
 
   > cd google
