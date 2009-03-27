@@ -65,11 +65,7 @@ Create a test.
 
   > script\generate spec search
 
-This creates the following template.
-
-
-  
-  
+This creates a template you'll need to add to.  
 
 == EXAMPLE
 
