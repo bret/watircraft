@@ -41,31 +41,37 @@ Install the gem:
   
 == GETTING STARTED
 
-Use the @watircraft@ command to create your project. Your project will contain
+Use the +watircraft+ command to create your project. Your project will contain
 your tests, your libraries, your configuration files, and all the glue code
-necessary to allow it all to work together.
+necessary to allow it all to work together. Let's create a project for 
+testing Google.
 
   > watircraft google
   
 This will create a directory called "google" and populate it with a bunch of
 directories and files.
 
-You'll need to edit the @config\environments.yml@ file to point to you base
+You'll need to edit the +config\environments.yml+ file to point to you base
 url of your project.
 
   test:
     url: http://google.com
 
-Use the @script\generate@ command to populate your project with project files.
+By default, your tests will run in the "test" environment, but you can specify
+additional environments later. When you run your tests, you can specify which environment
+to use on the command line.
+
+Use the +script\generate+ command to populate your project with project files.
 This command must be run from the top of your project.
 
   > cd google
 
-Create a test.
+Create a test. WatirCraft uses the RSpec test harness and therefore calls a 
+test a "spec".
 
   > script\generate spec search
 
-This creates a template you'll need to add to.  
+This creates a bare template for a test.
 
 == EXAMPLE
 
