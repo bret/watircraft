@@ -32,12 +32,44 @@ get the benefit.
 
 Run the following if you haven't already:
 
-  gem update --system
-  gem sources -a http://gems.github.com
+  > gem update --system
+  > gem sources -a http://gems.github.com
 
 Install the gem:
 
-  gem install bret-watircraft
+  > gem install bret-watircraft
+  
+== GETTING STARTED
+
+Use the @watircraft@ command to create your project. Your project will contain
+your tests, your libraries, your configuration files, and all the glue code
+necessary to allow it all to work together.
+
+  > watircraft google
+  
+This will create a directory called "google" and populate it with a bunch of
+directories and files.
+
+You'll need to edit the @config\environments.yml@ file to point to you base
+url of your project.
+
+  test:
+    url: http://google.com
+
+Use the @script\generate@ command to populate your project with project files.
+This command must be run from the top of your project.
+
+  > cd google
+
+Create a test.
+
+  > script\generate spec search
+
+This creates the following template.
+
+
+  
+  
 
 == EXAMPLE
 
