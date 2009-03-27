@@ -30,8 +30,14 @@ get the benefit.
 
 == INSTALL
 
+Run the following if you haven't already:
+
   gem update --system
-  gem install watircraft
+  gem sources -a http://gems.github.com
+
+Install the gem:
+
+  gem install bret-watircraft
 
 == EXAMPLE
 
