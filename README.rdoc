@@ -75,9 +75,9 @@ This creates a bare template for a test. Edit the file that was just created
 (<tt>test/specs/search_spec.rb</tt>) and add the following
 lines.
 
-    browser.text_field(:name, 'q').set 'WatirCraft'
-    browser.button(:name, 'btnG').click
-    browser.text.should include('Test automation for web applications')
+  browser.text_field(:name, 'q').set 'WatirCraft'
+  browser.button(:name, 'btnG').click
+  browser.text.should include('Test automation for web applications')
 
 The WatirCraft framework will automatically start the browser at the 
 configured url when you run it. 
