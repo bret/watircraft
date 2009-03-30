@@ -289,8 +289,9 @@ describe Taza::Page do
       @page_class.class_eval do
         element(:results_table) {fake_table}
         table(:results) do
-          field(:name){@row.element(:letter)}
-          field(:phone){@row.element(:number)}
+          field(:name){row.element(:letter)}
+          field(:phone){row.element(:number)}
+          field(:missing){raise 'not found'}
         end
       end
       @table_page = @page_class.new
@@ -335,7 +336,10 @@ describe Taza::Page do
       @table_page.results.row(:name => 'x').should exist
     end
         
-
+    it "should not raise an exception if a field isn't found" do
+      uses_table_page
+      @table_page.results.row(:missing => 'nada').should be_nil
+    end
   
   end
   

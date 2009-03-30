@@ -19,8 +19,9 @@ module WatirCraft
         wrapped = self.class.row_class.new row
         # note: we are only looking at the first key/value
         method = selector.keys[0]
-        value = selector[method]
-        return wrapped if wrapped.send(method) == value
+        target_value = selector[method]
+        row_value = wrapped.send(method) rescue next
+        return wrapped if row_value == target_value
       end
       nil
     end
