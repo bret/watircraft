@@ -34,7 +34,7 @@ module WatirCraft
         end
       end
       def field name, &block
-        element_name = "#{name}_element"
+        element_name = "#{name}_field"
         element element_name, &block
         define_method(name) do
           send(element_name).display_value

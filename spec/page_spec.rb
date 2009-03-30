@@ -305,7 +305,7 @@ describe Taza::Page do
     
     it "fields should have underlying elements" do
       uses_table_page
-      @table_page.results.row(:name => 'x').phone_element.should exist
+      @table_page.results.row(:name => 'x').phone_field.should exist
     end
     
     it "should have elements" do
