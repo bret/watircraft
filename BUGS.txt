@@ -5,5 +5,5 @@ Known Bugs
   it is called foo_field; in tables, foo_element. (Should probably be
   foo_element in both places.)
 * Page fields do not support Radio lists. Workaround: use elements.
-* Need to provide homepage for project.
+
   
