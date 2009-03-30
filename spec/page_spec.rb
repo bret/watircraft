@@ -119,6 +119,7 @@ describe Taza::Page do
     page = CheckOutPage.new
     page.site = Class.new(Taza::Site).new(:browser => browser)
     page.full_url.should == 'http://www.llamas.com/check_out'
+    page.url.should == page.full_url
   end
     
   it "should create elements for fields" do    

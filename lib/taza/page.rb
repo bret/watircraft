@@ -197,6 +197,7 @@ module Taza
     def full_url
       File.join(@site.origin, self.class.url)
     end
+    alias :url :full_url
     
     # Enter values into fields on the page using a hash, using the key of
     # each pair to name the field.
