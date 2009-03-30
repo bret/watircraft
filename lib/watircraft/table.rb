@@ -44,6 +44,7 @@ module WatirCraft
         end
       end
     end
+    attr_reader :row
     def initialize watir_row
       @row = watir_row
     end

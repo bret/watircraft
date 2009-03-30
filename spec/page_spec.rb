@@ -316,8 +316,8 @@ describe Taza::Page do
           ]
         end
         table(:results) do
-          field(:name){@row.element(:letter)}
-          element(:phone){@row.element(:number)}
+          field(:name){row.element(:letter)}
+          element(:phone){row.element(:number)}
         end
       end
       @table_page = @page_class.new
