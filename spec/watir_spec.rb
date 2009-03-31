@@ -1,6 +1,6 @@
+
 require 'spec/spec_helper'
 require 'watir'
-require 'watir/ie'
 require 'firewatir'
 require 'extensions/watir'
 
@@ -18,11 +18,14 @@ describe 'Watir Extensions' do
     specify { should_provide_display_value_method_for_class @module::H3 }
   end
 
-  describe "IE Watir" do
-    it_should_behave_like 'extended watir'
-    Watir.add_display_value_methods_to Watir
-    before do
-      @module = Watir
+  if PLATFORM =~ /mswin/  
+    describe "IE Watir" do
+      require 'watir/ie'
+      it_should_behave_like 'extended watir'
+      Watir.add_display_value_methods_to Watir
+      before do
+        @module = Watir
+      end
     end
   end
   

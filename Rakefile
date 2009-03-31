@@ -32,7 +32,7 @@ begin
 
     s.executables = ["watircraft"] 
     s.files = files_in_gem
-    s.add_dependency(%q<watir>, [">= 1.6.2"])
+#    s.add_dependency(%q<watir>, [">= 1.6.2"])
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
