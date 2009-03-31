@@ -132,7 +132,7 @@ examples project on github. Look in the +watircraft+ directory.
 Join our mailing list for WatirCraft users.
 * http://tech.groups.yahoo.com/group/watir-framework
 
-The WatirCraft framework is developed by WatirCraft LLC, based on the Taza[http://github.com/scudco/taza/wikis] framework. 
+The WatirCraft framework is developed by WatirCraft LLC, based on Taza[http://github.com/scudco/taza/wikis]. 
 Please send bug reports, feature requests and other comments to us at feedback@watircraft.com[mailto:feedback@watircraft.com]
 
 WatirCraft LLC provides training and consulting for Watir, Ruby and the 
