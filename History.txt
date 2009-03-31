@@ -1,3 +1,28 @@
+=== 0.4.3 / 2009-03-31
+
+Bug Fixes
+
+* WatirCraft can now be installed on a Mac (again).
+* Page#url now returns the full url of the page.
+
+Table Fixes
+
+* Field elements/fields can now reference current row as "row", consistent
+  with page elements/fields being referencing browser as "browser".
+  (Previously you had to use @row, which still works.)
+* Element names of table fields are now named x_field, consistent with page
+  fields. (Previously was x_element.)
+* Fields that aren't found for some rows will no longer cause errors
+  when used as accessors.  
+  
+Readme Updates
+
+* Update install instructions.
+* Add Google example.
+* Update feature list.
+* Add additional information (feedback, mailing list, WatirCraft LLC)
+* Identify Github/readme as homepage for project.
+
 === 0.4.2 / 2009-03-24
 
 * Fixed "can't find site generator" bug that occured when creating a new project.
