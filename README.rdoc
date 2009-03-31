@@ -14,7 +14,10 @@ a place to put things.
 * Generates a directory structure for your test suite with one command.
 * Provides page adapters you can customize for your application.
 * Configure application URL and browser type (IE, Firefox) in one location.
-* Framework automatically initializes browser for testing.
+* Uses templates to create tests and libraries.
+* Automatically initializes browser for testing.
+* Provides the glue to ensure your tests can find your libraries. Don't
+  write another "require" statement again.
 
 == APPROACH
 
@@ -116,17 +119,28 @@ You can also just run individual files.
 Note that many editors will do this automatically for you. For example the
 Scite editor will do this when you hit "F5".
 
-
 == EXAMPLE
 
 An example test suite for this framework can be found in the framework 
-examples project on github. Look in the watircraft directory.
+examples project on github. Look in the +watircraft+ directory.
 * http://github.com/bret/framework-examples/
 
 == ORIGIN
 
 WatirCraft is based on the Taza framework. 
 * http://github.com/scudco/taza/wikis
+
+== QUESTIONS AND FEEDBACK
+
+Join our mailing list for WatirCraft users.
+* http://tech.groups.yahoo.com/group/watir-framework/
+
+The WatirCraft framework is developed by WatirCraft LLC. 
+Please send bug reports, feature requests and other comments to us at feedback@watircraft.com
+
+WatirCraft LLC provides training and consulting for Watir, Ruby and the 
+WatirCraft framework. 
+* http://www.watircraft.com
 
 == LICENSE
 
