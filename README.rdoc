@@ -42,6 +42,8 @@ Install the gem:
 
   > gem install bret-watircraft
   
+See the History.txt file for detailed notes on the contents of each release.
+  
 == GETTING STARTED
 
 Use the +watircraft+ command to create your project. Your project will contain
