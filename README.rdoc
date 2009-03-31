@@ -125,20 +125,15 @@ Scite editor will do this when you hit "F5".
 
 An example test suite for this framework can be found in the framework 
 examples project on github. Look in the +watircraft+ directory.
-* http://github.com/bret/framework-examples/
-
-== ORIGIN
-
-WatirCraft is based on the Taza framework. 
-* http://github.com/scudco/taza/wikis
+* http://github.com/bret/framework-examples
 
 == QUESTIONS AND FEEDBACK
 
 Join our mailing list for WatirCraft users.
-* http://tech.groups.yahoo.com/group/watir-framework/
+* http://tech.groups.yahoo.com/group/watir-framework
 
-The WatirCraft framework is developed by WatirCraft LLC. 
-Please send bug reports, feature requests and other comments to us at feedback@watircraft.com
+The WatirCraft framework is developed by WatirCraft LLC, based on the Taza[http://github.com/scudco/taza/wikis] framework. 
+Please send bug reports, feature requests and other comments to us at feedback@watircraft.com[mailto:feedback@watircraft.com]
 
 WatirCraft LLC provides training and consulting for Watir, Ruby and the 
 WatirCraft framework. 
