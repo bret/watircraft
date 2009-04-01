@@ -15,20 +15,22 @@ module Taza
     def self.create_watir(params)
       require 'watir'
       require 'extensions/watir'
-      if params[:browser] == 'ie'
-        require 'watir/ie'
-        Watir.add_display_value_methods_to Watir
-        Watir::IE.set_options(:visible => params[:visible])
-      end
-      if params[:browser] == 'firefox'
-        require 'firewatir'
-        Watir.add_display_value_methods_to FireWatir
-      end
       Watir::Browser.default = params[:browser]
-      browser = Watir::Browser.new
-      if params[:browser] == 'ie'
-        browser.speed = params[:speed]
+      case params[:browser]
+        when 'ie'
+          require 'watir/ie'
+          Watir.add_display_value_methods_to Watir
+          Watir::IE.set_options(:visible => params[:visible])
+          browser = Watir::Browser.new
+          browser.speed = params[:speed]
+        when 'firefox'
+          require 'firewatir'
+          Watir.add_display_value_methods_to FireWatir
+          browser = Watir::Browser.new
+        else
+          browser = Watir::Browser.new
       end
+          
       browser
     end
 
