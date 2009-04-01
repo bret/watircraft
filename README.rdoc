@@ -129,11 +129,15 @@ examples project on github. Look in the +watircraft+ directory.
 
 == QUESTIONS AND FEEDBACK
 
+Known bugs and road map. You can report bugs and request features here.
+* http://watircraft.lighthouseapp.com/projects/28400-watircraft/overview
+
 Join our mailing list for WatirCraft users.
 * http://tech.groups.yahoo.com/group/watir-framework
 
 The WatirCraft framework is developed by WatirCraft LLC, based on Taza[http://github.com/scudco/taza/wikis]. 
-Please send bug reports, feature requests and other comments to us at feedback@watircraft.com[mailto:feedback@watircraft.com]
+Please send your comments to us at feedback@watircraft.com[mailto:feedback@watircraft.com] 
+We love getting your emails.
 
 WatirCraft LLC provides training and consulting for Watir, Ruby and the 
 WatirCraft framework. 

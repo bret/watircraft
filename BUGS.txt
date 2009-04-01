@@ -1,6 +1,0 @@
-Known Bugs
-
-* Can't install on mac. (This used to work.)
-* Page fields do not support Radio lists. Workaround: use elements.
-
-  
