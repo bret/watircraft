@@ -13,7 +13,8 @@ a place to put things.
 
 * Generates a directory structure for your test suite with one command.
 * Provides page adapters you can customize for your application.
-* Configure application URL and browser type (IE, Firefox) in one location.
+* Configure environment URLs and browser type (IE, Firefox) in one location.
+* Supports multiple environments; specify which to test at run time.
 * Uses templates to create tests and libraries.
 * Automatically initializes browser for testing.
 * Provides the glue to ensure your tests can find your libraries. Don't
