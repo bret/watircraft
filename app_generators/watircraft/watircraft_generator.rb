@@ -104,7 +104,7 @@ EOS
       # raw instance variable value.
       # @author = options[:author]
       @site = options[:site]
-      @driver = options[:driver] || :watir
+      @driver = options[:driver] || 'watir'
     end
 
 end

@@ -7,7 +7,7 @@ module Taza
     #     browser = Taza::Browser.create(Taza::Settings.config)
     #
     def self.create(params={})
-      self.send("create_#{params[:driver]}".to_sym,params)
+      self.send("create_#{params[:driver]}".to_sym, params)
     end
 
     private    

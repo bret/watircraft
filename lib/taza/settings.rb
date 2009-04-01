@@ -14,7 +14,7 @@ module Taza
         env_settings[key.to_sym] = ENV[key.upcase] if ENV[key.upcase]
       end
       
-      default_settings = {:browser => :firefox, :driver => :watir}
+      default_settings = {:browser => 'firefox', :driver => 'watir'}
       
       # Because of the way #merge works, the settings at the bottom of the list
       # trump those at the top.
@@ -23,8 +23,8 @@ module Taza
                      config_file.merge(
                        env_settings)))
 
-      settings[:browser] = settings[:browser].to_sym
-      settings[:driver] = settings[:driver].to_sym
+      settings[:browser] = settings[:browser].to_s
+      settings[:driver] = settings[:driver].to_s
       settings
     end
 

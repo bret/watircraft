@@ -25,21 +25,21 @@ describe Taza::Browser do
   end
 
   it "should raise unknown browser error for unsupported watir browsers" do
-    lambda { Taza::Browser.create(:browser => :foo_browser_9000,:driver => :watir) }.should raise_error(StandardError)
+    lambda { Taza::Browser.create(:browser => 'foo_browser_9000', :driver => 'watir') }.should raise_error(StandardError)
   end
 
   it "should use params browser type when creating selenium" do
-    browser_type = :opera
+    browser_type = 'opera'
     Selenium::SeleniumDriver.expects(:new).with(anything,anything,'*opera',anything)
-    Taza::Browser.create(:browser => browser_type, :driver => :selenium)
+    Taza::Browser.create(:browser => browser_type, :driver => 'selenium')
   end
 
   it "should raise selenium unsupported browser error" do
-    Taza::Browser.create(:browser => :foo, :driver => :selenium)
+    Taza::Browser.create(:browser => 'foo', :driver => 'selenium')
   end
 
   it "should be able to create a selenium instance" do
-    browser = Taza::Browser.create(:browser => :firefox, :driver => :selenium)
+    browser = Taza::Browser.create(:browser => 'firefox', :driver => 'selenium')
     browser.should be_a_kind_of(Selenium::SeleniumDriver)
   end
 
@@ -62,7 +62,7 @@ describe Taza::Browser do
 
   # a test of a stub for testing the test harness of our tests
   it "should provide a fake browser, so we can test our test harness" do
-    Taza::Browser.create(:driver => :fake).should be_a(Taza::FakeBrowser)
+    Taza::Browser.create(:driver => 'fake').should be_a(Taza::FakeBrowser)
   end
   
 end

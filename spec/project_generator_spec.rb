@@ -86,7 +86,7 @@ describe "Project Generator" do
     generate_project
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
-    Taza::Settings.config[:driver].should == :watir
+    Taza::Settings.config[:driver].should == 'watir'
   end
 
   it "should allow a site name to be specified" do
@@ -100,7 +100,7 @@ describe "Project Generator" do
     generate_project ['--driver=nine_iron']
     Taza::Settings.stubs(:path).returns(APP_ROOT)
     ENV['ENVIRONMENT'] = 'test'
-    Taza::Settings.config[:driver].should == :nine_iron
+    Taza::Settings.config[:driver].should == 'nine_iron'
   end
   
   it "should generate a script/console" do
