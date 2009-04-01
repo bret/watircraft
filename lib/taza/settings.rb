@@ -9,12 +9,12 @@ module Taza
     #   Taza::Settings.config('google')
     def self.config(site_name=nil)
       env_settings = {}
-      keys = %w(browser driver timeout server_ip server_port)
+      keys = %w(browser driver timeout server_ip server_port visible speed)
       keys.each do |key|
         env_settings[key.to_sym] = ENV[key.upcase] if ENV[key.upcase]
       end
       
-      default_settings = {:browser => 'firefox', :driver => 'watir'}
+      default_settings = {:browser => 'firefox', :driver => 'watir', :visible => true, :speed => 'fast'}
       
       # Because of the way #merge works, the settings at the bottom of the list
       # trump those at the top.
@@ -25,6 +25,8 @@ module Taza
 
       settings[:browser] = settings[:browser].to_s
       settings[:driver] = settings[:driver].to_s
+      settings[:visible] = to_bool(settings[:visible])
+      settings[:speed] = settings[:speed].to_sym
       settings
     end
 
@@ -70,6 +72,15 @@ module Taza
       returning Hash.new do |new_hash|
         hash.each_pair {|k, v| new_hash[k.to_sym] = v}
       end
+    end
+    
+    def self.to_bool value
+      case value
+        when true, /true/i
+          true
+        else
+          false
+        end
     end
     
     private

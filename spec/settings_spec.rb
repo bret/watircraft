@@ -99,5 +99,12 @@ describe Taza::Settings do
     Taza::Settings.stubs(:config_file_path).returns('spec/sandbox/config/no_such_file.yml')
     Taza::Settings.config_file.should == {} 
   end
+  
+  it "should parse true/false values" do
+    Taza::Settings.to_bool('true').should == true
+    Taza::Settings.to_bool('True').should == true
+    Taza::Settings.to_bool('false').should == false
+    Taza::Settings.to_bool(nil).should == false
+  end
 
 end

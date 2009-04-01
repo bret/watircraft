@@ -7,7 +7,7 @@ module Taza
     #     browser = Taza::Browser.create(Taza::Settings.config)
     #
     def self.create(params={})
-      self.send("create_#{params[:driver]}".to_sym, params)
+      self.send("create_#{params[:driver]}", params)
     end
 
     private    
@@ -15,21 +15,26 @@ module Taza
     def self.create_watir(params)
       require 'watir'
       require 'extensions/watir'
-      if params[:browser] == :ie
+      if params[:browser] == 'ie'
         require 'watir/ie'
         Watir.add_display_value_methods_to Watir
+        Watir::IE.set_options(:visible => params[:visible])
       end
-      if params[:browser] == :firefox
+      if params[:browser] == 'firefox'
         require 'firewatir'
         Watir.add_display_value_methods_to FireWatir
       end
-      Watir::Browser.default = params[:browser].to_s
-      Watir::Browser.new
+      Watir::Browser.default = params[:browser]
+      browser = Watir::Browser.new
+      if params[:browser] == 'ie'
+        browser.speed = params[:speed]
+      end
+      browser
     end
 
     def self.create_selenium(params)
       require 'selenium'
-      Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser].to_s,params[:timeout])
+      Selenium::SeleniumDriver.new(params[:server_ip],params[:server_port],'*' + params[:browser],params[:timeout])
     end
     
     def self.create_fake(params)
