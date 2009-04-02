@@ -78,6 +78,7 @@ module Taza
       @site = self
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
+      @leave_open = config[:leave_open]
 
       define_flows
 
@@ -131,7 +132,7 @@ module Taza
         "" # so basically rcov has a bug where it would insist this block is uncovered when empty
       end
       begin
-        @browser.close if @i_created_browser
+        @browser.close if @i_created_browser && ! @leave_open
       ensure
         raise before_browser_closes_block_exception if before_browser_closes_block_exception
       end

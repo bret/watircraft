@@ -37,7 +37,10 @@ module Taza
       end
 
       def provision_watir_browser(params)
-        Watir::Browser.new
+        if params[:attach] && params[:browser] == 'ie'
+          browser = Watir::IE.find(:title, //)
+        end
+        browser || Watir::Browser.new
       end
   
       def create_selenium(params)

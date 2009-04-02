@@ -1,4 +1,3 @@
-BUGS.txt
 History.txt
 Manifest.txt
 README.rdoc
