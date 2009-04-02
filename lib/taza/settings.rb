@@ -9,14 +9,15 @@ module Taza
       # Example:
       #   Taza::Settings.config('google')
       def config(site_name=nil)
-        keys = %w(browser driver timeout server_ip server_port visible speed attach leave_open)
+        keys = %w(browser driver timeout server_ip server_port visible speed attach leave_open bring_to_front)
         default_settings = {
           :browser => 'firefox', 
           :driver => 'watir', 
           :visible => true, 
           :speed => 'fast', 
           :attach => false, 
-          :leave_open => false
+          :bring_to_front => false,
+          :leave_open => false,
         }
   
         env_settings = {}
@@ -37,6 +38,7 @@ module Taza
         settings[:visible] = to_bool(settings[:visible])
         settings[:leave_open] = to_bool(settings[:leave_open])
         settings[:attach] = to_bool(settings[:attach])
+        settings[:bring_to_front] = to_bool(settings[:bring_to_front])
         settings
       end
   

@@ -82,6 +82,12 @@ module Taza
 
       define_flows
 
+      page_loader = PageLoader.new(@module_name, pages_path)
+      @pages = page_loader.page_names
+      @methods_module = page_loader.page_methods
+      @methods_module.send(:include, Methods)
+      self.extend(@methods_module)
+      
       if params[:browser]
         @browser = params[:browser]
       else
@@ -89,13 +95,8 @@ module Taza
         @i_created_browser = true
       end
 
-      page_loader = PageLoader.new(@module_name, pages_path)
-      @pages = page_loader.page_names
-      @methods_module = page_loader.page_methods
-      @methods_module.send(:include, Methods)
-      self.extend(@methods_module)
-      
       @browser.goto origin
+      bring_to_front_if_appropriate
 
       execute_block_and_close_browser(&block) if block_given?
     end
@@ -107,6 +108,12 @@ module Taza
     # The base url of the site. This is configured in environments.yml.
     def origin
       config[:url]
+    end
+
+    def bring_to_front_if_appropriate
+      return unless config[:bring_to_front]
+      return unless config[:browser] == 'ie' 
+      @browser.bring_to_front
     end
 
     def execute_block_and_close_browser
