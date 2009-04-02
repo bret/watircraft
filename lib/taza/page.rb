@@ -8,7 +8,7 @@ module Taza
   # Example:
   #   require 'taza'
   #   class HomePage < Taza::Page
-  #     element(:foo) {browser.element_by_xpath('some xpath')}
+  #     element(:submit) {browser.button(:value, 'Submit')}
   #     filter :title_given, :foo
   #
   #     def title_given
@@ -16,7 +16,7 @@ module Taza
   #     end
   #   end
   #
-  # homepage.foo will return the element specified in the block if the filter returned true
+  # <tt>home_page.submit</tt> will return the button specified if the filter returned true
   class Page
     attr_accessor :browser, :site
 
@@ -48,7 +48,8 @@ module Taza
       #   class HomePage < Taza::Page
       #     element(:next_button) {browser.button(:value, 'Next'}
       #   end
-      # home_page.next_button.click
+      #
+      #   home_page.next_button.click
       def element(name, &block)
         name = name.to_s.computerize.to_sym
         elements[name] = block
@@ -61,24 +62,18 @@ module Taza
       #     field(:name) {browser.text_field(:name, 'user_name')}
       #   end
       #
-      # home_page.name_field    # returns the text_field element
-      # home_page.name_field.exists?
-      # home_page.name = "Fred" # calls the #set method on the text_field
-      # home_page.name          # returns the current value (display_value) of the text_field
+      #   home_page.name_field    # returns the text element
+      #   home_page.name_field.exists?
+      #   home_page.name = "Fred" # sets the text element (A)
+      #   home_page.name          # returns the value of the text element (B)
       #
-      # The following Watir elements provide both #set and #display_value methods
+      # The following Watir elements provide both #set (A) and #display_value (B) methods
       #   text_field (both text boxes and text areas)
-      #   hidden
       #   file_field
       #   select_list
       #   checkbox
-      #   (radios are the obvious item missing from this list -- we're working on it.)
       #
-      # The following Watir elements provide #display_value methods (but not #set methods).
-      #   button
-      #   cell
-      #   hidden
-      #   all non-control elements, including divs, spans and most other elements.
+      # Most other Watir elements provide #display_value (B) methods only.
       def field(name, suffix='field', &block)
         name = name.to_s.computerize.to_sym
         fields << name
@@ -136,6 +131,7 @@ module Taza
       #      field(:description) {@row.cell(:index, 2)}
       #    end
       #    field(:total) {@browser.cell(:id, 'totalcell')}
+      #  end
       #
       # Example usage
       #
