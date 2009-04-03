@@ -36,4 +36,3 @@ Pages are optional and can be used with either Rspec or Cucumber tests.
 
 Enter "script\generate" to see a complete list of WatirCraft files that
 you can create.
-
