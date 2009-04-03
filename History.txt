@@ -1,3 +1,27 @@
+=== 0.4.4 / 2009-04-02
+
+This release provides a number of new configuration options for managing
+browsers. Detailed instructions are now displayed after creating a new
+project. We've also updated the Rdoc.
+
+New Features
+
+* Added several new browser configuration options. These are: attach, leave_open
+  speed, visible, and bring_to_front. Like "browser" these can be specified
+  as env vars, as rake arguments, or in the config.yml file. See config.yml
+  file in a new project for exact syntax. Currently all but leave_open only work
+  with IE; inapplicable settings will simply be ignored when running with Firefox.
+* Extracted Site#initialize_browser method. This does all the standard
+  initialization of the browser as per configuration settings. However, in
+  cases where exceptional measures must me taken (e.g. security popups), the 
+  standard method can now be to overriden or extended.
+  
+Documentation
+
+* Corrected and expanded Rdoc for Page.
+* Detailed instructions are now displayed after you execute the "watircraft"
+  command.
+
 === 0.4.3 / 2009-03-31
 
 Bug Fixes
