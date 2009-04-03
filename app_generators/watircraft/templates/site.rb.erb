@@ -6,5 +6,10 @@ module <%= site.camelize %>
 
   class <%= site.camelize %> < ::Taza::Site
 
+    # Sets @browser to be a browser initialized for testing your site.	
+    def initialize_browser
+      super # configure the browsed based on the configuration settings
+    end
+
   end
 end
