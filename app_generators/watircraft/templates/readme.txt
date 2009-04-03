@@ -3,7 +3,7 @@ How to create a WatirCraft Project
 ==================================
 
  1. DONE - Run the WatirCraft command: watircraft projectname
- 2. Edit config/config.yml to include the base url of your application.
+ 2. Edit config/environments.yml to include the base url of your application.
  3. CD into your new project directory. All of the following commands assume 
     that your current directory is the base of your project. 
 
