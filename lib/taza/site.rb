@@ -78,7 +78,6 @@ module Taza
       @site = self
       @module_name = self.class.parent.to_s
       @class_name  = self.class.to_s.split("::").last
-      @leave_open = config[:leave_open]
 
       define_flows
 
@@ -87,18 +86,23 @@ module Taza
       @methods_module = page_loader.page_methods
       @methods_module.send(:include, Methods)
       self.extend(@methods_module)
-      
-      if params[:browser]
-        @browser = params[:browser]
-      else
-        @browser = Browser.create(config)
-        @i_created_browser = true
-      end
 
-      @browser.goto origin
-      bring_to_front_if_appropriate
+      @browser = params[:browser]
+      initialize_browser
 
       execute_block_and_close_browser(&block) if block_given?
+    end
+    
+    # Initializes browser based on configuration settings.
+    def initialize_browser
+      if @browser
+        @leave_open = true
+      else
+        @browser = Browser.create(config)
+      end
+      @browser.goto origin
+      bring_to_front_if_appropriate
+      @leave_open ||= config[:leave_open]
     end
 
     def config
@@ -139,7 +143,7 @@ module Taza
         "" # so basically rcov has a bug where it would insist this block is uncovered when empty
       end
       begin
-        @browser.close if @i_created_browser && ! @leave_open
+        @browser.close unless @leave_open
       ensure
         raise before_browser_closes_block_exception if before_browser_closes_block_exception
       end

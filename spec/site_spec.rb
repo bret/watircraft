@@ -246,4 +246,24 @@ describe do
       @context = @site.execution_context
     end
   end
+  
+  describe Taza::Site do
+    it_should_behave_like "an execution context"
+    before do
+      @context = @site
+    end
+
+    it "should call the initialize method" do
+      
+      class SubClass < Taza::Site
+        def initialize_browser
+          @browser = 'provided'
+        end
+      end
+      
+      SubClass.new.browser.should == 'provided'
+    end
+    
+    
+  end
 end
