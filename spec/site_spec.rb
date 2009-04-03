@@ -87,6 +87,10 @@ describe do
     it "should list the site's pages" do
       @context.pages.should == ["bar_page", "partial_the_reckoning"]
     end
+    
+    it "should provide Spec::Matchers" do
+      @context.instance_eval { [1,2,3].should include(2) }
+    end
   end
     
   describe Taza::Site do
@@ -227,6 +231,17 @@ describe do
       Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
       @site.origin.should == 'http://www.zoro.com'
     end
+
+    it "should call the initialize method" do
+      
+      class SubClass < Taza::Site
+        def initialize_browser
+          @browser = 'provided'
+        end
+      end
+      
+      SubClass.new.browser.should == 'provided'
+    end
         
   end
   
@@ -247,23 +262,4 @@ describe do
     end
   end
   
-  describe Taza::Site do
-    it_should_behave_like "an execution context"
-    before do
-      @context = @site
-    end
-
-    it "should call the initialize method" do
-      
-      class SubClass < Taza::Site
-        def initialize_browser
-          @browser = 'provided'
-        end
-      end
-      
-      SubClass.new.browser.should == 'provided'
-    end
-    
-    
-  end
 end

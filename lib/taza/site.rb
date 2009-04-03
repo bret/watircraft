@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'activesupport'
 require 'taza/settings'
+require 'spec/matchers'
 
 module Taza
   # An abstraction of a website, but more really a container for a sites pages.
@@ -43,6 +44,8 @@ module Taza
       end
 
     end
+    include Spec::Matchers
+
     
     @@before_browser_closes = Proc.new() {}
     # Use this to do something with the browser before it closes, but note that it is a class method which
@@ -157,6 +160,7 @@ module Taza
     
     def initialize_context!(context)
       context.extend @methods_module
+      context.extend Spec::Matchers
       context.site = @site
       context.browser = @site.browser
       context
