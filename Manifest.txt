@@ -72,6 +72,7 @@ app_generators/watircraft/templates/environments.yml.erb
 app_generators/watircraft/templates/feature_helper.rb
 app_generators/watircraft/templates/initialize.rb.erb
 app_generators/watircraft/templates/rakefile.rb
+app_generators/watircraft/templates/readme.txt
 app_generators/watircraft/templates/script
 app_generators/watircraft/templates/script/console
 app_generators/watircraft/templates/script/console.cmd

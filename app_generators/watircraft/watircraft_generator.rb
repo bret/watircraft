@@ -56,6 +56,8 @@ class WatircraftGenerator < RubiGen::Base
 
       m.template "site.rb.erb", "lib/#{@site}.rb", :collision => :skip
       m.template "environments.yml.erb", "config/environments.yml", :collision => :skip
+      
+      m.readme "readme.txt"
     end
   end
 
