@@ -25,7 +25,7 @@ begin
     s.name = 'watircraft'
     s.rubyforge_project = 'watir' 
     s.email = "bret@pettichord.com"
-    s.homepage = "http://github.com/bret/watircraft/tree/master"
+    s.homepage = "http://wiki.github.com/bret/watircraft"
     s.summary = "WatirCraft is a framework for testing web apps."
     s.description = s.summary
     s.authors = ["Bret Pettichord", "Jim Matthews", "Charley Baker", "Adam Anderson"]
