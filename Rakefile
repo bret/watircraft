@@ -32,17 +32,15 @@ begin
 
     s.executables = ["watircraft"] 
     s.files = files_in_gem
-#    s.add_dependency(%q<watir>, [">= 1.6.2"])
+
     s.add_dependency(%q<taglob>, [">= 1.1.1"])
     s.add_dependency(%q<rake>, [">= 0.8.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.3"])
     s.add_dependency(%q<rubigen>, [">= 1.4.0"])
+    s.add_dependency(%q<rspec>, [">= 1.1.12"])
+    s.add_dependency(%q<cucumber>, [">= 0.1.16"])
 
-    # although watircraft does not require these specific versions, this 
-    # dependency will simplify configuration. if a newer version of one of 
-    # these gems is installed, it will be used at runtime.
-    s.add_dependency(%q<rspec>, ["= 1.1.12"])
-    s.add_dependency(%q<cucumber>, ["= 0.1.16"])
+    s.requirements << 'watir(ie) and/or firewatir 1.6.2 or newer'
 
     s.extra_rdoc_files = ["History.txt", "README.rdoc"]
     s.has_rdoc = true
