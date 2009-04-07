@@ -1,3 +1,26 @@
+=== 0.4.5 / 2009-04-07
+
+New Features
+
+* Will now use the latest version of Rspec and Cucumber. Previously we
+  declared dependencies on specific versions of Rspec and Cucumber. Now we
+  will install and use the latest version. If you have a specific version
+  you want to use, you should install it first. WatirCraft will use it,
+  instead of installing its own.
+* When you create a new project, your site.rb file will now contain a 
+  template initialize_browser method, making it easier to see how to
+  customize it.
+  
+Bug Fixes
+
+* Some "should" commands were not working in the script\console.
+  (e.g. "browser.text.should include('Google')"
+
+Documentation
+
+* Fixed incorrect reference to config file in "startup instructions".
+* Moved documentation from project readme to the wiki.  
+
 === 0.4.4 / 2009-04-02
 
 This release provides a number of new configuration options for managing
