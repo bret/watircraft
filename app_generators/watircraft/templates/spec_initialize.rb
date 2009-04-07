@@ -4,6 +4,13 @@
 require 'init/site_start'
 require 'spec'
 require 'mocha'
+begin
+  # Needed for rspec 1.2.x. (Allows "ruby" to run specs.) 
+  # But not available before that.
+  require 'spec/autorun'
+rescue LoadError
+  nil
+end
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
