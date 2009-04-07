@@ -27,8 +27,8 @@ module Taza
               
         # Because of the way #merge works, the settings at the bottom of the list
         # trump those at the top.
-        settings = environment_settings.merge(
-                     default_settings.merge(
+        settings = default_settings.merge(
+                     environment_settings.merge(
                        config_file.merge(
                          env_settings)))
   
