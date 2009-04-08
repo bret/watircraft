@@ -4,16 +4,23 @@ require 'taza'
 
 describe do
   
+  module ::Foo
+    class Foo < ::Taza::Site
+      
+    end
+  end
+  
   before :all do
     @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
     @flows_path = File.join("spec","sandbox","flows","*.rb")
     @methods_path = File.join("spec","sandbox","methods","*.rb")
-    @foo_class = Class.new(Taza::Site)
+    @foo_class = ::Foo::Foo
   end
 
   before :each do
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
+
     @foo_class.any_instance.stubs(:pages_path).returns(@pages_path)
     @foo_class.any_instance.stubs(:methods_path).returns(@methods_path)
     Taza::Settings.stubs(:config_file).returns({})
@@ -21,6 +28,7 @@ describe do
     Taza::Site.before_browser_closes {}
     @browser = stub_browser
     Taza::Browser.stubs(:create).returns(@browser)
+
     @site = @foo_class.new
   end
         
@@ -37,23 +45,23 @@ describe do
       @context.bar_page do |bar|
         barzor = bar
       end
-      barzor.should be_an_instance_of(BarPage)
+      barzor.should be_an_instance_of(Foo::BarPage)
     end
     
     it "should return a page by name" do
       # Bar is a page on the site
-      @context.bar_page.should be_an_instance_of(BarPage)
+      @context.bar_page.should be_an_instance_of(Foo::BarPage)
     end
     
     it "should return a page by method" do
-      @context.page('bar').should be_an_instance_of(BarPage)
-      @context.page('Bar').should be_an_instance_of(BarPage)
+      @context.page('bar').should be_an_instance_of(Foo::BarPage)
+      @context.page('Bar').should be_an_instance_of(Foo::BarPage)
     end
     
     it "should yield to a page" do
       the_page = nil
       @context.page('Bar') {|page| the_page = page }
-      the_page.should be_an_instance_of(BarPage)
+      the_page.should be_an_instance_of(Foo::BarPage)
     end
   
     it "should pass the site browser instance to its pages " do
@@ -68,8 +76,7 @@ describe do
       Taza::Settings.expects(:environment_settings).returns({:url => 'http://www.zoro.com'}).at_least_once
       @context.site.origin.should == 'http://www.zoro.com'
     end
-    
-    
+        
     it "should go to a relative url" do
       @browser.expects(:goto).with('http://www.foo.com/page.html')
       Taza::Settings.stubs(:config).returns(:url => 'http://www.foo.com')

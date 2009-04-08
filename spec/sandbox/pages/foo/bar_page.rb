@@ -1,4 +1,4 @@
-class BarPage < Taza::Page
+class Foo::BarPage < Taza::Page
   element :foo do
     browser
   end
