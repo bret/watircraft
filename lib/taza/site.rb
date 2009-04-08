@@ -202,6 +202,10 @@ module Taza
     def flows_path # :nodoc:
       File.join(path,'flows','*.rb')
     end
+    
+    def methods_path # :nodoc:
+      File.join(path,'methods','*.rb')
+    end
 
     def path # :nodoc:
       File.join(base_path,'lib')

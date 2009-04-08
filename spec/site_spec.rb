@@ -7,6 +7,7 @@ describe do
   before :all do
     @pages_path = File.join("spec","sandbox","pages","foo","**","*.rb")
     @flows_path = File.join("spec","sandbox","flows","*.rb")
+    @methods_path = File.join("spec","sandbox","methods","*.rb")
     @foo_class = Class.new(Taza::Site)
   end
 
@@ -14,6 +15,7 @@ describe do
     ENV['BROWSER'] = nil
     ENV['DRIVER'] = nil
     @foo_class.any_instance.stubs(:pages_path).returns(@pages_path)
+    @foo_class.any_instance.stubs(:methods_path).returns(@methods_path)
     Taza::Settings.stubs(:config_file).returns({})
     Taza::Settings.stubs(:environment_settings).returns({})
     Taza::Site.before_browser_closes {}
@@ -90,6 +92,10 @@ describe do
     
     it "should provide Spec::Matchers" do
       @context.instance_eval { [1,2,3].should include(2) }
+    end
+    
+    it "should have user-site-methods defined as instance methods" do
+      
     end
   end
     
