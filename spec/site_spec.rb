@@ -101,6 +101,10 @@ describe do
       @context.instance_eval { [1,2,3].should include(2) }
     end
     
+    it "should load the correct methods files" do
+      defined?(Foo::Methods).should be_true
+    end
+    
     it "should have user-site-methods defined as instance methods" do
       
     end

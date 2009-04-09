@@ -83,6 +83,9 @@ module Taza
       @class_name  = self.class.to_s.split("::").last
 
       define_flows
+      Dir.glob(methods_path) do |file|
+        require file
+      end      
 
       page_loader = PageLoader.new(@module_name, pages_path)
       @pages = page_loader.page_names
