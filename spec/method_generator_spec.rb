@@ -24,4 +24,17 @@ describe "Spec Generation" do
     generator.name.should == 'check_out'
   end
   
+  it "should add a method to the site" do
+    MethodGenerator.any_instance.stubs(:configured_site).returns('frito')
+    run_generator('method', ['extra'], generator_sources)
+
+    require File.join(PROJECT_FOLDER, 'lib/frito')
+    Frito::Frito.any_instance.stubs(:base_path).returns(PROJECT_FOLDER)
+    
+    stub_settings
+    stub_browser
+
+    Frito::Frito.new.extra
+  end
+  
 end
