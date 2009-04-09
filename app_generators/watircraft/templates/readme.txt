@@ -11,7 +11,7 @@ WatirCraft allows you to create Rspec tests, Cucumber tests or both.
 
 Rspec Tests
  
- 4. Create Test: script\generate spec testname
+ 4. Create a test: script\generate spec testname
  5. Edit the file, adding Watir commands where specified.
  6. Run one test: ruby test\specs\testname_spec.rb
     Or you can just use F5 if using the Scite editor.
@@ -19,7 +19,7 @@ Rspec Tests
 
 Cucumber Tests
 
- 8. Create Feature. Place your feature-tests in the test\features directory.
+ 8. Create a feature. Place your feature-tests in the test\features directory.
     They should follow the standard cucumber format.
  9. Create Steps File: script\generate steps filename
 10. Dry Run: cucumber test\features\featurename
@@ -33,6 +33,12 @@ Pages are optional and can be used with either Rspec or Cucumber tests.
 
 15. Create a page: script\generate page pagename
 16. Pages can be referenced from rspec tests or cucumber steps.
+
+Methods are optional cna be used with either Rspec or Cucumber tests.
+
+17. Create a method: script\generate method methodname
+18. Methods can be referenced from rspec tests, cucumber steps or from
+    other methods.
 
 Enter "script\generate" to see a complete list of WatirCraft files that
 you can create.

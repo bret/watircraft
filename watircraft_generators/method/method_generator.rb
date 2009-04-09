@@ -19,7 +19,7 @@ class MethodGenerator < RubiGen::Base
 
   def manifest
     record do |m|
-      m.template "method.rb.erb", File.join('lib','methods',"#{name.computerize}.rb")
+      m.template "method.rb.erb", File.join('lib','methods',"#{name}.rb")
     end
   end
 

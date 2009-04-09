@@ -32,6 +32,7 @@ spec/fake_table.rb
 spec/fixtures_spec.rb
 spec/fixture_spec.rb
 spec/hash_spec.rb
+spec/method_generator_spec.rb
 spec/object_spec.rb
 spec/page_generator_spec.rb
 spec/page_spec.rb
@@ -49,6 +50,8 @@ spec/sandbox/fixtures/users.yml
 spec/sandbox/flows
 spec/sandbox/flows/batman.rb
 spec/sandbox/flows/robin.rb
+spec/sandbox/methods
+spec/sandbox/methods/spiderman.rb
 spec/sandbox/pages
 spec/sandbox/pages/foo
 spec/sandbox/pages/foo/bar_page.rb
@@ -83,6 +86,11 @@ app_generators/watircraft/templates/spec_initialize.rb
 app_generators/watircraft/templates/world.rb
 app_generators/watircraft/USAGE
 app_generators/watircraft/watircraft_generator.rb
+watircraft_generators/method
+watircraft_generators/method/method_generator.rb
+watircraft_generators/method/templates
+watircraft_generators/method/templates/method.rb.erb
+watircraft_generators/method/USAGE
 watircraft_generators/page
 watircraft_generators/page/page_generator.rb
 watircraft_generators/page/templates
