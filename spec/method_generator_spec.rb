@@ -14,8 +14,8 @@ describe "Spec Generation" do
     bare_teardown   
   end
 
-  it "should be able to generate a spec" do
-    run_generator('spec', ['add penguin'], generator_sources)
+  it "should be able to generate a method" do
+    run_generator('spec', ['empty_shopping_cart'], generator_sources)
   end
 
 end

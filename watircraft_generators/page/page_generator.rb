@@ -16,10 +16,6 @@ class PageGenerator < RubiGen::Base
     extract_options
   end
   
-  def site_module
-    @site_name.camelize
-  end
-  
   def page_class
     "#{name.computerize.camelize}Page"
   end

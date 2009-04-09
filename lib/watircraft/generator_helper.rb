@@ -3,6 +3,9 @@ require 'taza/settings'
 module WatirCraft
   # Assumes #site_name and #destination_root and #usage methods are defined.
   module GeneratorHelper
+    def site_module
+      @site_name.camelize
+    end
     protected
     def configured_validated_site
       site = configured_site

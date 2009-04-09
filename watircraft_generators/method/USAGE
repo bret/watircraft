@@ -1,0 +1,15 @@
+Description:
+
+  Creates a template for a WatirCraft method. The method can be called 
+  from a spec (in an "it", "before" or "after" block) or from a 
+  step (a Given or When or Then block). 
+  
+  It can also be called from within script\console or as a method on the
+  site object.
+  
+  The @browser and @site instance variables are available to your method.
+  
+Examples:
+  
+  script\generate method notice
+  script\generate method empty_shopping_cart

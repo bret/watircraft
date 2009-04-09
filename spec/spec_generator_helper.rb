@@ -1,6 +1,7 @@
 #### Rubigen helpers
 require 'rubigen'
 require 'rubigen/helpers/generator_test_helper'
+require 'taza'
 
 
 def generator_sources

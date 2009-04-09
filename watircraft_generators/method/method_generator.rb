@@ -4,7 +4,7 @@ require 'activesupport'
 require 'watircraft/generator_helper'
 require 'extensions/string'
 
-class SpecGenerator < RubiGen::Base
+class MethodGenerator < RubiGen::Base
   include WatirCraft::GeneratorHelper
   default_options :author => nil
   attr_reader :name, :site_name
@@ -19,14 +19,14 @@ class SpecGenerator < RubiGen::Base
 
   def manifest
     record do |m|
-      m.template "spec.rb.erb", File.join('test','specs',"#{name.computerize}_spec.rb")
+      m.template "method.rb.erb", File.join('lib','methods',"#{name.computerize}.rb")
     end
   end
 
   protected
   def banner
     <<-EOS
-    Creates a template for an Rspec test.
+    Creates a template for a WatirCraft method.
 
     USAGE: #{$0} #{spec.name} name
     
