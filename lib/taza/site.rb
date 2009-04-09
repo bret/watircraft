@@ -44,8 +44,6 @@ module Taza
       end
 
     end
-    include Spec::Matchers
-
     
     @@before_browser_closes = Proc.new() {}
     # Use this to do something with the browser before it closes, but note that it is a class method which
@@ -79,18 +77,19 @@ module Taza
     # (not sure if this is a useful feature or not)
     def initialize(params={}, &block)
       @site = self
-      @module_name = self.class.parent.to_s
+      @parent_module = self.class.parent
+      @module_name = @parent_module.to_s
       @class_name  = self.class.to_s.split("::").last
 
       define_flows
-      Dir.glob(methods_path) do |file|
-        require file
-      end      
-
+      load_methods_files
+      
       page_loader = PageLoader.new(@module_name, pages_path)
       @pages = page_loader.page_names
       @methods_module = page_loader.page_methods
       @methods_module.send(:include, Methods)
+      @methods_module.send(:include, Spec::Matchers)
+      @methods_module.send(:include, @parent_module::Methods) if defined?(@parent_module::Methods)
       self.extend(@methods_module)
 
       @browser = params[:browser]
@@ -163,7 +162,6 @@ module Taza
     
     def initialize_context!(context)
       context.extend @methods_module
-      context.extend Spec::Matchers
       context.site = @site
       context.browser = @site.browser
       context
@@ -179,29 +177,13 @@ module Taza
         require file
       end
     end
+    
+    def load_methods_files # :nodoc:
+      Dir.glob(methods_path) do |file|
+        require file
+      end      
+    end
 
-    # This is used to call a flow belonging to the site
-    #
-    # Example:
-    #  Google.new do |google|
-    #    google.flow(:perform_search, :query => "taza")
-    #  end
-    #
-    # Where the flow would be defined under lib/sites/google/flows/perform_search.rb and look like:
-    #  class PerformSearch < Taza::Flow
-    #    alias :google :site
-    #
-    #    def run(params={})
-    #      google.search.set params[:query]
-    #      google.submit.click
-    #    end
-    #  end
-
-    #
-    # methods that neither depend on or modify state
-    #
-
-    private
     def flows_path # :nodoc:
       File.join(path,'flows','*.rb')
     end
