@@ -125,6 +125,7 @@ namespace :gem do
   desc "Uninstall all watircraft gems"
   task :uninstall do
     system("call gem uninstall watircraft --all --executables")
+    system("call gem uninstall bret-watircraft --all --executables")
   end
   desc "Install the current watircraft gem (because other install task is broken on windows)"
   task :install_win do
