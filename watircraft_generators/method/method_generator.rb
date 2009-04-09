@@ -12,7 +12,7 @@ class MethodGenerator < RubiGen::Base
   def initialize(runtime_args, runtime_options = {})
     super
     usage if args.empty?
-    @name = args.shift
+    @name = args.shift.computerize
     @site_name = configured_validated_site
     extract_options
   end

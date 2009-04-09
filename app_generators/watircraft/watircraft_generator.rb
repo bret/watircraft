@@ -69,6 +69,7 @@ class WatircraftGenerator < RubiGen::Base
       lib/init
       lib/pages
       lib/steps
+      lib/methods
       test
       test/specs
       test/features
