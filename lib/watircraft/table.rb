@@ -25,16 +25,27 @@ module WatirCraft
       end
       nil
     end
+    def fields
+      self.class.row_class.fields.map &:to_s
+    end
+    def elements
+      self.class.row_class.elements.map &:to_s
+    end
   end
   
   class Row
     class << self
       def element name, &block
+        elements << name
         define_method(name) do
           instance_eval &block
         end
       end
+      def elements # :nodoc:
+        @elements ||= []
+      end
       def field name, &block
+        fields << name
         element_name = "#{name}_field"
         element element_name, &block
         define_method(name) do
@@ -43,6 +54,9 @@ module WatirCraft
         define_method("#{name}=") do | value |
           send(element_name).set value
         end
+      end
+      def fields # :nodoc:
+        @fields ||= []
       end
     end
     attr_reader :row

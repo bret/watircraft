@@ -346,6 +346,24 @@ describe Taza::Page do
       uses_table_page
       @table_page.tables.should == ['results']
     end
+    
+    it "should list its fields" do
+      uses_table_page
+      @table_page.results.fields.should == %w(name phone missing)
+    end
+    
+    it "should list its elements" do
+      @page_class.class_eval do
+        element(:results_table) do FakeTable.new []
+        end
+        table(:results) do
+          field(:name){row.element(:letter)}
+          element(:phone){row.element(:number)}
+        end
+      end
+      @table_page = @page_class.new
+      @table_page.results.elements.should == %w(name_field phone)
+    end
   
   end
   
