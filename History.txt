@@ -1,3 +1,27 @@
+=== 0.5.0 / 2009-04-10
+
+This release adds a new artifact to your project: methods libraries. It also
+adds commands for use in script\console.
+
+You will need to update your project using "watircraft ." to use this
+release.
+
+New Features
+
+* New generator: "methods". This creates templates for methods that can be
+  be used with both rspec (specs) and cucumber (steps). Use
+  "script\generate methods" for details. 
+* Added commands to navigate tables in script\console. The page.tables method
+  will return a list of the tables defined on the page. The table.fields and
+  table.elements methods return lists of fields and elements defined for the
+  table. 
+
+But Fixes
+
+* When using Rspec 1.2.x, you should be able to execute specs simply by 
+  "running" the file with Ruby. This worked pre 1.2 and now works with 1.2.
+  (Fixed both project specs and WatirCraft's own unit tests.)
+
 === 0.4.5 / 2009-04-07
 
 New Features
