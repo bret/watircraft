@@ -341,6 +341,11 @@ describe Taza::Page do
       uses_table_page
       @table_page.results.row(:missing => 'nada').should be_nil
     end
+    
+    it "should be able to be listed from the page" do
+      uses_table_page
+      @table_page.tables.should == ['results']
+    end
   
   end
   

@@ -29,9 +29,13 @@ module Taza
       def filters # :nodoc:
         @filters ||= Hash.new { [] }
       end
-
+      
       def fields # :nodoc:
         @fields ||= []
+      end
+      
+      def tables # :nodoc:
+        @tables ||= []
       end
 
       def url string=nil
@@ -141,6 +145,7 @@ module Taza
       # subclass and then allows its class methods to define fields and 
       # elements on the table.
       def table(name, &block)
+        tables << name
         # create subclass for the table
         sub_class = Class.new(WatirCraft::Table)
         sub_class.class_eval &block
@@ -219,6 +224,11 @@ module Taza
     # Return the names of the fields defined for the page.
     def fields
       self.class.fields.map &:to_s
+    end
+    
+    # Return the names of the tables defined for the page.
+    def tables
+      self.class.tables.map &:to_s
     end
     
     # Returns a hash with the names and values of the specified fields.
