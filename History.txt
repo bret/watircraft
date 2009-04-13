@@ -1,6 +1,6 @@
 === 0.5.0 / 2009-04-10
 
-This release adds a new artifact to your project: methods libraries. It also
+This release adds a new artifact to your project: method libraries. It also
 adds commands for use in script\console.
 
 You will need to update your project using "watircraft ." to use this
@@ -8,9 +8,9 @@ release.
 
 New Features
 
-* New generator: "methods". This creates templates for methods that can be
+* New generator: "method". This creates templates for methods that can be
   be used with both rspec (specs) and cucumber (steps). Use
-  "script\generate methods" for details. 
+  "script\generate method" for details. 
 * Added commands to navigate tables in script\console. The page.tables method
   will return a list of the tables defined on the page. The table.fields and
   table.elements methods return lists of fields and elements defined for the
