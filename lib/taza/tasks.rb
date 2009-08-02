@@ -24,7 +24,5 @@ task :specs => :spec
 
 require 'cucumber/rake/task'
 Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = '--format pretty'
-  t.step_pattern = "lib/steps/**/*.rb"
-  t.feature_pattern = "test/features/**/*.feature"
+  t.cucumber_opts = "--format pretty --require lib/steps test/features"
 end
