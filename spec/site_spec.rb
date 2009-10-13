@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 require 'rubygems'
 require 'taza'
 
-describe do
+describe 'Site Spec' do
   
   module ::Foo
     class Foo < ::Taza::Site
