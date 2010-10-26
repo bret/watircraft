@@ -34,7 +34,7 @@ Pages are optional and can be used with either Rspec or Cucumber tests.
 15. Create a page: script\generate page pagename
 16. Pages can be referenced from rspec tests or cucumber steps.
 
-Methods are optional cna be used with either Rspec or Cucumber tests.
+Methods are optional and can be used with either Rspec or Cucumber tests.
 
 17. Create a method: script\generate method methodname
 18. Methods can be referenced from rspec tests, cucumber steps or from
