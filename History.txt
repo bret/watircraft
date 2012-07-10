@@ -143,7 +143,7 @@ Details on New Features
   site.check_out_page
 
 * You can now use strings as arguments to Page.element and Page.field. These
-  strings can even be in "human-form" with spaces and capitolization. They will
+  strings can even be in "human-form" with spaces and capitalization. They will
   automatically be "computerized".
 
 Other Changes
